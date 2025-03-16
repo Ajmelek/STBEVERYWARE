@@ -1,0 +1,11 @@
+<div class="pagetitle" *ngIf="(breadcrumb$ | async) as breadcrumbs" >
+    <section *ngIf="breadcrumbs!.length > 0 && breadcrumbs[breadcrumbs!.length-1].label !== 'Home'" class="py-2 ">
+    <nav>
+        <ol class="breadcrumb text-right">
+            <xng-breadcrumb style="color: antiquewhite!important;"></xng-breadcrumb>
+        </ol>
+    </nav>
+    </section>
+
+</div> 
+<!-- End Page Title -->
