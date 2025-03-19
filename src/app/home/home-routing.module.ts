@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { InformationsComponent } from './informations/informations.component';
 import { RequestCardComponent } from './request-card/request-card.component';
 import { RequestCheckComponent } from './request-check/request-check.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent , data: { breadcrumb: 'Home' },
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path: 'RequestCard', component: RequestCardComponent, data: { breadcrumb: 'Demander Carte' }},
 
       { path: 'RequestCheck', component: RequestCheckComponent, data: { breadcrumb: 'Demande Chequier' }},
-      { path: 'Informations', component: InformationsComponent, data: { breadcrumb: 'Mes Informations' }},
+      { path: 'KycForm', component: InformationsComponent, data: { breadcrumb: 'KycForm' }},
+      { path: 'Informations', component: ProfileComponent, data: { breadcrumb: 'Mes Informations' }},
 
       //     { path: 'paiement', component : PaiementComponent, data: { breadcrumb: 'Paiement' } },
   

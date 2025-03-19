@@ -13,12 +13,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoadingSnipperComponent } from './shared/loading-snipper/loading-snipper.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    LoadingSnipperComponent
+    LoadingSnipperComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +30,7 @@ import { LoadingSnipperComponent } from './shared/loading-snipper/loading-snippe
     ReactiveFormsModule,
     FormsModule,
     CoreModule,
-   
+
     SweetAlert2Module.forRoot()
 
   ],

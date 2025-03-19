@@ -7,6 +7,7 @@ import { RequestCheckComponent } from './request-check/request-check.component';
 import { RequestCardComponent } from './request-card/request-card.component';
 import { HomeComponent } from './home.component';
 import { InformationsComponent } from './informations/informations.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { InformationsComponent } from './informations/informations.component';
     CreateAccountComponent,
     RequestCheckComponent,
     RequestCardComponent,
-    InformationsComponent
+    InformationsComponent,
+    ProfileComponent,
    ],
   imports: [
     CommonModule,
