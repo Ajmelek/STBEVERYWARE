@@ -1,3 +1,26 @@
 .mainEspaceClient{
     padding-top: 100px;
 }
+// @media (min-width: 1200px) {
+//     .d-xl-block {
+//         display: block !important;
+//     }
+// }
+// @media (min-width: 992px) {
+//     .d-lg-block {
+//         display: block !important;
+//     }
+// }
+.pt-4 {
+    padding-top: 1.5rem !important;
+}
+.col-3 {
+    flex: 0 0 auto;
+    width: 25%;
+}
+.d-lg-block {
+    display: block !important
+}
+.d-xxl-block {
+    display: block !important
+}

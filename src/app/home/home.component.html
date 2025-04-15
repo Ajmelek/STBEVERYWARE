@@ -50,17 +50,33 @@
     </div>
 
     <div class="row h-100">
+      <div _ngcontent-ctx-c65="" class="col-3 d-none d-lg-block d-xl-block d-xxl-block pt-4">
+        <ul _ngcontent-ctx-c65="">
+          <li routerLink="RequestAccount" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
+            Consultation compte</li>
+          <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" id="AccountTFB" routerlinkactive="active" tabindex="0"
+            class=""> Compte TF BANK </li>
+          <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
+            Demande chéquier&nbsp; </li>
+          <li routerLink="RequestCard" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
+            Demande Wallet </li>
+          <li routerLink="RequestCard" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
+            Demande d'une carte bancaire&nbsp; </li>
+          <li routerLink="Informations" (click)="changeStatusRequestMenu()" routerlink="Informations" class="">
+            Fiche KYC </li>
+        </ul>
+      </div>
 
-      <div class="col-3 pt-4">
+      <!-- <div class="col-3 pt-4">
         <ul>
-          <!-- <li routerLink="Profil"> Profil </li> -->
           <li routerLink="RequestAccount" (click)="changeStatusRequestMenu()"> Demander un Compte </li>
           <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()"> Demander un Chequier </li>
           <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()"> Demander un Wallet </li>
           <li routerLink="RequestCard" (click)="changeStatusRequestMenu()"> Demander une carte </li>
           <li routerLink="Informations"> Fiche KYC </li>
         </ul>
-      </div>
+      </div> -->
+
       <div class="col-9" *ngIf="hasRequest">
         <app-section-header></app-section-header>
         <router-outlet></router-outlet>
