@@ -1,3 +1,19 @@
 .navbar-brand {
-    color: white!important;
-}
+    color: white !important;
+  }
+  
+  .btn-logout {
+    background-color: #007BFF !important; /* Blue background */
+    border-color: #007BFF !important; /* Blue border */
+    color: #fff !important; /* White text for contrast */
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 1rem;
+  
+    &:hover {
+      background-color: #0056b3 !important; /* Darker blue on hover */
+      border-color: #0056b3 !important;
+      color: #fff !important;
+      text-decoration: none;
+    }
+  }

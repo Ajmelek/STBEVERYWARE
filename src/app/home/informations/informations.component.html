@@ -5,269 +5,244 @@
                 <div class="form-line">
                     <h1>Formulaire KYC</h1>
                 </div>
+                
+                <!-- Informations Générales -->
                 <div class="form-line">
-                    <h2>A. Détails d'Identité</h2>
+                    <h2>A. Informations Générales</h2>
                 </div>
+                
                 <div class="form-line">
-                    <label for="name_first">1. Nom du Demandeur</label>
-                    <input type="text" id="name_first" class="form-textbox" placeholder="Prénom">
-                    <input type="text" id="name_last" class="form-textbox" placeholder="Nom de Famille">
+                    <label for="civilite">1. Civilité</label>
+                    <select id="civilite" class="form-dropdown">
+                        <option value="">Sélectionner</option>
+                        <option value="Monsieur">Monsieur</option>
+                        <option value="Madame">Madame</option>
+                        <option value="Mademoiselle">Mademoiselle</option>
+                    </select>
                 </div>
+                
                 <div class="form-line">
-                    <label for="father_first">2. Nom du Père/Conjoint</label>
-                    <input type="text" id="father_first" class="form-textbox" placeholder="Prénom">
-                    <input type="text" id="father_last" class="form-textbox" placeholder="Nom de Famille">
+                    <label for="prenom">2. Prénom</label>
+                    <input type="text" id="prenom" class="form-textbox" placeholder="Prénom" value="{{client?.prenom}}" disabled>
                 </div>
+                
                 <div class="form-line">
-                    <label>2a. Genre</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="gender" class="form-radio" value="Male">
-                            <span class="radio-custom"></span>
-                            Homme
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="gender" class="form-radio" value="Female">
-                            <span class="radio-custom"></span>
-                            Femme
-                        </label>
+                    <label for="nom">3. Nom</label>
+                    <input type="text" id="nom" class="form-textbox" placeholder="Nom de famille" value="{{client?.nom}}" disabled>
+                </div>
+                
+                <div class="form-line">
+                    <label for="paysNaissance">4. Pays de naissance</label>
+                    <select id="paysNaissance" class="form-dropdown">
+                        <option value="">Sélectionner le pays</option>
+                        <option value="Tunisie">Tunisie</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+                </div>
+                
+                <div class="form-line">
+                    <label for="dateNaissance">5. Date de naissance</label>
+                    <input type="date" id="dateNaissance" class="form-textbox" value="{{client?.dateNaissance}}" disabled>
+                </div>
+                
+                <div class="form-line">
+                    <label for="numeroTelephone">6. Numéro de téléphone</label>
+                    <input type="tel" id="numeroTelephone" class="form-textbox" placeholder="Numéro de téléphone" value="{{client?.numeroTelephone}}" >
+                </div>
+                
+                <div class="form-line">
+                    <label for="mailPrincipal">7. Email</label>
+                    <input type="email" id="mailPrincipal" class="form-textbox" placeholder="exemple@email.com" value="{{client?.mailPrincipal}}" >
+                </div>
+                
+                <div class="form-line">
+                    <label for="adresse">8. Adresse</label>
+                    <textarea id="adresse" class="form-textarea" placeholder="Adresse complète" value="{{client?.adresse}}"></textarea>
+                </div>
+                
+                <!-- New fields added here -->
+                <div class="form-line">
+                    <label for="motif">9. Motif</label>
+                    <input type="text" id="motif" class="form-textbox" placeholder="Motif" value="{{client?.motif}}">
+                </div>
+                
+                <div class="form-line">
+                    <label for="objetrelation">10. Objet de relation</label>
+                    <input type="text" id="objetrelation" class="form-textbox" placeholder="Objet de relation" value="{{client?.objetrelation}}" >
+                </div>
+                
+                <!-- Informations Personnelles -->
+                <div class="form-line">
+                    <h2>B. Informations Personnelles</h2>
+                </div>
+                
+                <div class="form-line">
+                    <label for="nationalite">1. Nationalité principale</label>
+                    <select id="nationalite" class="form-dropdown">
+                        <option value="">Sélectionner la nationalité</option>
+                        <option value="Tunisienne">Tunisienne</option>
+                    </select>
+                </div>
+                
+                <div class="form-line">
+                    <label for="autreNationalite">2. Autre nationalité</label>
+                    <select id="autreNationalite" class="form-dropdown">
+                        <option value="">Sélectionner une autre nationalité</option>
+                        <option value="Aucune">Aucune</option>
+                        <!-- Add more nationalities as needed -->
+                    </select>
+                </div>
+                
+                <div class="form-line">
+                    <label for="nomMere">3. Nom complet de la mère</label>
+                    <div class="name-inputs">
+                        <input type="text" id="prenomMere" class="form-textbox" placeholder="Prénom de la mère" value="{{client?.nomMere}}" disabled>
+                        <input type="text" id="nomMere" class="form-textbox" placeholder="Nom de famille de la mère" value="{{client?.nomMere}}" disabled>
                     </div>
                 </div>
                 
                 <div class="form-line">
-                    <label>2b. État Civil</label>
+                    <label for="nomPere">4. Nom complet du père</label>
+                    <div class="name-inputs">
+                        <input type="text" id="prenomPere" class="form-textbox" placeholder="Prénom du père" value="{{client?.nomPere}}" disabled>
+                        <input type="text" id="nomPere" class="form-textbox" placeholder="Nom de famille du père" value="{{client?.nomPere}}" disabled>
+                    </div>
+                </div>
+                
+                <div class="form-line">
+                    <label>5. État civil</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="marital" class="form-radio" value="Single">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Celibataire">
                             <span class="radio-custom"></span>
                             Célibataire
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="marital" class="form-radio" value="Married">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Marie">
                             <span class="radio-custom"></span>
                             Marié(e)
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Divorce">
+                            <span class="radio-custom"></span>
+                            Divorcé(e)
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Veuf">
+                            <span class="radio-custom"></span>
+                            Veuf/Veuve
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Informations d'Identification -->
+                <div class="form-line">
+                    <h2>C. Informations d'Identification</h2>
+                </div>
+                
+                <div class="form-line">
+                    <label for="resident">1. Résidence</label>
+                    <select id="resident" class="form-dropdown">
+                        <option value="">Sélectionner</option>
+                        <option value="Resident">Résident</option>
+                        <option value="NonResident">Non-Résident</option>
+                    </select>
+                </div>
+                
+                <div class="form-line">
+                    <label for="cin">2. Numéro CIN</label>
+                    <input type="text" id="cin" class="form-textbox" placeholder="Numéro de carte d'identité" value="{{client?.cin}}" disabled>
+                </div>
+                
+                <div class="form-line">
+                    <label for="dateDelivrance">3. Date de délivrance CIN</label>
+                    <input type="date" id="dateDelivrance" class="form-textbox" value="{{client?.datedelivrance}}" disabled>
+                </div>
+                
+                <!-- Informations Financières -->
+                <div class="form-line">
+                    <h2>D. Informations Financières</h2>
+                </div>
+                
+                <div class="form-line">
+                    <label>1. Type de client</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="typeClient" class="form-radio" value="Particulier" checked>
+                            <span class="radio-custom"></span>
+                            Particulier
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="typeClient" class="form-radio" value="Professionnel">
+                            <span class="radio-custom"></span>
+                            Professionnel
                         </label>
                     </div>
                 </div>
                 
                 <div class="form-line">
-                    <label for="dob">2c. Date de Naissance</label>
-                    <input type="date" id="dob" class="form-textbox">
+                    <label for="natureActivite">2. Nature de l'activité (pour professionnels)</label>
+                    <input type="text" id="natureActivite" class="form-textbox" placeholder="Nature de l'activité professionnelle" disabled>
                 </div>
+                
+                <!-- Agence de Domiciliation -->
                 <div class="form-line">
-                    <label for="nationality">3. Nationalité</label>
-                    <select id="nationality" class="form-dropdown">
-                        <option value="">Sélectionner la Nationalité</option>
-                        <option value="US">États-Unis</option>
-                        <option value="IN">Inde</option>
-                        <!-- Ajouter plus d'options si nécessaire -->
+                    <h2>E. Agence de Domiciliation</h2>
+                </div>
+                
+                <div class="form-line">
+                    <label for="agenceDomiciliation">1. Choix de l'agence de domiciliation</label>
+                    <select id="agenceDomiciliation" class="form-dropdown">
+                        <option value="">Sélectionner l'agence</option>
+                        <option value="103">Agence 103</option>
+                        <!-- Add more agencies as needed -->
                     </select>
                 </div>
+                
                 <div class="form-line">
-                    <label>4. Statut</label>
-                    <div class="status-group">
-                        <label class="status-label">
-                            <input type="radio" name="status" class="form-radio" value="Resident Individual">
-                            <span class="status-custom"></span>
-                            Résident Individuel
-                        </label>
-                        <label class="status-label">
-                            <input type="radio" name="status" class="form-radio" value="Non Resident">
-                            <span class="status-custom"></span>
-                            Non-Résident
-                        </label>
-                        <label class="status-label">
-                            <input type="radio" name="status" class="form-radio" value="Foreign National">
-                            <span class="status-custom"></span>
-                            Étranger
-                        </label>
-                    </div>
-                </div>
-                <div class="form-line">
-                    <label for="pan">5. PAN</label>
-                    <input type="text" id="pan" class="form-textbox" placeholder="Numéro PAN">
-                </div>
-                <div class="form-line">
-                    <label>6. Preuve d'Identité Soumise pour les Cas Exemptés de PAN</label>
-                    <div class="proof-group">
-                        <label class="proof-label">
-                            <input type="radio" name="proof_id" class="form-radio" value="UID">
-                            <span class="proof-custom"></span>
-                            UID
-                        </label>
-                        <label class="proof-label">
-                            <input type="radio" name="proof_id" class="form-radio" value="Passport">
-                            <span class="proof-custom"></span>
-                            Passeport
-                        </label>
-                        <label class="proof-label">
-                            <input type="radio" name="proof_id" class="form-radio" value="Voter ID">
-                            <span class="proof-custom"></span>
-                            Carte d'Électeur
-                        </label>
-                        <label class="proof-label">
-                            <input type="radio" name="proof_id" class="form-radio" value="Driving License">
-                            <span class="proof-custom"></span>
-                            Permis de Conduire
-                        </label>
-                    </div>
-                </div>
-                <div class="form-line">
-                    <h2>B. Détails d'Adresse</h2>
-                </div>
-                <div class="form-line">
-                    <label for="address_line1">1. Adresse de Correspondance</label>
-                    <input type="text" id="address_line1" class="form-textbox" placeholder="Adresse">
-                    <input type="text" id="address_line2" class="form-textbox" placeholder="Adresse Ligne 2">
-                    <input type="text" id="city" class="form-textbox" placeholder="Ville">
-                    <input type="text" id="state" class="form-textbox" placeholder="État / Province">
-                    <input type="text" id="zip" class="form-textbox" placeholder="Code Postal">
-                    <select id="country" class="form-dropdown">
-                        <option value="">Sélectionner le Pays</option>
-                        <option value="US">États-Unis</option>
-                        <option value="IN">Inde</option>
-                        <!-- Ajouter plus d'options si nécessaire -->
+                    <label for="typeCompte">2. Type du compte</label>
+                    <select id="typeCompte" class="form-dropdown">
+                        <option value="">Sélectionner le type de compte</option>
+                        <option value="Compte Special Epargne Carte">Compte Special Epargne Carte</option>
+                        <!-- Add more account types as needed -->
                     </select>
                 </div>
+                
                 <div class="form-line">
-                    <label for="phone">2. Numéro de Téléphone</label>
-                    <input type="tel" id="phone" class="form-textbox" placeholder="Numéro de Téléphone">
-                </div>
-                <div class="form-line">
-                    <label for="email">3. Email</label>
-                    <input type="email" id="email" class="form-textbox" placeholder="exemple@exemple.com">
-                </div>
-                <div class="form-line">
-                    <label>4. Preuve d'Adresse à Fournir par le Demandeur</label>
-                    <div class="proof-group">
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Passport">
-                            <span class="proof-custom"></span>
-                            Passeport
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Ration Card">
-                            <span class="proof-custom"></span>
-                            Carte de Rationnement
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Driving License">
-                            <span class="proof-custom"></span>
-                            Permis de Conduire
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Voter Identity Card">
-                            <span class="proof-custom"></span>
-                            Carte d'Électeur
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Registered Lease/Sale Agreement of Residence">
-                            <span class="proof-custom"></span>
-                            Contrat de Location/Vente Enregistré de la Résidence
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Latest Bank Account Statement/Passbook">
-                            <span class="proof-custom"></span>
-                            Dernier Relevé de Compte Bancaire/Carnet
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Latest Telephone Bill">
-                            <span class="proof-custom"></span>
-                            Dernière Facture de Téléphone
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Latest Electricity Bill">
-                            <span class="proof-custom"></span>
-                            Dernière Facture d'Électricité
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="proof_address" class="form-checkbox" value="Latest Gas Bill">
-                            <span class="proof-custom"></span>
-                            Dernière Facture de Gaz
-                        </label>
-                    </div>
-                </div>
-                <div class="form-line">
-                    <label for="permanent_address_line1">5. Adresse Permanente du Demandeur Résident si Différente de B1
-                        Ci-Dessus</label>
-                    <input type="text" id="permanent_address_line1" class="form-textbox" placeholder="Adresse">
-                    <input type="text" id="permanent_address_line2" class="form-textbox" placeholder="Adresse Ligne 2">
-                    <input type="text" id="permanent_city" class="form-textbox" placeholder="Ville">
-                    <input type="text" id="permanent_state" class="form-textbox" placeholder="État / Province">
-                    <input type="text" id="permanent_zip" class="form-textbox" placeholder="Code Postal">
-                    <select id="permanent_country" class="form-dropdown">
-                        <option value="">Sélectionner le Pays</option>
-                        <option value="US">États-Unis</option>
-                        <option value="IN">Inde</option>
-                        <!-- Ajouter plus d'options si nécessaire -->
+                    <label for="deviseCompte">3. Devise du compte</label>
+                    <select id="deviseCompte" class="form-dropdown">
+                        <option value="TND">TND</option>
+                        <option value="EUR">EUR</option>
+                        <option value="USD">USD</option>
                     </select>
                 </div>
+                
+                <!-- Documents -->
                 <div class="form-line">
-                    <label>6. Preuve d'Adresse à Fournir par le Demandeur</label>
-                    <div class="proof-group">
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Passport">
-                            <span class="proof-custom"></span>
-                            Passeport
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Ration Card">
-                            <span class="proof-custom"></span>
-                            Carte de Rationnement
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Driving License">
-                            <span class="proof-custom"></span>
-                            Permis de Conduire
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Voter Identity Card">
-                            <span class="proof-custom"></span>
-                            Carte d'Électeur
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Registered Lease/Sale Agreement of Residence">
-                            <span class="proof-custom"></span>
-                            Contrat de Location/Vente Enregistré de la Résidence
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Latest Bank Account Statement/Passbook">
-                            <span class="proof-custom"></span>
-                            Dernier Relevé de Compte Bancaire/Carnet
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Latest Telephone Bill">
-                            <span class="proof-custom"></span>
-                            Dernière Facture de Téléphone
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Latest Electricity Bill">
-                            <span class="proof-custom"></span>
-                            Dernière Facture d'Électricité
-                        </label>
-                        <label class="proof-label">
-                            <input type="checkbox" name="permanent_proof_address" class="form-checkbox" value="Latest Gas Bill">
-                            <span class="proof-custom"></span>
-                            Dernière Facture de Gaz
-                        </label>
-                    </div>
+                    <h2>F. Documents à Fournir</h2>
                 </div>
+                
                 <div class="form-line">
-                    <h2>C. Téléchargement de Fichiers</h2>
-                    <p>Veuillez télécharger les photographies et documents pertinents.</p>
+                    <label for="documentCIN">1. Copie de la CIN</label>
+                    <input type="file" id="documentCIN" class="form-upload">
                 </div>
+                
                 <div class="form-line">
-                    <label for="file_upload">Télécharger les Fichiers</label>
-                    <input type="file" id="file_upload" class="form-upload" multiple>
+                    <label for="documentJustificatif">2. Justificatif de domicile</label>
+                    <input type="file" id="documentJustificatif" class="form-upload">
                 </div>
+                
+                <!-- Déclaration et Signature -->
                 <div class="form-line">
-                    <h2>D. Déclaration</h2>
+                    <h2>G. Déclaration et Signature</h2>
+                    <p>Je déclare sous peine de sanctions que les informations fournies dans ce formulaire sont exactes et complètes.</p>
                 </div>
+                
                 <div class="form-line">
-                    <p>Je déclare par la présente que les informations fournies dans ce formulaire sont exactes et
-                        complètes. Je confirme que toute information incorrecte et/ou incomplète qui entraînerait une
-                        violation des règlements pourrait entraîner des actions légales, et j'accepte d'être la partie
-                        responsable de tous les frais, pénalités et violations.</p>
+                    <label>
+                        <input type="checkbox" id="declaration" class="form-checkbox">
+                        J'accepte les termes de cette déclaration
+                    </label>
                 </div>
                 <div class="signature-container">
                     <label for="signature">Signature du Demandeur</label>

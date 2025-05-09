@@ -3,39 +3,31 @@
 </div>
 
 <div class="bodyLogin" *ngIf="!isLoading">
+  <div class="box">
+    <form class="form needs-validation" [formGroup]="LoginForm" (ngSubmit)="Authenticate()" novalidate>
+      <h2> STB EveryWhere </h2>
+      <div class="w-100 text-center py-2">
+        <img src="assets/logo_stb.png" class="me-2" width="60" alt="Silicon">
+      </div>
+      <h2> Connexion </h2>
 
-
-    <div class="box">
-      <form class="form needs-validation" [formGroup]="LoginForm" novalidate>
-        <h2> STB EveryWhere </h2>
-        <div class="w-100 text-center py-2">
-                  <img src="assets/logo_stb.png" class="me-2" width="60" alt="Silicon">
-        </div>
-        <h2> Connexion </h2>
-
-    
-        <div class="inputBox">
-          <input type="text" required type="text" name="username"  id="yourUsername" formControlName="login">
-          <span>Username</span>
-          <i></i>
-        </div>
-    
-        <div class="inputBox">
-          <input type="password" required  type="password" name="password"  id="yourPassword" formControlName="pwd">
-          <span>Passsword </span>
-          <i></i>
-        </div>
-        <div class="links mt-4">
-          <a href=""> </a>
-          <a href="https://stbdigital.stb.com.tn/stbeverywhereapp/#/register/first-registration"> Ouvrir un compte</a>
-        </div>
-   
-        <input class="mt-3" type="submit" value="login"  [disabled]="!LoginForm.valid" (click)="Authenticate()">
-   
-
-
-       
-
-      </form>
-    </div>
-    </div>
+      <div class="inputBox">
+        <input type="text" required name="username" id="yourUsername" formControlName="login">
+        <span>Username</span>
+        <i></i>
+      </div>
+  
+      <div class="inputBox">
+        <input type="password" required name="password" id="yourPassword" formControlName="pwd">
+        <span>Passsword</span>
+        <i></i>
+      </div>
+      <div class="links mt-4">
+        <a href=""> </a>
+        <a href="https://stbdigital.stb.com.tn/stbeverywhereapp/#/register/first-registration"> Ouvrir un compte</a>
+      </div>
+ 
+      <input class="mt-3" type="submit" value="Login" [disabled]="!LoginForm.valid">
+    </form>
+  </div>
+</div>

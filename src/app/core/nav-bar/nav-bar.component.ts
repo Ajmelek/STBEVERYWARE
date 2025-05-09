@@ -32,5 +32,11 @@ this.user = "Super Admin";
   signOut(){
     this.router.navigateByUrl("/login");
   }
-  
+  handleLogout() {
+    localStorage.removeItem('authToken');
+    sessionStorage.removeItem('authToken');
+    console.log('Authentication data cleared');
+    window.location.href = 'stb_ebank.html';
+    console.log('Redirecting to login page');
+  }
 }
