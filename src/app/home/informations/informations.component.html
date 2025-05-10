@@ -1,7 +1,7 @@
 <div id="root">
     <div class="appContainer">
         <div class="form-all">
-            <form>
+    <form [formGroup]="demandeForm" (ngSubmit)="onSubmit()">
                 <div class="form-line">
                     <h1>Formulaire KYC</h1>
                 </div>
@@ -13,7 +13,7 @@
                 
                 <div class="form-line">
                     <label for="civilite">1. Civilité</label>
-                    <select id="civilite" class="form-dropdown">
+                    <select id="civilite" class="form-dropdown" formControlName="civilite">
                         <option value="">Sélectionner</option>
                         <option value="Monsieur">Monsieur</option>
                         <option value="Madame">Madame</option>
@@ -23,17 +23,17 @@
                 
                 <div class="form-line">
                     <label for="prenom">2. Prénom</label>
-                    <input type="text" id="prenom" class="form-textbox" placeholder="Prénom" value="{{client?.prenom}}" disabled>
+                    <input type="text" id="prenom" class="form-textbox" placeholder="Prénom" formControlName="prenom" >
                 </div>
                 
                 <div class="form-line">
                     <label for="nom">3. Nom</label>
-                    <input type="text" id="nom" class="form-textbox" placeholder="Nom de famille" value="{{client?.nom}}" disabled>
+                    <input type="text" id="nom" class="form-textbox" placeholder="Nom de famille" formControlName="nom" >
                 </div>
                 
                 <div class="form-line">
                     <label for="paysNaissance">4. Pays de naissance</label>
-                    <select id="paysNaissance" class="form-dropdown">
+                    <select id="paysNaissance" class="form-dropdown" formControlName="paysNaissance">
                         <option value="">Sélectionner le pays</option>
                         <option value="Tunisie">Tunisie</option>
                         <!-- Add more countries as needed -->
@@ -42,33 +42,33 @@
                 
                 <div class="form-line">
                     <label for="dateNaissance">5. Date de naissance</label>
-                    <input type="date" id="dateNaissance" class="form-textbox" value="{{client?.dateNaissance}}" disabled>
+                    <input type="date" id="dateNaissance" class="form-textbox" formControlName="dateNaissance" >
                 </div>
                 
                 <div class="form-line">
                     <label for="numeroTelephone">6. Numéro de téléphone</label>
-                    <input type="tel" id="numeroTelephone" class="form-textbox" placeholder="Numéro de téléphone" value="{{client?.numeroTelephone}}" >
+                    <input type="tel" id="numeroTelephone" class="form-textbox" placeholder="Numéro de téléphone" formControlName="numeroTelephone">
                 </div>
                 
                 <div class="form-line">
                     <label for="mailPrincipal">7. Email</label>
-                    <input type="email" id="mailPrincipal" class="form-textbox" placeholder="exemple@email.com" value="{{client?.mailPrincipal}}" >
+                    <input type="email" id="mailPrincipal" class="form-textbox" placeholder="exemple@email.com" formControlName="mailPrincipal">
                 </div>
                 
                 <div class="form-line">
                     <label for="adresse">8. Adresse</label>
-                    <textarea id="adresse" class="form-textarea" placeholder="Adresse complète" value="{{client?.adresse}}"></textarea>
+                    <textarea id="adresse" class="form-textarea" placeholder="Adresse complète" formControlName="adresse"></textarea>
                 </div>
                 
                 <!-- New fields added here -->
                 <div class="form-line">
                     <label for="motif">9. Motif</label>
-                    <input type="text" id="motif" class="form-textbox" placeholder="Motif" value="{{client?.motif}}">
+                    <input type="text" id="motif" class="form-textbox" placeholder="Motif" formControlName="motif">
                 </div>
                 
                 <div class="form-line">
                     <label for="objetrelation">10. Objet de relation</label>
-                    <input type="text" id="objetrelation" class="form-textbox" placeholder="Objet de relation" value="{{client?.objetrelation}}" >
+                    <input type="text" id="objetrelation" class="form-textbox" placeholder="Objet de relation" formControlName="objetrelation">
                 </div>
                 
                 <!-- Informations Personnelles -->
@@ -78,7 +78,7 @@
                 
                 <div class="form-line">
                     <label for="nationalite">1. Nationalité principale</label>
-                    <select id="nationalite" class="form-dropdown">
+                    <select id="nationalite" class="form-dropdown" formControlName="nationalite">
                         <option value="">Sélectionner la nationalité</option>
                         <option value="Tunisienne">Tunisienne</option>
                     </select>
@@ -86,7 +86,7 @@
                 
                 <div class="form-line">
                     <label for="autreNationalite">2. Autre nationalité</label>
-                    <select id="autreNationalite" class="form-dropdown">
+                    <select id="autreNationalite" class="form-dropdown" formControlName="autreNationalite">
                         <option value="">Sélectionner une autre nationalité</option>
                         <option value="Aucune">Aucune</option>
                         <!-- Add more nationalities as needed -->
@@ -96,39 +96,38 @@
                 <div class="form-line">
                     <label for="nomMere">3. Nom complet de la mère</label>
                     <div class="name-inputs">
-                        <input type="text" id="prenomMere" class="form-textbox" placeholder="Prénom de la mère" value="{{client?.nomMere}}" disabled>
-                        <input type="text" id="nomMere" class="form-textbox" placeholder="Nom de famille de la mère" value="{{client?.nomMere}}" disabled>
+                        <input type="text" id="prenomMere" class="form-textbox" placeholder="Prénom de la mère" formControlName="prenomMere" >
+                        <input type="text" id="nomMere" class="form-textbox" placeholder="Nom de famille de la mère" formControlName="nomMere" >
                     </div>
                 </div>
                 
                 <div class="form-line">
                     <label for="nomPere">4. Nom complet du père</label>
                     <div class="name-inputs">
-                        <input type="text" id="prenomPere" class="form-textbox" placeholder="Prénom du père" value="{{client?.nomPere}}" disabled>
-                        <input type="text" id="nomPere" class="form-textbox" placeholder="Nom de famille du père" value="{{client?.nomPere}}" disabled>
+                        <input type="text" id="prenomPere" class="form-textbox" placeholder="Prénom du père" formControlName="prenomPere" >
+                        <input type="text" id="nomPere" class="form-textbox" placeholder="Nom de famille du père" formControlName="nomPere" >
                     </div>
                 </div>
-                
                 <div class="form-line">
                     <label>5. État civil</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="etatCivil" class="form-radio" value="Celibataire">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Celibataire" formControlName="etatCivil">
                             <span class="radio-custom"></span>
                             Célibataire
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="etatCivil" class="form-radio" value="Marie">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Marie" formControlName="etatCivil">
                             <span class="radio-custom"></span>
                             Marié(e)
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="etatCivil" class="form-radio" value="Divorce">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Divorce" formControlName="etatCivil">
                             <span class="radio-custom"></span>
                             Divorcé(e)
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="etatCivil" class="form-radio" value="Veuf">
+                            <input type="radio" name="etatCivil" class="form-radio" value="Veuf" formControlName="etatCivil">
                             <span class="radio-custom"></span>
                             Veuf/Veuve
                         </label>
@@ -142,7 +141,7 @@
                 
                 <div class="form-line">
                     <label for="resident">1. Résidence</label>
-                    <select id="resident" class="form-dropdown">
+                    <select id="resident" class="form-dropdown" formControlName="resident">
                         <option value="">Sélectionner</option>
                         <option value="Resident">Résident</option>
                         <option value="NonResident">Non-Résident</option>
@@ -151,12 +150,12 @@
                 
                 <div class="form-line">
                     <label for="cin">2. Numéro CIN</label>
-                    <input type="text" id="cin" class="form-textbox" placeholder="Numéro de carte d'identité" value="{{client?.cin}}" disabled>
+                    <input type="text" id="cin" class="form-textbox" placeholder="Numéro de carte d'identité" formControlName="cin" >
                 </div>
                 
                 <div class="form-line">
                     <label for="dateDelivrance">3. Date de délivrance CIN</label>
-                    <input type="date" id="dateDelivrance" class="form-textbox" value="{{client?.datedelivrance}}" disabled>
+                    <input type="date" id="dateDelivrance" class="form-textbox" formControlName="dateDelivrance" >
                 </div>
                 
                 <!-- Informations Financières -->
@@ -182,7 +181,7 @@
                 
                 <div class="form-line">
                     <label for="natureActivite">2. Nature de l'activité (pour professionnels)</label>
-                    <input type="text" id="natureActivite" class="form-textbox" placeholder="Nature de l'activité professionnelle" disabled>
+                    <input type="text" id="natureActivite" class="form-textbox" placeholder="Nature de l'activité professionnelle" formControlName="natureActivite">
                 </div>
                 
                 <!-- Agence de Domiciliation -->
@@ -192,7 +191,7 @@
                 
                 <div class="form-line">
                     <label for="agenceDomiciliation">1. Choix de l'agence de domiciliation</label>
-                    <select id="agenceDomiciliation" class="form-dropdown">
+                    <select id="agenceDomiciliation" class="form-dropdown" formControlName="agenceDomiciliation">
                         <option value="">Sélectionner l'agence</option>
                         <option value="103">Agence 103</option>
                         <!-- Add more agencies as needed -->
@@ -201,7 +200,7 @@
                 
                 <div class="form-line">
                     <label for="typeCompte">2. Type du compte</label>
-                    <select id="typeCompte" class="form-dropdown">
+                    <select id="typeCompte" class="form-dropdown" formControlName="typeCompte">
                         <option value="">Sélectionner le type de compte</option>
                         <option value="Compte Special Epargne Carte">Compte Special Epargne Carte</option>
                         <!-- Add more account types as needed -->
@@ -210,7 +209,7 @@
                 
                 <div class="form-line">
                     <label for="deviseCompte">3. Devise du compte</label>
-                    <select id="deviseCompte" class="form-dropdown">
+                    <select id="deviseCompte" class="form-dropdown" formControlName="deviseCompte">
                         <option value="TND">TND</option>
                         <option value="EUR">EUR</option>
                         <option value="USD">USD</option>
@@ -224,12 +223,12 @@
                 
                 <div class="form-line">
                     <label for="documentCIN">1. Copie de la CIN</label>
-                    <input type="file" id="documentCIN" class="form-upload">
+                    <input type="file" id="documentCIN" class="form-upload" formControlName="documentCIN">
                 </div>
                 
                 <div class="form-line">
                     <label for="documentJustificatif">2. Justificatif de domicile</label>
-                    <input type="file" id="documentJustificatif" class="form-upload">
+                    <input type="file" id="documentJustificatif" class="form-upload" formControlName="documentJustificatif">
                 </div>
                 
                 <!-- Déclaration et Signature -->
@@ -240,7 +239,7 @@
                 
                 <div class="form-line">
                     <label>
-                        <input type="checkbox" id="declaration" class="form-checkbox">
+                        <input type="checkbox" id="declaration" class="form-checkbox" formControlName="declaration">
                         J'accepte les termes de cette déclaration
                     </label>
                 </div>
@@ -250,8 +249,8 @@
                         <canvas #signaturePad id="signature-pad" class="signature-pad"></canvas>
                     </div>
                     <div class="button-container">
-                        <button (click)="clearSignature()" class="clear-button">Effacer</button>
-                        <button (click)="saveSignature()" class="save-button">Enregistrer</button>
+                        <button type="button" (click)="clearSignature()" class="clear-button">Effacer</button>
+                        <button type="button" (click)="saveSignature()" class="save-button">Enregistrer</button>
                     </div>
                     <div class="powered-by">
                         Powered by Ajej
@@ -259,12 +258,15 @@
                 </div>
                 <div class="form-line">
                     <label for="date_signed">Date de Signature</label>
-                    <input type="date" id="date_signed" class="form-textbox date-input">
+                    <input type="date" id="date_signed" class="form-textbox date-input" formControlName="dateSigned">
                 </div>
                 <div class="form-line">
-                    <button type="submit" class="submit-button">Soumettre</button>
+                    <button type="submit" [disabled]="isSubmitting">
+                        {{ isSubmitting ? 'Envoi en cours...' : 'Soumettre' }}
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+

@@ -14,6 +14,7 @@ interface Client {
 })
 
   export class CreateAccountComponent implements OnInit {
+
     client: Client | null = null;
     isLoading = true;
     error: string | null = null;
@@ -25,7 +26,8 @@ interface Client {
     }
   
     fetchClientData() {
-      this.http.get<Client>('/api/Client/First').subscribe({
+    const login = localStorage.getItem('login');
+    this.http.get<Client>(`http://localhost:5082/api/Client/byLogin/${login}`).subscribe({
         next: (data) => {
           this.client = data;
           this.isLoading = false;

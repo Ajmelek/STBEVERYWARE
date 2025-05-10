@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { CreateAccountComponent } from './create-account/create-account.component';
@@ -20,7 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
    ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

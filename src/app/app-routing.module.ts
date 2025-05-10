@@ -12,6 +12,16 @@ const routes: Routes = [
     data: {breadcrumb: 'Home'},
     canActivate: [AuthGuard]
   },
+  {
+    path:'admin',
+    loadChildren:()=> import('./admin/admin.module').then(mod => mod.AdminModule),
+    data: {breadcrumb: 'Admin'}
+  },
+  {
+    path:'super-admin',
+    loadChildren:()=> import('./super-admin/super-admin.module').then(mod => mod.SuperAdminModule),
+    data: {breadcrumb: 'Super Admin'}
+  },
   {path:'**', redirectTo:'not-found', pathMatch: 'full'},
 ];
 @NgModule({

@@ -51,7 +51,21 @@ export class LoginComponent {
           if (response.body && response.body.token) {
             this.authService.setUsername(this.f?.['login'].value.trim());
             this.authService.setToken(response.body.token);
-            this.router.navigate(['home']);
+            
+            // Get user role and navigate accordingly
+            const userRole = response.body.role;
+            this.authService.setUserRole(userRole);
+            
+            switch(userRole) {
+              case 'admin':
+                this.router.navigate(['/admin']);
+                break;
+              case 'superadmin':
+                this.router.navigate(['/super-admin']);
+                break;
+              default:
+                this.router.navigate(['/home']);
+            }
           } else {
             console.log(response.body);
             

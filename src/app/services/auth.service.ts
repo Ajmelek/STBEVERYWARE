@@ -30,6 +30,10 @@ export class AuthService {
     return localStorage.getItem('login');
   }
 
+  getUserRole(): string | null {
+    return localStorage.getItem('userRole');
+  }
+
   setToken(token: string) {
     localStorage.setItem('token', token);
     this.setAuthenticated(true);
@@ -39,9 +43,14 @@ export class AuthService {
     localStorage.setItem('login', username);
   }
 
+  setUserRole(role: string) {
+    localStorage.setItem('userRole', role);
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('login');
+    localStorage.removeItem('userRole');
     this.setAuthenticated(false);
     this.router.navigate(['/login']);
   }
