@@ -1,0 +1,68 @@
+<div class="client-management-container">
+  <div class="page-header">
+    <h2>Gestion des Clients</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+      </div>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
+        <option value="">Tous les Statuts</option>
+        <option value="actif">Actif</option>
+        <option value="inactif">Inactif</option>
+        <option value="bloqué">Bloqué</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="clients-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID Client</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Statut</th>
+          <th>Date de Création</th>
+          <th>Dernière Connexion</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of filteredClients">
+          <td>{{ client.clientId }}</td>
+          <td>{{ client.nom }}</td>
+          <td>{{ client.prenom }}</td>
+          <td>{{ client.email }}</td>
+          <td>
+            <span [class]="'status-badge status-' + client.status">
+              {{ client.status }}
+            </span>
+          </td>
+          <td>{{ client.dateCreation | date }}</td>
+          <td>{{ client.derniereConnexion | date }}</td>
+          <td class="actions">
+            <button *ngIf="client.status === 'actif'"
+                    (click)="showMockAction('bloquer', client)"
+                    class="btn btn-block">
+              <i class="bx bx-lock"></i>
+              Bloquer
+            </button>
+            <button *ngIf="client.status === 'bloqué'"
+                    (click)="showMockAction('débloquer', client)"
+                    class="btn btn-unblock">
+              <i class="bx bx-lock-open"></i>
+              Débloquer
+            </button>
+            <button (click)="showMockAction('voir', client)"
+                    class="btn btn-view">
+              <i class="bx bx-show"></i>
+              Voir Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

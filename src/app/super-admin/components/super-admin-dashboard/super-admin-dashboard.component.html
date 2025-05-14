@@ -1,0 +1,28 @@
+<div class="super-admin-dashboard">
+  <nav class="super-admin-nav">
+    <div class="nav-header">
+      <h2>Super Administration</h2>
+    </div>
+    <ul>
+      <li><a routerLink="clients" routerLinkActive="active">
+        <i class="bx bx-user"></i>
+        Gestion des Clients
+      </a></li>
+      <li><a routerLink="admins" routerLinkActive="active">
+        <i class="bx bx-user-pin"></i>
+        Gestion des Admins
+      </a></li>
+      <li><a routerLink="reports" routerLinkActive="active">
+        <i class="bx bx-bar-chart-alt-2"></i>
+        Rapports
+      </a></li>
+      <li><a routerLink="settings" routerLinkActive="active">
+        <i class="bx bx-cog"></i>
+        Paramètres
+      </a></li>
+    </ul>
+  </nav>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div> 

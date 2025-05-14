@@ -1,0 +1,54 @@
+<div class="complaints-container">
+  <div class="page-header">
+    <h2>Gestion des Réclamations</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+      </div>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
+        <option value="">Tous les Statuts</option>
+        <option value="ouverte">Ouverte</option>
+        <option value="en cours">En Cours</option>
+        <option value="résolue">Résolue</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="complaints-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID Client</th>
+          <th>Nom du Client</th>
+          <th>Sujet</th>
+          <th>Statut</th>
+          <th>Date de Soumission</th>
+          <th>Dernière Mise à Jour</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let complaint of filteredComplaints">
+          <td>{{ complaint.clientId }}</td>
+          <td>{{ complaint.clientName }}</td>
+          <td>{{ complaint.subject }}</td>
+          <td>
+            <span [class]="'status-badge status-' + complaint.status">
+              {{ complaint.status }}
+            </span>
+          </td>
+          <td>{{ complaint.submissionDate | date }}</td>
+          <td>{{ complaint.lastUpdated | date }}</td>
+          <td class="actions">
+            <button (click)="showMockDetails(complaint)"
+                    class="btn btn-view">
+              <i class="bx bx-show"></i>
+              Voir Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

@@ -1,0 +1,84 @@
+<div class="admin-management-container">
+  <div class="page-header">
+    <h2>Gestion des Administrateurs</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+      </div>
+      <select [(ngModel)]="roleFilter" (ngModelChange)="applyFilters()" class="role-filter">
+        <option value="">Tous les Rôles</option>
+        <option value="admin">Admin</option>
+        <option value="super_admin">Super Admin</option>
+      </select>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
+        <option value="">Tous les Statuts</option>
+        <option value="actif">Actif</option>
+        <option value="inactif">Inactif</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="admins-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID Admin</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Rôle</th>
+          <th>Statut</th>
+          <th>Date de Création</th>
+          <th>Dernière Connexion</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of filteredAdmins">
+          <td>{{ admin.adminId }}</td>
+          <td>{{ admin.nom }}</td>
+          <td>{{ admin.prenom }}</td>
+          <td>{{ admin.email }}</td>
+          <td>
+            <span [class]="'role-badge role-' + admin.role">
+              {{ admin.role === 'super_admin' ? 'Super Admin' : 'Admin' }}
+            </span>
+          </td>
+          <td>
+            <span [class]="'status-badge status-' + admin.status">
+              {{ admin.status }}
+            </span>
+          </td>
+          <td>{{ admin.dateCreation | date }}</td>
+          <td>{{ admin.derniereConnexion | date }}</td>
+          <td class="actions">
+            <button *ngIf="admin.status === 'actif'"
+                    (click)="showMockAction('désactiver', admin)"
+                    class="btn btn-deactivate">
+              <i class="bx bx-user-x"></i>
+              Désactiver
+            </button>
+            <button *ngIf="admin.status === 'inactif'"
+                    (click)="showMockAction('activer', admin)"
+                    class="btn btn-activate">
+              <i class="bx bx-user-check"></i>
+              Activer
+            </button>
+            <button *ngIf="admin.role === 'admin'"
+                    (click)="showMockAction('promouvoir', admin)"
+                    class="btn btn-promote">
+              <i class="bx bx-up-arrow-alt"></i>
+              Promouvoir
+            </button>
+            <button (click)="showMockAction('voir', admin)"
+                    class="btn btn-view">
+              <i class="bx bx-show"></i>
+              Voir Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

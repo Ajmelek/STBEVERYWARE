@@ -1,0 +1,62 @@
+<div class="kyc-container">
+  <div class="page-header">
+    <h2>Soumissions KYC</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+      </div>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
+        <option value="">Tous les Statuts</option>
+        <option value="en attente">En Attente</option>
+        <option value="approuvé">Approuvé</option>
+        <option value="rejeté">Rejeté</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="submissions-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID Client</th>
+          <th>Nom du Client</th>
+          <th>Date de Soumission</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let submission of filteredSubmissions">
+          <td>{{ submission.clientId }}</td>
+          <td>{{ submission.clientName }}</td>
+          <td>{{ submission.submissionDate | date }}</td>
+          <td>
+            <span [class]="'status-badge status-' + submission.status">
+              {{ submission.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button *ngIf="submission.status === 'en attente'"
+                    (click)="showMockAction('approuver', submission)"
+                    class="btn btn-approve">
+              <i class="bx bx-check"></i>
+              Approuver
+            </button>
+            <button *ngIf="submission.status === 'en attente'"
+                    (click)="showMockAction('rejeter', submission)"
+                    class="btn btn-reject">
+              <i class="bx bx-x"></i>
+              Rejeter
+            </button>
+            <button (click)="showMockAction('voir', submission)"
+                    class="btn btn-view">
+              <i class="bx bx-show"></i>
+              Voir Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

@@ -39,4 +39,9 @@ this.user = "Super Admin";
     window.location.href = 'stb_ebank.html';
     console.log('Redirecting to login page');
   }
+
+  handleNotifications() {
+    // TODO: Implement notification functionality
+    console.log('Notifications clicked');
+  }
 }

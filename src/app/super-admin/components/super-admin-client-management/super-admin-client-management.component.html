@@ -1,0 +1,91 @@
+<div class="client-management-container">
+  <div class="page-header">
+    <h2>Gestion des Clients</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input 
+          type="text" 
+          placeholder="Rechercher un client..." 
+          [(ngModel)]="searchQuery"
+          (input)="applyFilters()"
+        >
+      </div>
+      <div class="status-filter">
+        <select [(ngModel)]="statusFilter" (change)="applyFilters()">
+          <option value="">Tous les Statuts</option>
+          <option value="actif">Actif</option>
+          <option value="inactif">Inactif</option>
+          <option value="bloqué">Bloqué</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="clients-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID Client</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Statut</th>
+          <th>Date de Création</th>
+          <th>Dernière Connexion</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of filteredClients">
+          <td>{{ client.clientId }}</td>
+          <td>{{ client.nom }}</td>
+          <td>{{ client.prenom }}</td>
+          <td>{{ client.email }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="client.status">
+              {{ client.status }}
+            </span>
+          </td>
+          <td>{{ client.dateCreation }}</td>
+          <td>{{ client.derniereConnexion }}</td>
+          <td class="actions">
+            <button 
+              class="btn-view" 
+              (click)="showMockAction('voir', client)"
+            >
+              Voir
+            </button>
+            <button 
+              *ngIf="client.status === 'actif'"
+              class="btn-block" 
+              (click)="showMockAction('bloquer', client)"
+            >
+              Bloquer
+            </button>
+            <button 
+              *ngIf="client.status === 'bloqué'"
+              class="btn-unblock" 
+              (click)="showMockAction('débloquer', client)"
+            >
+              Débloquer
+            </button>
+            <button 
+              *ngIf="client.status === 'inactif'"
+              class="btn-activate" 
+              (click)="showMockAction('activer', client)"
+            >
+              Activer
+            </button>
+            <button 
+              *ngIf="client.status === 'actif'"
+              class="btn-deactivate" 
+              (click)="showMockAction('désactiver', client)"
+            >
+              Désactiver
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

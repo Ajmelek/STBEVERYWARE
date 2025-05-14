@@ -11,101 +11,14 @@ interface KycSubmission {
 
 @Component({
   selector: 'app-kyc-management',
-  template: `
-    <div class="kyc-container">
-      <h2>Soumissions KYC</h2>
-      <div class="submissions-list">
-        <table>
-          <thead>
-            <tr>
-              <th>ID Client</th>
-              <th>Nom du Client</th>
-              <th>Date de Soumission</th>
-              <th>Statut</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let submission of submissions">
-              <td>{{ submission.clientId }}</td>
-              <td>{{ submission.clientName }}</td>
-              <td>{{ submission.submissionDate | date }}</td>
-              <td>
-                <span [class]="'status-' + submission.status">
-                  {{ submission.status }}
-                </span>
-              </td>
-              <td>
-                <button *ngIf="submission.status === 'en attente'"
-                        (click)="showMockAction('approuver', submission)"
-                        class="btn-approve">
-                  Approuver
-                </button>
-                <button *ngIf="submission.status === 'en attente'"
-                        (click)="showMockAction('rejeter', submission)"
-                        class="btn-reject">
-                  Rejeter
-                </button>
-                <button (click)="showMockAction('voir', submission)"
-                        class="btn-view">
-                  Voir Détails
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .kyc-container {
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 12px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-    th {
-      background-color: #f5f5f5;
-    }
-    .status-en-attente {
-      color: #f0ad4e;
-    }
-    .status-approuvé {
-      color: #5cb85c;
-    }
-    .status-rejeté {
-      color: #d9534f;
-    }
-    button {
-      margin: 0 5px;
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .btn-approve {
-      background-color: #5cb85c;
-      color: white;
-    }
-    .btn-reject {
-      background-color: #d9534f;
-      color: white;
-    }
-    .btn-view {
-      background-color: #5bc0de;
-      color: white;
-    }
-  `]
+  templateUrl: './kyc-management.component.html',
+  styleUrls: ['./kyc-management.component.scss']
 })
 export class KycManagementComponent implements OnInit {
   submissions: KycSubmission[] = [];
+  filteredSubmissions: KycSubmission[] = [];
+  statusFilter: string = '';
+  searchQuery: string = '';
 
   ngOnInit() {
     // Mock data
@@ -143,6 +56,17 @@ export class KycManagementComponent implements OnInit {
         documents: ['Passeport', 'Justificatif de domicile']
       }
     ];
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    this.filteredSubmissions = this.submissions.filter(submission => {
+      const matchesStatus = !this.statusFilter || submission.status === this.statusFilter;
+      const matchesSearch = !this.searchQuery || 
+        submission.clientName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        submission.clientId.toLowerCase().includes(this.searchQuery.toLowerCase());
+      return matchesStatus && matchesSearch;
+    });
   }
 
   showMockAction(action: string, submission: KycSubmission) {

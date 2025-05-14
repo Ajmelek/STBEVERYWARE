@@ -1,0 +1,144 @@
+.client-management-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin: 24px;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h2 {
+      color: #003d86;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 16px;
+
+      .search-box {
+        input {
+          padding: 8px 12px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          width: 250px;
+          font-size: 14px;
+
+          &:focus {
+            outline: none;
+            border-color: #003d86;
+          }
+        }
+      }
+
+      .status-filter {
+        select {
+          padding: 8px 12px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 14px;
+          background-color: white;
+          cursor: pointer;
+
+          &:focus {
+            outline: none;
+            border-color: #003d86;
+          }
+        }
+      }
+    }
+  }
+
+  .clients-list {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        color: #003d86;
+        font-weight: 600;
+      }
+
+      tr:hover {
+        background-color: #f8f9fa;
+      }
+
+      .status-badge {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 500;
+
+        &.actif {
+          background-color: #e6f4ea;
+          color: #1e7e34;
+        }
+
+        &.inactif {
+          background-color: #fff3cd;
+          color: #856404;
+        }
+
+        &.bloqué {
+          background-color: #f8d7da;
+          color: #721c24;
+        }
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+
+        button {
+          padding: 6px 12px;
+          border: none;
+          border-radius: 4px;
+          font-size: 12px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &:hover {
+            opacity: 0.9;
+          }
+
+          &.btn-view {
+            background-color: #003d86;
+            color: white;
+          }
+
+          &.btn-block {
+            background-color: #dc3545;
+            color: white;
+          }
+
+          &.btn-unblock {
+            background-color: #28a745;
+            color: white;
+          }
+
+          &.btn-activate {
+            background-color: #28a745;
+            color: white;
+          }
+
+          &.btn-deactivate {
+            background-color: #ffc107;
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+} 
