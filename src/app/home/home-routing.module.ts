@@ -6,16 +6,19 @@ import { InformationsComponent } from './informations/informations.component';
 import { RequestCardComponent } from './request-card/request-card.component';
 import { RequestCheckComponent } from './request-check/request-check.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { RequestWalletComponent } from './request-wallet/request-wallet.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent , data: { breadcrumb: 'Home' },
   children: [
       { path: 'RequestAccount', component: CreateAccountComponent, data: { breadcrumb: 'Creation Compte' }},
       { path: 'RequestCard', component: RequestCardComponent, data: { breadcrumb: 'Demander Carte' }},
-
       { path: 'RequestCheck', component: RequestCheckComponent, data: { breadcrumb: 'Demande Chequier' }},
       { path: 'KycForm', component: InformationsComponent, data: { breadcrumb: 'KycForm' }},
       { path: 'Informations', component: ProfileComponent, data: { breadcrumb: 'Mes Informations' }},
+      { path: 'reclamation', component: ReclamationComponent, data: { breadcrumb: 'Réclamation' }},
+      { path: 'request-wallet', component: RequestWalletComponent, data: { breadcrumb: 'Demande de Wallet' } },
 
       //     { path: 'paiement', component : PaiementComponent, data: { breadcrumb: 'Paiement' } },
   

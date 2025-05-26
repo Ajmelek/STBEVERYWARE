@@ -1,1 +1,115 @@
-<p>request-check works!</p>
+<div id="root">
+  <div class="appContainer">
+    <div class="form-all">
+      <form [formGroup]="checkForm" (ngSubmit)="onSubmit()">
+        <div class="form-line">
+          <h1> Demande de Chéquier</h1>
+        </div>
+
+        <fieldset>
+          <legend>1. Informations du Client</legend>
+          
+          <div class="form-line">
+            <label for="nom">Nom et prénom :</label>
+            <input type="text" id="nom" formControlName="nom" required />
+          </div>
+
+          <div class="form-line">
+            <label for="cin">Numéro de carte d'identité nationale (CIN) :</label>
+            <input type="text" id="cin" formControlName="cin" required />
+          </div>
+
+          <div class="form-line">
+            <label for="adresse">Adresse complète :</label>
+            <input type="text" id="adresse" formControlName="adresse" required />
+          </div>
+
+          <div class="form-line">
+            <label for="telephone">Téléphone :</label>
+            <input type="text" id="telephone" formControlName="telephone" required />
+          </div>
+
+          <div class="form-line">
+            <label for="email">Adresse e-mail :</label>
+            <input type="email" id="email" formControlName="email" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Informations Bancaires</legend>
+
+          <div class="form-line">
+            <label for="rib">Numéro de compte bancaire (RIB) :</label>
+            <input type="text" id="rib" formControlName="rib" required />
+          </div>
+
+          <div class="form-line">
+            <label for="agence">Agence bancaire :</label>
+            <input type="text" id="agence" formControlName="agence" required />
+          </div>
+
+          <div class="form-line">
+            <label for="typeCompte">Type de compte :</label>
+            <select id="typeCompte" formControlName="typeCompte" required>
+              <option value="">-- Sélectionnez --</option>
+              <option value="courant">Compte courant</option>
+              <option value="professionnel">Compte professionnel</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>3. Détails de la Demande</legend>
+
+          <div class="form-line">
+            <label for="nombreChequiers">Nombre de chéquiers demandés :</label>
+            <select id="nombreChequiers" formControlName="nombreChequiers" required>
+              <option value="">-- Choisir --</option>
+              <option value="1">1 chéquier</option>
+              <option value="2">2 chéquiers</option>
+              <option value="3">3 chéquiers</option>
+            </select>
+          </div>
+
+          <div class="form-line">
+            <label>Motif de la demande :</label>
+            <div class="radio-group">
+              <label><input type="radio" formControlName="motif" value="nouveau" required /> Nouvelle demande</label>
+              <label><input type="radio" formControlName="motif" value="renouvellement" /> Renouvellement</label>
+              <label><input type="radio" formControlName="motif" value="perte" /> Perte ou vol</label>
+            </div>
+          </div>
+
+          <div class="form-line">
+            <label for="motifAutre">Si autre, précisez :</label>
+            <input type="text" id="motifAutre" formControlName="motifAutre" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>4. Signature</legend>
+
+          <div class="form-line">
+            <label for="dateDemande">Date de la demande :</label>
+            <input type="date" id="dateDemande" formControlName="dateDemande" required />
+          </div>
+
+          <div class="form-line">
+            <label for="signature">Signature du client :</label>
+            <input type="text" id="signature" formControlName="signature" placeholder="Nom complet" required />
+          </div>
+        </fieldset>
+
+        <p class="note">
+          Merci de joindre une copie de votre CIN et de votre relevé bancaire. Votre chéquier sera disponible à l'agence sous quelques jours ouvrables.
+        </p>
+
+        <div class="form-line">
+          <button type="submit" [disabled]="isSubmitting || !checkForm.valid">
+            {{ isSubmitting ? 'Envoi en cours...' : 'Soumettre la demande' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

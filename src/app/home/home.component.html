@@ -51,26 +51,62 @@
       <app-profil></app-profil>
     </div>
 
-    <div class="row h-100">
-      <div _ngcontent-ctx-c65="" class="col-3 d-none d-lg-block d-xl-block d-xxl-block pt-4">
-        <ul _ngcontent-ctx-c65="">
-          <li routerLink="RequestAccount" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
-            Consultation compte</li>
-          <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" id="AccountTFB" routerlinkactive="active" tabindex="0"
-            class=""> Compte TF BANK </li>
-          <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
-            Demande chéquier&nbsp; </li>
-          <li routerLink="RequestCard" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
-            Demande Wallet </li>
-          <li routerLink="RequestCard" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
-            Demande d'une carte bancaire&nbsp; </li>
-          <li routerLink="Informations" (click)="changeStatusRequestMenu()" routerlink="Informations" class="">
-            Fiche KYC </li>
-               <li routerLink="RequestCheck" (click)="changeStatusRequestMenu()" _ngcontent-ctx-c65="" routerlinkactive="active" tabindex="0" class="">
-            reclamation&nbsp; </li>
-            
-           
-        </ul>
+    <div class="col-lg-3 d-none d-lg-block">
+        <div class="card border-0 shadow-sm rounded-4 bg-white bg-opacity-10">
+          <div class="card-body p-4">
+            <ul class="nav flex-column gap-2">
+              <li class="nav-item">
+                <a routerLink="RequestAccount" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-account fs-5"></i>
+                  Consultation compte
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="RequestCheck" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-bank fs-5"></i>
+                  Compte TF BANK
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="RequestCheck" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-money fs-5"></i>
+                  Demande chéquier
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="request-wallet" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-wallet fs-5"></i>
+                  Demande Wallet
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="RequestCard" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-credit-card fs-5"></i>
+                  Demande d'une carte bancaire
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="Informations" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-file fs-5"></i>
+                  Fiche KYC
+                </a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="reclamation" (click)="changeStatusRequestMenu()" 
+                   class="nav-link text-white d-flex align-items-center gap-2 py-3 px-4 rounded-3 hover-bg-white hover-bg-opacity-10 transition-all">
+                  <i class="bx bx-message-square-dots fs-5"></i>
+                  Réclamation
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
       <!-- <div class="col-3 pt-4">
@@ -101,7 +137,7 @@
                     alt="Icon">
                 </div>
                 <h2 class="h4 d-inline-flex align-items-center">
-                  Ouvrir un nouveau compte
+                  Consultation compte
                   <i class="bx bx-right-arrow-circle text-primary fs-3 ms-2"></i>
                 </h2>
                 <p class="fs-sm text-body mb-0">Nisi, dis sed cursus eget pellentesque mattis. Odio eu proin aliquam a.
@@ -215,7 +251,7 @@
 
     </div>
 
-  </div>
+  
 
 
   <app-footer></app-footer>

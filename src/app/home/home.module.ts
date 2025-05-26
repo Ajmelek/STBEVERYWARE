@@ -9,7 +9,8 @@ import { RequestCardComponent } from './request-card/request-card.component';
 import { HomeComponent } from './home.component';
 import { InformationsComponent } from './informations/informations.component';
 import { ProfileComponent } from './profile/profile.component';
-
+import { ReclamationComponent } from './reclamation/reclamation.component';
+import { RequestWalletComponent } from './request-wallet/request-wallet.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { ProfileComponent } from './profile/profile.component';
     RequestCardComponent,
     InformationsComponent,
     ProfileComponent,
-   ],
+    ReclamationComponent,
+    RequestWalletComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,

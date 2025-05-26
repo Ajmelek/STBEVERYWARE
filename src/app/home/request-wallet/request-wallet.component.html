@@ -1,9 +1,9 @@
 <div id="root">
   <div class="appContainer">
     <div class="form-all">
-      <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="walletForm" (ngSubmit)="onSubmit()">
         <div class="form-line">
-          <h1> Demande de Carte Bancaire</h1>
+          <h1>Demande de Wallet Électronique</h1>
         </div>
 
         <fieldset>
@@ -74,21 +74,21 @@
         </fieldset>
 
         <fieldset>
-          <legend>3. Type de carte demandée</legend>
+          <legend>3. Choix du Wallet</legend>
 
           <div class="form-line">
-            <div class="radio-group">
-              <label><input type="radio" formControlName="typeCarte" value="visa_electron" required /> Carte Visa Electron</label>
-              <label><input type="radio" formControlName="typeCarte" value="visa_classic" /> Carte Visa Classic</label>
-              <label><input type="radio" formControlName="typeCarte" value="visa_premier" /> Carte Visa Premier</label>
-              <label><input type="radio" formControlName="typeCarte" value="mastercard" /> Carte Mastercard</label>
-              <label><input type="radio" formControlName="typeCarte" value="autre" /> Autre</label>
-            </div>
+            <label for="fournisseurWallet">Fournisseur du Wallet :</label>
+            <select id="fournisseurWallet" formControlName="fournisseurWallet" required>
+              <option value="">--Sélectionnez--</option>
+              <option value="e-dinar">E-Dinar</option>
+              <option value="post-pay">Post Pay</option>
+              <option value="autre">Autre</option>
+            </select>
           </div>
 
           <div class="form-line">
-            <label for="typeCarteAutre">Si autre, précisez :</label>
-            <input type="text" id="typeCarteAutre" formControlName="typeCarteAutre" />
+            <label for="fournisseurWalletAutre">Si autre, précisez :</label>
+            <input type="text" id="fournisseurWalletAutre" formControlName="fournisseurWalletAutre" />
           </div>
         </fieldset>
 
@@ -97,10 +97,9 @@
 
           <div class="form-line">
             <div class="radio-group">
-              <label><input type="radio" formControlName="motif" value="nouvelle" required /> Nouvelle carte</label>
-              <label><input type="radio" formControlName="motif" value="perdue" /> Carte perdue / volée</label>
-              <label><input type="radio" formControlName="motif" value="expiree" /> Carte expirée</label>
-              <label><input type="radio" formControlName="motif" value="deterioree" /> Carte détériorée</label>
+              <label><input type="radio" formControlName="motif" value="nouvelle" required /> Nouvelle activation</label>
+              <label><input type="radio" formControlName="motif" value="renouvellement" /> Renouvellement</label>
+              <label><input type="radio" formControlName="motif" value="perte" /> Perte de l'accès</label>
               <label><input type="radio" formControlName="motif" value="autre" /> Autre</label>
             </div>
           </div>
@@ -112,19 +111,20 @@
         </fieldset>
 
         <fieldset>
-          <legend>5. Modalité de retrait</legend>
+          <legend>5. Modalité de réception</legend>
 
           <div class="form-line">
             <div class="radio-group">
-              <label><input type="radio" formControlName="modaliteRetrait" value="agence" required /> Retrait en agence</label>
-              <label><input type="radio" formControlName="modaliteRetrait" value="courrier" /> Envoi par courrier recommandé</label>
+              <label><input type="radio" formControlName="modaliteReception" value="sms" required /> Par SMS</label>
+              <label><input type="radio" formControlName="modaliteReception" value="email" /> Par email</label>
+              <label><input type="radio" formControlName="modaliteReception" value="application" /> Via application mobile</label>
             </div>
           </div>
         </fieldset>
 
         <fieldset>
           <legend>6. Signature</legend>
-          <p>Je soussigné(e), certifie l'exactitude des informations ci-dessus et demande l'émission d'une carte bancaire conformément aux conditions de la banque.</p>
+          <p>Je soussigné(e), certifie l'exactitude des informations ci-dessus et demande l'activation du wallet conformément aux conditions de la banque/fournisseur.</p>
 
           <div class="form-line">
             <label for="dateSignature">Date :</label>
@@ -137,14 +137,14 @@
           </div>
         </fieldset>
 
-        <p class="note">Note : Merci de joindre une copie de votre carte d'identité nationale (CIN) lors de la soumission de ce formulaire.</p>
+        <p class="note">Note : Merci de joindre une copie de votre carte d'identité nationale (CIN) et un justificatif de compte bancaire lors de la soumission de ce formulaire.</p>
 
         <div class="form-line">
-          <button type="submit" [disabled]="isSubmitting || !cardForm.valid">
+          <button type="submit" [disabled]="isSubmitting || !walletForm.valid">
             {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande' }}
           </button>
         </div>
       </form>
     </div>
   </div>
-</div>
+</div> 

@@ -15,7 +15,30 @@ describe('InformationsComponent', () => {
     fixture = TestBed.createComponent(InformationsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  })import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { InformationsComponent } from './informations.component';
+
+describe('InformationsComponent', () => {
+  let component: InformationsComponent;
+  let fixture: ComponentFixture<InformationsComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ InformationsComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(InformationsComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
 
   it('should create', () => {
     expect(component).toBeTruthy();

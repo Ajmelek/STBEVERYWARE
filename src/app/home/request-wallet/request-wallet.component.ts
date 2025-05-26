@@ -3,16 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-request-card',
-  templateUrl: './request-card.component.html',
-  styleUrls: ['./request-card.component.scss']
+  selector: 'app-request-wallet',
+  templateUrl: './request-wallet.component.html',
+  styleUrls: ['./request-wallet.component.scss']
 })
-export class RequestCardComponent {
-  cardForm: FormGroup;
+export class RequestWalletComponent {
+  walletForm: FormGroup;
   isSubmitting = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
-    this.cardForm = this.fb.group({
+    this.walletForm = this.fb.group({
       // Informations Personnelles
       nom: ['', Validators.required],
       dateNaissance: ['', Validators.required],
@@ -28,16 +28,16 @@ export class RequestCardComponent {
       rib: ['', Validators.required],
       typeCompte: ['', Validators.required],
 
-      // Type de carte
-      typeCarte: ['', Validators.required],
-      typeCarteAutre: [''],
+      // Choix du Wallet
+      fournisseurWallet: ['', Validators.required],
+      fournisseurWalletAutre: [''],
 
       // Motif
       motif: ['', Validators.required],
       motifAutre: [''],
 
-      // Modalité de retrait
-      modaliteRetrait: ['', Validators.required],
+      // Modalité de réception
+      modaliteReception: ['', Validators.required],
 
       // Signature
       dateSignature: ['', Validators.required],
@@ -48,28 +48,28 @@ export class RequestCardComponent {
   onSubmit() {
     if (this.isSubmitting) return;
     
-    if (this.cardForm.valid) {
+    if (this.walletForm.valid) {
       this.isSubmitting = true;
       
       const formData = {
-        ...this.cardForm.value,
+        ...this.walletForm.value,
         clientId: localStorage.getItem('clientId'),
         submissionDate: new Date().toISOString(),
         status: 'en_attente'
       };
 
-      this.http.post('http://localhost:5082/api/CardRequest/AddRequest', formData).subscribe({
+      this.http.post('http://localhost:5082/api/WalletRequest/AddRequest', formData).subscribe({
         next: (response: any) => {
-          alert('Demande de carte bancaire soumise avec succès!');
-          this.cardForm.reset();
+          alert('Demande de wallet électronique soumise avec succès!');
+          this.walletForm.reset();
           this.isSubmitting = false;
         },
         error: (err) => {
-          console.error('Error submitting card request:', err);
+          console.error('Error submitting wallet request:', err);
           alert('Une erreur est survenue lors de la soumission de la demande.');
           this.isSubmitting = false;
         }
       });
     }
   }
-}
+} 

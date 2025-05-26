@@ -1,150 +1,117 @@
-/* You can add global styles to this file, and also import other style files */
+/* Remove number input spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-/* Importing Bootstrap SCSS file. */
-// @import '~bootstrap/scss/bootstrap';
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
-// @import '~bootstrap/dist/css/bootstrap.min.css';
+.box {
+  background-color: rgba(100, 100, 100, 0.3);
+  border-radius: 5px;
+  font-family: sans-serif;
+  text-align: center;
+  line-height: 1;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  max-width: 100%;
+  max-height: 100%;
+}
 
+.page-loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all 0.4s 0.2s ease-in-out;
+  transition: all 0.4s 0.2s ease-in-out;
+  background-color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9999;
+}
 
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.dark-mode .page-loading {
+  background-color: #0b0f19;
+}
+
+.page-loading.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-loading-inner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+}
+
+.page-loading.active > .page-loading-inner {
+  opacity: 1;
+}
+
+.page-loading-inner > span {
+  display: block;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #9397ad;
+}
+
+.dark-mode .page-loading-inner > span {
+  color: #fff;
+  opacity: 0.6;
+}
+
+.page-spinner {
+  display: inline-block;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 0.75rem;
+  vertical-align: text-bottom;
+  border: 0.15em solid #b4b7c9;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner 0.75s linear infinite;
+  animation: spinner 0.75s linear infinite;
+}
+
+.dark-mode .page-spinner {
+  border-color: rgba(255, 255, 255, 0.4);
+  border-right-color: transparent;
+}
+
+@-webkit-keyframes spinner {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
+}
+
+@keyframes spinner {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  
-           .box {
-           background-color: rgba(100, 100, 100, 0.3);
-           border-radius: 5px;
-           font-family: sans-serif;
-           text-align: center;
-           line-height: 1;
-           -webkit-backdrop-filter: blur(10px);
-           backdrop-filter: blur(10px);
-           max-width: 100%;
-           max-height: 100%;
-           }
-           .page-loading {
-           position: fixed;
-           top: 0;
-           right: 0;
-           bottom: 0;
-           left: 0;
-           width: 100%;
-           height: 100%;
-           -webkit-transition: all .4s .2s ease-in-out;
-           transition: all .4s .2s ease-in-out;
-           background-color: #fff;
-           opacity: 0;
-           visibility: hidden;
-           z-index: 9999;
-           }
-           .dark-mode .page-loading {
-           background-color: #0b0f19;
-           }
-           .page-loading.active {
-           opacity: 1;
-           visibility: visible;
-           }
-           .page-loading-inner {
-           position: absolute;
-           top: 50%;
-           left: 0;
-           width: 100%;
-           text-align: center;
-           -webkit-transform: translateY(-50%);
-           transform: translateY(-50%);
-           -webkit-transition: opacity .2s ease-in-out;
-           transition: opacity .2s ease-in-out;
-           opacity: 0;
-           }
-           .page-loading.active > .page-loading-inner {
-           opacity: 1;
-           }
-           .page-loading-inner > span {
-           display: block;
-           font-size: 1rem;
-           font-weight: normal;
-           color: #9397ad;
-           }
-           .dark-mode .page-loading-inner > span {
-           color: #fff;
-           opacity: .6;
-           }
-           .page-spinner {
-           display: inline-block;
-           width: 2.75rem;
-           height: 2.75rem;
-           margin-bottom: .75rem;
-           vertical-align: text-bottom;
-           border: .15em solid #b4b7c9;
-           border-right-color: transparent;
-           border-radius: 50%;
-           -webkit-animation: spinner .75s linear infinite;
-           animation: spinner .75s linear infinite;
-           }
-           .dark-mode .page-spinner {
-           border-color: rgba(255,255,255,.4);
-           border-right-color: transparent;
-           }
-           @-webkit-keyframes spinner {
-           100% {
-           -webkit-transform: rotate(360deg);
-           transform: rotate(360deg);
-           }
-           }
-           @keyframes spinner {
-           100% {
-           -webkit-transform: rotate(360deg);
-           transform: rotate(360deg);
-           }
-           }
-           .modal{
-           qqpointer-events: none;
-           }
-           .modal-dialog{
-           qqpointer-events: all;
-           }
-           /* Firefox */
-           input[type=number] {
-           -moz-appearance: textfield !important;
-           }
-
-
-
-           .xng-breadcrumb-link .xng-breadcrumb-trail {
-            color: white!important;
-        }
-
-        
-/* Breadcrumbs */
-.breadcrumb {
-  font-size: 14px;
-  font-family: "Nunito", sans-serif;
-  color: #899bbd;
-  font-weight: 600;
-}
-.breadcrumb a {
-  color: #899bbd;
-  transition: 0.3s;
-}
-.breadcrumb a:hover {
-  color: #51678f;
-}
-.breadcrumb .breadcrumb-item::before {
-  color: #899bbd;
-}
-.breadcrumb .active {
-  color: #51678f;
-  font-weight: 600;
 }
 
+.modal {
+  pointer-events: none;
+}
 
-.selfCenter {
-  align-self: center !important;
+.modal-dialog {
+  pointer-events: all;
 }

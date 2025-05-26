@@ -41,49 +41,186 @@ export class LoginComponent {
   get f() { return this.LoginForm.controls; }
 
   Authenticate() {
-    this.isLoading = true
-    this.loginService.Authentifiaction(this.f?.['login'].value, this.f?.['pwd'].value)
-      .subscribe(
-        response => {
+    this.isLoading = true;
+    const username = this.f?.['login'].value;
+    const password = this.f?.['pwd'].value;
+
+    // Try Admin login first
+    this.loginService.AuthentifiactionAdmin(username, password)
+      .subscribe({
+        next: (response) => {
           this.isLoading = false;
-          console.log(response);
+          console.log('Admin login response:', response);
           
           if (response.body && response.body.token) {
-            this.authService.setUsername(this.f?.['login'].value.trim());
+            this.authService.setUsername(username.trim());
             this.authService.setToken(response.body.token);
-            
-            // Get user role and navigate accordingly
-            const userRole = response.body.role;
-            this.authService.setUserRole(userRole);
-            
-            switch(userRole) {
-              case 'admin':
-                this.router.navigate(['/admin']);
-                break;
-              case 'superadmin':
-                this.router.navigate(['/super-admin']);
-                break;
-              default:
-                this.router.navigate(['/home']);
-            }
-          } else {
-            console.log(response.body);
-            
-            Swal.fire({
-              title: 'Login Error',
-              text: 'Invalid response from server',
-              icon: 'error',
-            });
+            this.authService.setUserRole('admin');
+            this.router.navigate(['/admin/kyc']);
+            return;
           }
-        }, 
-        error => {
-          this.isLoading = false;
-          Swal.fire({
-            title: 'Login Failed',
-            text: 'Please check your username and password',
-            icon: 'error',
-          });
+          
+          // If not admin, try SuperAdmin
+          this.loginService.AuthentifiactionSuperAdmin(username, password)
+            .subscribe({
+              next: (superAdminResponse) => {
+                this.isLoading = false;
+                console.log('SuperAdmin login response:', superAdminResponse);
+                
+                if (superAdminResponse.body && superAdminResponse.body.token) {
+                  this.authService.setUsername(username.trim());
+                  this.authService.setToken(superAdminResponse.body.token);
+                  this.authService.setUserRole('superadmin');
+                  this.router.navigate(['/super-admin/clients']);
+                  return;
+                }
+                
+                // If not SuperAdmin, try Client login
+                this.loginService.Authentifiaction(username, password)
+                  .subscribe({
+                    next: (clientResponse) => {
+                      this.isLoading = false;
+                      console.log('Client login response:', clientResponse);
+                      
+                      if (clientResponse.body && clientResponse.body.token) {
+                        this.authService.setUsername(username.trim());
+                        this.authService.setToken(clientResponse.body.token);
+                        this.authService.setUserRole('client');
+                        this.router.navigate(['/home']);
+                      } else {
+                        Swal.fire({
+                          title: 'Login Error',
+                          text: 'Invalid credentials',
+                          icon: 'error',
+                        });
+                      }
+                    },
+                    error: (error) => {
+                      this.isLoading = false;
+                      console.error('Client login error:', error);
+                      Swal.fire({
+                        title: 'Login Failed',
+                        text: 'Please check your username and password',
+                        icon: 'error',
+                      });
+                    }
+                  });
+              },
+              error: (error) => {
+                // If SuperAdmin login fails, try Client login
+                this.loginService.Authentifiaction(username, password)
+                  .subscribe({
+                    next: (clientResponse) => {
+                      this.isLoading = false;
+                      console.log('Client login response:', clientResponse);
+                      
+                      if (clientResponse.body && clientResponse.body.token) {
+                        this.authService.setUsername(username.trim());
+                        this.authService.setToken(clientResponse.body.token);
+                        this.authService.setUserRole('client');
+                        this.router.navigate(['/home']);
+                      } else {
+                        Swal.fire({
+                          title: 'Login Error',
+                          text: 'Invalid credentials',
+                          icon: 'error',
+                        });
+                      }
+                    },
+                    error: (error) => {
+                      this.isLoading = false;
+                      console.error('Client login error:', error);
+                      Swal.fire({
+                        title: 'Login Failed',
+                        text: 'Please check your username and password',
+                        icon: 'error',
+                      });
+                    }
+                  });
+              }
+            });
+        },
+        error: (error) => {
+          // If Admin login fails, try SuperAdmin
+          this.loginService.AuthentifiactionSuperAdmin(username, password)
+            .subscribe({
+              next: (superAdminResponse) => {
+                this.isLoading = false;
+                console.log('SuperAdmin login response:', superAdminResponse);
+                
+                if (superAdminResponse.body && superAdminResponse.body.token) {
+                  this.authService.setUsername(username.trim());
+                  this.authService.setToken(superAdminResponse.body.token);
+                  this.authService.setUserRole('superadmin');
+                  this.router.navigate(['/super-admin/clients']);
+                  return;
+                }
+                
+                // If not SuperAdmin, try Client login
+                this.loginService.Authentifiaction(username, password)
+                  .subscribe({
+                    next: (clientResponse) => {
+                      this.isLoading = false;
+                      console.log('Client login response:', clientResponse);
+                      
+                      if (clientResponse.body && clientResponse.body.token) {
+                        this.authService.setUsername(username.trim());
+                        this.authService.setToken(clientResponse.body.token);
+                        this.authService.setUserRole('client');
+                        this.router.navigate(['/home']);
+                      } else {
+                        Swal.fire({
+                          title: 'Login Error',
+                          text: 'Invalid credentials',
+                          icon: 'error',
+                        });
+                      }
+                    },
+                    error: (error) => {
+                      this.isLoading = false;
+                      console.error('Client login error:', error);
+                      Swal.fire({
+                        title: 'Login Failed',
+                        text: 'Please check your username and password',
+                        icon: 'error',
+                      });
+                    }
+                  });
+              },
+              error: (error) => {
+                // If SuperAdmin login fails, try Client login
+                this.loginService.Authentifiaction(username, password)
+                  .subscribe({
+                    next: (clientResponse) => {
+                      this.isLoading = false;
+                      console.log('Client login response:', clientResponse);
+                      
+                      if (clientResponse.body && clientResponse.body.token) {
+                        this.authService.setUsername(username.trim());
+                        this.authService.setToken(clientResponse.body.token);
+                        this.authService.setUserRole('client');
+                        this.router.navigate(['/home']);
+                      } else {
+                        Swal.fire({
+                          title: 'Login Error',
+                          text: 'Invalid credentials',
+                          icon: 'error',
+                        });
+                      }
+                    },
+                    error: (error) => {
+                      this.isLoading = false;
+                      console.error('Client login error:', error);
+                      Swal.fire({
+                        title: 'Login Failed',
+                        text: 'Please check your username and password',
+                        icon: 'error',
+                      });
+                    }
+                  });
+              }
+            });
         }
-      );
+      });
   }
 }

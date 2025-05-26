@@ -85,4 +85,38 @@ export class LoginService {
       catchError(this.handleError)
     );
   }
+
+  AuthentifiactionAdmin(username: string, password: string) {
+    const loginData = {
+      username: username,
+      password: password
+    };
+
+    return this.http.post<any>('http://localhost:5082/api/Admin/login', loginData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response',
+      reportProgress: true
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  AuthentifiactionSuperAdmin(username: string, password: string) {
+    const loginData = {
+      username: username,
+      password: password
+    };
+
+    return this.http.post<any>('http://localhost:5082/api/SuperAdmin/login', loginData, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response',
+      reportProgress: true
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
 }

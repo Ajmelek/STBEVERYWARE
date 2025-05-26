@@ -1,0 +1,40 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      <div class="card shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="card-title text-center mb-4">Réclamation</h2>
+          
+          <form [formGroup]="reclamationForm" (ngSubmit)="onSubmit()">
+            <div class="mb-4">
+              <label for="description" class="form-label fw-semibold">Votre message</label>
+              <textarea 
+                id="description"
+                class="form-control"
+                formControlName="description"
+                rows="5"
+                placeholder="Veuillez décrire votre réclamation en détail..."
+                [class.is-invalid]="reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched">
+              </textarea>
+              <div *ngIf="reclamationForm.get('description')?.invalid && reclamationForm.get('description')?.touched" 
+                   class="invalid-feedback">
+                Message must be at least 10 characters
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              class="btn btn-primary w-100 py-2"
+              [disabled]="isSubmitting || !reclamationForm.valid">
+              <span *ngIf="!isSubmitting">Soumettre</span>
+              <span *ngIf="isSubmitting" class="d-flex align-items-center justify-content-center">
+                <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                Envoi en cours...
+              </span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
