@@ -7,6 +7,11 @@ import { KycManagementComponent } from './components/kyc-management/kyc-manageme
 import { ComplaintsViewerComponent } from './components/complaints-viewer/complaints-viewer.component';
 import { SharedModule } from '../shared/shared.module';
 import { AdminGuard } from '../core/guards/admin.guard';
+import { WalletManagementComponent } from './wallet-management/wallet-management.component';
+import { CarteBancaireManagementComponent } from './components/carte-bancaire-management/carte-bancaire-management.component';
+import { ChequierManagementComponent } from './components/chequier-management/chequier-management.component';
+import { CoreModule } from '../core/core.module';
+import { ReclamationService } from '../services/reclamation.service';
 
 const routes: Routes = [
   {
@@ -16,6 +21,9 @@ const routes: Routes = [
     children: [
       { path: 'kyc', component: KycManagementComponent },
       { path: 'complaints', component: ComplaintsViewerComponent },
+      { path: 'wallets', component: WalletManagementComponent },
+      { path: 'cartes-bancaires', component: CarteBancaireManagementComponent },
+      { path: 'chequiers', component: ChequierManagementComponent },
       { path: '', redirectTo: 'kyc', pathMatch: 'full' }
     ]
   }
@@ -25,13 +33,18 @@ const routes: Routes = [
   declarations: [
     AdminDashboardComponent,
     KycManagementComponent,
-    ComplaintsViewerComponent
+    ComplaintsViewerComponent,
+    WalletManagementComponent,
+    CarteBancaireManagementComponent,
+    ChequierManagementComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     SharedModule,
+    CoreModule,
     RouterModule.forChild(routes)
-  ]
+  ],
+  providers: [ReclamationService]
 })
 export class AdminModule { } 

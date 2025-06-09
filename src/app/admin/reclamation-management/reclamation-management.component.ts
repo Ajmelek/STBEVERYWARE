@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ReclamationService, Reclamation } from '../../../services/reclamation.service';
-import Swal from 'sweetalert2';
+import { ReclamationService, Reclamation } from '../../services/reclamation.service';
 
 @Component({
-  selector: 'app-complaints-viewer',
-  templateUrl: './complaints-viewer.component.html',
-  styleUrls: ['./complaints-viewer.component.scss']
+  selector: 'app-reclamation-management',
+  templateUrl: './reclamation-management.component.html',
+  styleUrls: ['./reclamation-management.component.scss']
 })
-export class ComplaintsViewerComponent implements OnInit {
+export class ReclamationManagementComponent implements OnInit {
   reclamations: Reclamation[] = [];
   loading = true;
   error: string | null = null;
@@ -27,7 +26,7 @@ export class ComplaintsViewerComponent implements OnInit {
         this.reclamations = reclamations;
         this.loading = false;
       },
-      error: (err: Error) => {
+      error: (err) => {
         this.error = 'Failed to load reclamations. Please try again later.';
         this.loading = false;
         console.error('Error loading reclamations:', err);
@@ -53,13 +52,16 @@ export class ComplaintsViewerComponent implements OnInit {
     }
   }
 
-  updateStatus(reclamation: Reclamation, newEtat: number): void {
-    this.reclamationService.updateStatus(reclamation.id, newEtat).subscribe({
+  updateStatus(id: number, etat: number): void {
+    this.reclamationService.updateStatus(id, etat).subscribe({
       next: () => {
         // Update the local state after successful API call
-        reclamation.etat = newEtat;
+        const reclamation = this.reclamations.find(r => r.id === id);
+        if (reclamation) {
+          reclamation.etat = etat;
+        }
       },
-      error: (err: Error) => {
+      error: (err) => {
         console.error('Error updating reclamation status:', err);
         // You might want to show an error message to the user here
       }

@@ -1,0 +1,59 @@
+<div class="reclamation-management">
+  <h2>Gestion des Réclamations</h2>
+
+  <div *ngIf="loading" class="loading">
+    Chargement des réclamations...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="reclamation-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID Client</th>
+          <th>Nom Client</th>
+          <th>Description</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reclamation of reclamations">
+          <td>{{ reclamation.clientId }}</td>
+          <td>{{ reclamation.client.prenom }} {{ reclamation.client.nom }}</td>
+          <td>{{ reclamation.description }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(reclamation.etat)">
+              {{ getStatusText(reclamation.etat) }}
+            </span>
+          </td>
+          <td class="actions">
+            <div class="status-actions">
+              <button 
+                class="btn btn-pending" 
+                [disabled]="reclamation.etat === 0"
+                (click)="updateStatus(reclamation.id, 0)">
+                <i class="fas fa-clock"></i> En attente
+              </button>
+              <button 
+                class="btn btn-in-progress" 
+                [disabled]="reclamation.etat === 1"
+                (click)="updateStatus(reclamation.id, 1)">
+                <i class="fas fa-spinner"></i> En cours
+              </button>
+              <button 
+                class="btn btn-resolved" 
+                [disabled]="reclamation.etat === 2"
+                (click)="updateStatus(reclamation.id, 2)">
+                <i class="fas fa-check"></i> Résolue
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div> 

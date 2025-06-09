@@ -1,51 +1,56 @@
 <div class="complaints-container">
-  <div class="page-header">
     <h2>Gestion des Réclamations</h2>
-    <div class="header-actions">
-      <div class="search-box">
-        <i class="bx bx-search"></i>
-        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+
+  <div *ngIf="loading" class="loading">
+    Chargement des réclamations...
       </div>
-      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
-        <option value="">Tous les Statuts</option>
-        <option value="ouverte">Ouverte</option>
-        <option value="en cours">En Cours</option>
-        <option value="résolue">Résolue</option>
-      </select>
-    </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
   </div>
 
-  <div class="complaints-list">
+  <div *ngIf="!loading && !error" class="complaints-table">
     <table>
       <thead>
         <tr>
           <th>ID Client</th>
-          <th>Nom du Client</th>
+          <th>Nom Client</th>
           <th>Sujet</th>
           <th>Statut</th>
-          <th>Date de Soumission</th>
-          <th>Dernière Mise à Jour</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let complaint of filteredComplaints">
-          <td>{{ complaint.clientId }}</td>
-          <td>{{ complaint.clientName }}</td>
-          <td>{{ complaint.subject }}</td>
+        <tr *ngFor="let reclamation of reclamations">
+          <td>{{ reclamation.clientId }}</td>
+          <td>{{ reclamation.client.nom }} {{ reclamation.client.prenom }}</td>
+          <td>{{ reclamation.description }}</td>
           <td>
-            <span [class]="'status-badge status-' + complaint.status">
-              {{ complaint.status }}
+            <span [class]="'status-badge ' + getStatusClass(reclamation.etat)">
+              {{ getStatusText(reclamation.etat) }}
             </span>
           </td>
-          <td>{{ complaint.submissionDate | date }}</td>
-          <td>{{ complaint.lastUpdated | date }}</td>
           <td class="actions">
-            <button (click)="showMockDetails(complaint)"
-                    class="btn btn-view">
-              <i class="bx bx-show"></i>
-              Voir Détails
+            <div class="status-actions">
+              <button (click)="updateStatus(reclamation, 0)"
+                      [disabled]="reclamation.etat === 0"
+                      class="btn btn-reopen">
+                <i class="bx bx-refresh"></i>
+                En attente
+              </button>
+              <button (click)="updateStatus(reclamation, 1)"
+                      [disabled]="reclamation.etat === 1"
+                      class="btn btn-progress">
+                <i class="bx bx-time"></i>
+                En cours
+              </button>
+              <button (click)="updateStatus(reclamation, 2)"
+                      [disabled]="reclamation.etat === 2"
+                      class="btn btn-solve">
+                <i class="bx bx-check"></i>
+                Résolue
             </button>
+            </div>
           </td>
         </tr>
       </tbody>

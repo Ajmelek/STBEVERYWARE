@@ -43,6 +43,7 @@
     color: rgba(255, 255, 255, 0.8);
     transition: all 0.3s ease;
     font-size: 1rem;
+    cursor: pointer;
 
     i {
       margin-right: 10px;
@@ -58,6 +59,21 @@
       background: #023c82;
       color: white;
       border-left: 4px solid #fff;
+    }
+  }
+}
+
+.logout-item {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+
+  a {
+    color: #ff6b6b;
+    
+    &:hover {
+      background: rgba(255, 107, 107, 0.1);
+      color: #ff6b6b;
     }
   }
 }

@@ -1,127 +1,128 @@
-<div class="card card-profile shadow">
-    <br>
-    <div class="row p-0 justify-content-center">
-        <div class="col-12 text-end pr-3" style="font-size: 12px;">
-            Fiche KYC :<img src="assets/img/pdf.png" alt="" style="width: 35px; cursor: pointer;">
-        </div>
-    </div>
-    
-    <div *ngIf="isLoading" class="text-center p-5">
-        <p>Loading profile data...</p>
-    </div>
-
-    <div *ngIf="error" class="alert alert-danger mx-4">
-        {{ error }}
-    </div>
-
-    <div *ngIf="client" id="content" class="px-4">
-        <div class="row">
-            <div class="col-lg-12 col-sm-12">
-                <div class="text-center mt-5">
-                    <h3>{{ client.prenom }} {{ client.nom }} <span class="font-weight-light"></span></h3>
-                    <div class="h6 font-weight-300">
-                        <i class="ni location_pin"></i>TUNISIE, {{ client.adresse || '' }}
-                    </div>
-                </div>
+    <div class="card card-profile shadow">
+        <br>
+        <div class="row p-0 justify-content-center">
+            <div class="col-12 text-end pr-3" style="font-size: 12px;">
+                Fiche KYC :<img src="assets/img/pdf.png" alt="" style="width: 35px; cursor: pointer;">
             </div>
         </div>
         
-        <div class="py-5 border-top">
+        <div *ngIf="isLoading" class="text-center p-5">
+            <p>Loading profile data...</p>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger mx-4">
+            {{ error }}
+        </div>
+
+        <div *ngIf="client" id="content" class="px-4">
             <div class="row">
-                <div style="width: 30px!important;"></div>
-                <div class="col-lg-5 col-sm-12">
-                    <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
-                        <h5 style="color: white; margin: 0;">Informations générales</h5>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12">
-                            <p>
-                                <br>
-                                <span><b>Civilité:</b></span> {{ client.civilite || 'Non spécifié' }}<br>
-                                <span><b>Pays de naissance:</b></span> {{ client.paysNaissance || 'Non spécifié' }}<br>
-                                <span><b>Date de naissance:</b></span> {{ client.dateNaissance  }}<br>
-                                
-
-                                <span><b>Numéro de téléphone:</b></span> {{ client.numeroTelephone || 'Non spécifié' }}<br>
-                                <span><b>Email:</b></span> {{ client.mailPrincipal || 'Non spécifié' }}<br>
-                                <span><b>Adresse:</b></span> {{ client.adresse || 'Non spécifié' }}<br>
-                                <span><b>Motif:</b></span> {{ client.motif || 'Non spécifié' }}<br>
-                                <span><b>Objet de relation: </b></span> {{ client.objetrelation || 'Non spécifié' }}<br>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
-                        <h5 style="color: white; margin: 0;">Informations financières</h5>
-                        
-                    </div>
-                    <div class="col-sm-12 col-lg-12">
-                        <p>
-                            <span><b>Vous êtes :</b></span><br>
-                            <span><b>- Particulier</b></span>
-
-                        </div>
-                        
-
-                            <div class="col-sm-12 col-lg-12">
-                                <p>
-                                    <span><b>Nature de l'activité:</b></span>
-                                    
-        
-                                </div>
-                        
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-12">
+                <div class="col-lg-12 col-sm-12">
+                    <div class="text-center mt-5">
+                        <h3>{{ client.prenom }} {{ client.nom }} <span class="font-weight-light"></span></h3>
+                        <div class="h6 font-weight-300">
+                            <i class="ni location_pin"></i>TUNISIE, {{ client.adresse || '' }}
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-lg-1"></div>
-                
-                <div class="col-lg-5 col-sm-12">
-                    <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
-                        <h5 style="color: white; margin: 0;">Informations personnelles</h5>
-                    </div>
-                    <div class="row" style="font-size: 12px;">
+            </div>
+            
+            <div class="py-5 border-top">
+                <div class="row">
+                    <div style="width: 30px!important;"></div>
+                    <div class="col-lg-5 col-sm-12">
+                        <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                            <h5 style="color: white; margin: 0;">Informations générales</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                                <p>
+                                    <br>
+                                    <span><b>Civilité:</b></span> {{ client.civilite || 'Non spécifié' }}<br>
+                                    <span><b>Pays de naissance:</b></span> {{ client.paysNaissance || 'Non spécifié' }}<br>
+                                    <span><b>Date de naissance:</b></span> {{ client.dateNaissance  }}<br>
+                                    
+
+                                    <span><b>Numéro de téléphone:</b></span> {{ client.numeroTelephone || 'Non spécifié' }}<br>
+                                    <span><b>Email:</b></span> {{ client.mailPrincipal || 'Non spécifié' }}<br>
+                                    <span><b>Adresse:</b></span> {{ client.adresse || 'Non spécifié' }}<br>
+                                    <span><b>Motif:</b></span> {{ client.motif || 'Non spécifié' }}<br>
+                                    <span><b>Objet de relation: </b></span> {{ client.objetrelation || 'Non spécifié' }}<br>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                            <h5 style="color: white; margin: 0;">Informations financières</h5>
+                            
+                        </div>
                         <div class="col-sm-12 col-lg-12">
                             <p>
-                                <span><b>Nationalité principale: </b></span> {{ client.nationalite || 'Non spécifié' }}<br>
-                                <span><b>Autre nationalité:</b></span> {{ client.autreNationalite || 'Non spécifié' }}<br>
-                                <span><b>Nom complet de la mère:</b></span> {{ client.nomMere+ ' ' + client.prenommere || 'Non spécifié' }}<br>
-                                <span><b>Nom complet du père:</b></span> {{ client.nomPere+ ' ' + client.prenompere || 'Non spécifié' }}<br>
-                                <span><b>Etat civil: </b></span> {{ client.etatCivil || 'Non spécifié' }}<br>
-                            </p>
+                                <span><b>Vous êtes :</b></span><br>
+                                <span><b>- Particulier</b></span>
+
+                            </div>
+                            
+
+                                <div class="col-sm-12 col-lg-12">
+                                    <p>
+                                        <span><b>Nature de l'activité:</b></span>
+                                        
+            
+                                    </div>
+                            
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
-                        <h5 style="color: white; margin: 0;">Autres informations</h5>
-                        
-                    </div>
-                    <div class="row" style="font-size: 12px;">
-                        <div class="col-lg-12 col-sm-12">
-                            <span><b>Résidence: </b> {{ client.resident || 'Non spécifié' }}</span><br>
-                            <span><b>Numéro CIN:</b> {{ client.cin || 'Non spécifié' }} </span><br>
-                            <span><b>Date de délivrance:</b> {{ client.datedelivrance || 'Non spécifié' }} </span><br>
-                        </div>
+                    <div class="col-lg-1"></div>
+                    
+                    <div class="col-lg-5 col-sm-12">
                         <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
-                            <h5 _ngcontent-gim-c66="" style="color: white; margin: 0;">Agence de domiciliation</h5>
+                            <h5 style="color: white; margin: 0;">Informations personnelles</h5>
                         </div>
-                        <div _ngcontent-gim-c66="" class="row" style="font-size: 12px;">
-                            <div _ngcontent-gim-c66="" class="col-lg-12 col-sm-12">
-                                <span _ngcontent-gim-c66=""><b _ngcontent-gim-c66="">Choix de l'agence de domiciliation: </b> 103</span><br _ngcontent-gim-c66="">
-                                <span _ngcontent-gim-c66=""><b _ngcontent-gim-c66="">Type du compte: </b> Compte Special Epargne Carte</span><br _ngcontent-gim-c66="">
-                                <span _ngcontent-gim-c66=""><b _ngcontent-gim-c66="">Devise du compte: </b> TND</span>
+                        <div class="row" style="font-size: 12px;">
+                            <div class="col-sm-12 col-lg-12">
+                                <p>
+                                    <span><b>Nationalité principale: </b></span> {{ client.nationalite || 'Non spécifié' }}<br>
+                                    <span><b>Autre nationalité:</b></span> {{ client.autreNationalite || 'Non spécifié' }}<br>
+                                    <span><b>Nom complet de la mère:</b></span> {{ client.nomMere+ ' ' + client.prenommere || 'Non spécifié' }}<br>
+                                    <span><b>Nom complet du père:</b></span> {{ client.nomPere+ ' ' + client.prenompere || 'Non spécifié' }}<br>
+                                    <span><b>Etat civil: </b></span> {{ client.etatCivil || 'Non spécifié' }}<br>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                            <h5 style="color: white; margin: 0;">Autres informations</h5>
+                            
+                        </div>
+                        <div class="row" style="font-size: 12px;">
+                            <div class="col-lg-12 col-sm-12">
+                                <span><b>Résidence: </b> {{ client.resident || 'Non spécifié' }}</span><br>
+                                <span><b>Numéro CIN:</b> {{ client.cin || 'Non spécifié' }} </span><br>
+                                <span><b>Date de délivrance:</b> {{ client.datedelivrance || 'Non spécifié' }} </span><br>
+                            </div>
+                            <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                                <h5 _ngcontent-gim-c66="" style="color: white; margin: 0;">Agence de domiciliation</h5>
+                            </div>
+                            <div _ngcontent-gim-c66="" class="row" style="font-size: 12px;">
+                                <div _ngcontent-gim-c66="" class="col-lg-12 col-sm-12">
+                                    <span _ngcontent-gim-c66=""><b _ngcontent-gim-c66="">Choix de l'agence de domiciliation: </b> 103</span><br _ngcontent-gim-c66="">
+                                    <span _ngcontent-gim-c66=""><b _ngcontent-gim-c66="">Type du compte: </b> Compte Special Epargne Carte</span><br _ngcontent-gim-c66="">
+                                    <span _ngcontent-gim-c66=""><b _ngcontent-gim-c66="">Devise du compte: </b> TND</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        
+        
+        <div class="text-center mt-4">
+            <button class="btn btn-primary" (click)="navigateToKycForm()">Demande Mise à Jour KYC Form</button>
+        </div>
     </div>
-    
-    
-    <div class="text-center mt-4">
-        <button class="btn btn-primary" (click)="navigateToKycForm()">Demande Mise à Jour KYC Form</button>
-    </div>
-</div>

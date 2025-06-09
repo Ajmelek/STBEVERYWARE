@@ -10,66 +10,112 @@ import { HttpClient } from '@angular/common/http';
 export class RequestWalletComponent {
   walletForm: FormGroup;
   isSubmitting = false;
+  showOtpField = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.walletForm = this.fb.group({
-      // Informations Personnelles
-      nom: ['', Validators.required],
-      dateNaissance: ['', Validators.required],
-      lieuNaissance: ['', Validators.required],
-      cin: ['', Validators.required],
-      adresse: ['', Validators.required],
-      codePostal: ['', Validators.required],
-      gouvernorat: ['', Validators.required],
-      telephone: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
       email: ['', [Validators.required, Validators.email]],
-
-      // Informations Bancaires
-      rib: ['', Validators.required],
-      typeCompte: ['', Validators.required],
-
-      // Choix du Wallet
-      fournisseurWallet: ['', Validators.required],
-      fournisseurWalletAutre: [''],
-
-      // Motif
-      motif: ['', Validators.required],
-      motifAutre: [''],
-
-      // Modalité de réception
-      modaliteReception: ['', Validators.required],
-
-      // Signature
-      dateSignature: ['', Validators.required],
-      signature: ['', Validators.required]
+      otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.isSubmitting) return;
-    
-    if (this.walletForm.valid) {
-      this.isSubmitting = true;
-      
-      const formData = {
-        ...this.walletForm.value,
-        clientId: localStorage.getItem('clientId'),
-        submissionDate: new Date().toISOString(),
-        status: 'en_attente'
-      };
+    this.walletForm.markAllAsTouched();
 
-      this.http.post('http://localhost:5082/api/WalletRequest/AddRequest', formData).subscribe({
-        next: (response: any) => {
-          alert('Demande de wallet électronique soumise avec succès!');
-          this.walletForm.reset();
-          this.isSubmitting = false;
-        },
-        error: (err) => {
-          console.error('Error submitting wallet request:', err);
-          alert('Une erreur est survenue lors de la soumission de la demande.');
+    if (!this.showOtpField) {
+      if (this.walletForm.get('telephone')?.valid && this.walletForm.get('email')?.valid) {
+        this.sendOtp();
+      } else {
+        alert('Veuillez corriger les erreurs dans le formulaire');
+      }
+      return;
+    }
+
+    this.verifyAndSubmit();
+  }
+
+  sendOtp(): void {
+    this.isSubmitting = true;
+    const email = this.walletForm.get('email')?.value;
+
+    this.http.post('http://localhost:5082/api/Email/send', {
+      toEmail: email,
+      subject: 'Votre code OTP',
+      recipientName: 'Client'
+    }).subscribe({
+      next: (res: any) => {
+        this.showOtpField = true;
+        this.isSubmitting = false;
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Erreur d\'envoi d\'OTP');
+        this.isSubmitting = false;
+      }
+    });
+  }
+
+  verifyAndSubmit(): void {
+    this.isSubmitting = true;
+    const formData = {
+      clientId: parseInt(localStorage.getItem('clientId') || '0'),
+      telephone: this.walletForm.get('telephone')?.value,
+      adresseMail: this.walletForm.get('email')?.value,
+      dateDemande: new Date().toISOString(),
+      etat: 0
+    };
+
+    // First verify OTP
+    this.http.post('http://localhost:5082/api/Email/verify', {
+      toEmail: this.walletForm.get('email')?.value,
+      otp: this.walletForm.get('otp')?.value
+    }).subscribe({
+      next: (otpRes: any) => {
+        if (otpRes.success) {
+          // Log the request payload for debugging
+          console.log('Sending wallet request with data:', formData);
+          
+          // Then submit wallet request to DemandeWallet endpoint
+          this.http.post('http://localhost:5082/api/DemandeWallet', formData)
+            .subscribe({
+              next: (walletRes: any) => {
+                alert('Votre demande de wallet a été enregistrée avec succès!');
+                this.walletForm.reset();
+                this.showOtpField = false;
+                this.isSubmitting = false;
+              },
+              error: (err) => {
+                if (err.status === 400) {
+                  console.error('Bad Request Error:', err.error);
+                  alert('Erreur de validation: ' + (err.error?.message || 'Données invalides'));
+                } else {
+                  this.handleError(err);
+                }
+              }
+            });
+        } else {
+          alert('Code OTP invalide');
           this.isSubmitting = false;
         }
-      });
+      },
+      error: (err) => {
+        this.handleError(err);
+      }
+    });
+  }
+
+  private handleError(error: any): void {
+    console.error('Error details:', error);
+    this.isSubmitting = false;
+    
+    if (error.status === 0) {
+      alert('Serveur inaccessible');
+    } else if (error.status === 400) {
+      alert(`Erreur de validation: ${error.error?.message || 'Données invalides'}`);
+    } else {
+      alert(`Erreur: ${error.status} - ${error.error?.message || error.message}`);
     }
   }
-} 
+}

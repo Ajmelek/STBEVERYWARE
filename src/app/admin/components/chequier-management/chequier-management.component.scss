@@ -1,0 +1,229 @@
+.chequier-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        i {
+          position: absolute;
+          left: 10px;
+          color: #7f8c8d;
+        }
+
+        input {
+          padding: 8px 15px 8px 35px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          min-width: 250px;
+        }
+      }
+
+      .status-filter {
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .chequiers-list {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      color: #000000;
+
+      th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+      }
+
+      th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        white-space: nowrap;
+        color: #000; // Explicitly set to black
+      }
+
+      tr:hover {
+        background-color: #f8f9fa;
+      }
+
+      small {
+        color: #666;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+
+    &.status-en_attente {
+      background-color: #fff3e0;
+      color: #f39c12;
+    }
+
+    &.status-approuvé {
+      background-color: #e8f5e9;
+      color: #2ecc71;
+    }
+
+    &.status-rejeté {
+      background-color: #ffebee;
+      color: #e74c3c;
+    }
+
+    &.status-livré {
+      background-color: #e3f2fd;
+      color: #3498db;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+
+      i {
+        font-size: 14px;
+      }
+
+      &.btn-approve {
+        background-color: #e8f5e9;
+        color: #2ecc71;
+
+        &:hover {
+          background-color: #d4edda;
+        }
+      }
+
+      &.btn-reject {
+        background-color: #ffebee;
+        color: #e74c3c;
+
+        &:hover {
+          background-color: #f8d7da;
+        }
+      }
+
+      &.btn-deliver {
+        background-color: #e3f2fd;
+        color: #3498db;
+
+        &:hover {
+          background-color: #d1e7ff;
+        }
+      }
+
+      &.btn-view, &.btn-download {
+        background-color: #f1f1f1;
+        color: #333;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+  }
+
+  /* Modal Styles */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      h3 {
+        margin-top: 0;
+        color: #2c3e50;
+      }
+
+      .detail-section {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+
+        h4 {
+          margin-bottom: 10px;
+          color: #3498db;
+        }
+
+        p {
+          margin: 5px 0;
+        }
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+    }
+  }
+}

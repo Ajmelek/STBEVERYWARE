@@ -30,26 +30,26 @@
         <tr *ngFor="let submission of filteredSubmissions">
           <td>{{ submission.clientId }}</td>
           <td>{{ submission.clientName }}</td>
-          <td>{{ submission.submissionDate | date }}</td>
+          <td>{{ submission.submissionDate | date:'dd/MM/yyyy' }}</td>
           <td>
-            <span [class]="'status-badge status-' + submission.status">
-              {{ submission.status }}
+            <span [class]="'status-badge status-' + (submission.status?.replace(' ', '-') || 'en-attente')">
+              {{ getStatusLabel(submission.status) }}
             </span>
           </td>
           <td class="actions">
             <button *ngIf="submission.status === 'en attente'"
-                    (click)="showMockAction('approuver', submission)"
+                    (click)="approveSubmission(submission.id)"
                     class="btn btn-approve">
               <i class="bx bx-check"></i>
               Approuver
             </button>
             <button *ngIf="submission.status === 'en attente'"
-                    (click)="showMockAction('rejeter', submission)"
+                    (click)="rejectSubmission(submission.id)"
                     class="btn btn-reject">
               <i class="bx bx-x"></i>
               Rejeter
             </button>
-            <button (click)="showMockAction('voir', submission)"
+            <button (click)="viewDetails(submission)"
                     class="btn btn-view">
               <i class="bx bx-show"></i>
               Voir Détails
@@ -59,4 +59,81 @@
       </tbody>
     </table>
   </div>
-</div> 
+
+  <!-- Modal pour voir les détails -->
+  <div class="modal" *ngIf="selectedSubmission" [class.show]="showModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Détails de la soumission KYC - {{selectedSubmission.clientName}}</h3>
+        <button (click)="closeModal()" class="close-btn">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="client-info">
+          <h4>Informations Client</h4>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>ID Client:</label>
+              <span>{{ selectedSubmission.clientId || 'Non fourni' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Nom Complet:</label>
+              <span>{{ selectedSubmission.details?.civilite || 'Non fourni' }} {{ selectedSubmission.details?.prenom || 'Non fourni' }} {{ selectedSubmission.details?.nom || 'Non fourni' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Numéro CIN:</label>
+              <span>{{ selectedSubmission.details?.cin || 'Non fourni' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Date Délivrance CIN:</label>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="documents-section">
+          <h4>Documents</h4>
+          <div class="documents-grid">
+            <div *ngFor="let doc of selectedSubmission.documents" class="document-item">
+              <i class="bx bx-file"></i>
+              <span>{{ doc || 'Non fourni' }}</span>
+              <button class="btn-download" (click)="downloadDocument(doc)">
+                <i class="bx bx-download"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="signature-section" *ngIf="selectedSubmission?.details?.sigNature">
+          <h4>Signature</h4>
+          <img [src]="selectedSubmission!.details!.sigNature" 
+               alt="Signature client" 
+               class="signature-img"
+               (error)="handleImageError($event)">
+        </div>
+
+        <div class="admin-actions" *ngIf="selectedSubmission?.status === 'en attente'">
+          <h4>Actions Administrateur</h4>
+          <textarea [(ngModel)]="adminComment" placeholder="Commentaire (optionnel)..."></textarea>
+          <div class="action-buttons">
+            <button (click)="approveWithComment()" class="btn-approve">
+              <i class="bx bx-check"></i> Confirmer l'approbation
+            </button>
+            <button (click)="rejectWithComment()" class="btn-reject">
+              <i class="bx bx-x"></i> Confirmer le rejet
+            </button>
+          </div>
+        </div>
+
+        <div class="view-details-actions">
+          <h4>Action de Visualisation</h4>
+          <textarea [(ngModel)]="viewComment" placeholder="Commentaire de visualisation (optionnel)..."></textarea>
+          <div class="action-buttons">
+            <button (click)="confirmView()" class="btn btn-view">
+              <i class="bx bx-show"></i> Confirmer la visualisation
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

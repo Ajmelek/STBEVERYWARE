@@ -1,128 +1,207 @@
 // Variables
-$primary-color: #3498db;
-$secondary-color: #2980b9;
-$background-color: #f4f4f4;
-$text-color: #333;
-$heading-color: #2c3e50;
+$primary-color: #023c82;
+$secondary-color: #1a5cb5;
+$background-color: #f8f9fa;
+$text-color: #2c3e50;
+$heading-color: #023c82;
 $label-color: #34495e;
 $error-color: #e74c3c;
-$section-background: #ecf0f1;
-$border-radius: 4px;
-$box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+$section-background: #ffffff;
+$border-radius: 8px;
+$box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+$transition: all 0.3s ease;
+
+// Reset CSS de base
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Styles de base
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: $background-color;
+    color: $text-color;
+    line-height: 1.6;
+    padding: 20px;
+}
 
 #root {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: $border-radius;
-  box-shadow: $box-shadow;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: $section-background;
+    padding: 30px;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
 }
 
 .appContainer {
-  width: 100%;
+    width: 100%;
 }
 
 .form-all {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 .form-line {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
 }
 
 h1 {
-  color: $heading-color;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
+    color: $heading-color;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
 }
 
 fieldset {
-  border: 1px solid #ccc;
-  border-radius: $border-radius;
-  padding: 20px;
-  margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: $border-radius;
+    padding: 25px;
+    margin-bottom: 25px;
+    background-color: $section-background;
+    transition: $transition;
+
+    &:hover {
+        box-shadow: $box-shadow;
+    }
 }
 
 legend {
-  color: $heading-color;
-  font-weight: bold;
-  padding: 0 10px;
-  font-size: 18px;
+    color: $heading-color;
+    font-weight: 600;
+    padding: 0 15px;
+    font-size: 20px;
+    background-color: $section-background;
+    border-radius: $border-radius;
 }
 
 label {
-  font-weight: bold;
-  color: $label-color;
-  margin-bottom: 5px;
+    font-weight: 500;
+    color: $label-color;
+    margin-bottom: 6px;
+    font-size: 15px;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="date"],
 input[type="tel"],
+input[type="number"],
 select {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: $border-radius;
-  font-size: 16px;
-  
-  &:focus {
-    outline: none;
-    border-color: $primary-color;
-    box-shadow: 0 0 5px rgba($primary-color, 0.3);
-  }
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: $border-radius;
+    font-size: 15px;
+    transition: $transition;
+    background-color: #fff;
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &::placeholder {
+        color: #a0a0a0;
+    }
+}
+
+// Custom select styling
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
 }
 
 .radio-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  
-  label {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: normal;
-    
-    input[type="radio"] {
-      margin: 0;
+    flex-direction: column;
+    gap: 12px;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: normal;
+        cursor: pointer;
+
+        input[type="radio"] {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: $primary-color;
+        }
     }
-  }
 }
 
 .note {
-  font-style: italic;
-  color: #666;
-  margin: 20px 0;
+    font-style: italic;
+    color: $text-color;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: $border-radius;
+    border-left: 4px solid $primary-color;
 }
 
 button {
-  background-color: $primary-color;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: $border-radius;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-  
-  &:hover {
-    background-color: $secondary-color;
-  }
-  
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-} 
+    background-color: $primary-color;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: $border-radius;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: $transition;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+
+    &:hover {
+        background-color: $secondary-color;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    #root {
+        padding: 15px;
+    }
+
+    fieldset {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    button {
+        padding: 12px 24px;
+    }
+}

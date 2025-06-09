@@ -3,144 +3,50 @@
     <div class="form-all">
       <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
         <div class="form-line">
-          <h1> Demande de Carte Bancaire</h1>
+          <h1>Demande de Carte Bancaire</h1>
         </div>
 
-        <fieldset>
-          <legend>1. Informations Personnelles</legend>
-          
-          <div class="form-line">
-            <label for="nom">Nom et prénom :</label>
-            <input type="text" id="nom" formControlName="nom" required />
-          </div>
-
-          <div class="form-line">
-            <label for="dateNaissance">Date de naissance :</label>
-            <input type="date" id="dateNaissance" formControlName="dateNaissance" required />
-          </div>
-
-          <div class="form-line">
-            <label for="lieuNaissance">Lieu de naissance :</label>
-            <input type="text" id="lieuNaissance" formControlName="lieuNaissance" required />
-          </div>
-
-          <div class="form-line">
-            <label for="cin">Numéro de carte d'identité nationale (CIN) :</label>
-            <input type="text" id="cin" formControlName="cin" required />
-          </div>
-
-          <div class="form-line">
-            <label for="adresse">Adresse complète :</label>
-            <input type="text" id="adresse" formControlName="adresse" required />
-          </div>
-
-          <div class="form-line">
-            <label for="codePostal">Code postal :</label>
-            <input type="text" id="codePostal" formControlName="codePostal" required />
-          </div>
-
-          <div class="form-line">
-            <label for="gouvernorat">Gouvernorat :</label>
-            <input type="text" id="gouvernorat" formControlName="gouvernorat" required />
-          </div>
-
-          <div class="form-line">
-            <label for="telephone">Téléphone :</label>
-            <input type="text" id="telephone" formControlName="telephone" required />
-          </div>
-
-          <div class="form-line">
-            <label for="email">Adresse e-mail :</label>
-            <input type="email" id="email" formControlName="email" required />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>2. Informations Bancaires</legend>
-
-          <div class="form-line">
-            <label for="rib">Numéro de compte bancaire (RIB) :</label>
-            <input type="text" id="rib" formControlName="rib" required />
-          </div>
-
-          <div class="form-line">
-            <label>Type de compte :</label>
-            <div class="radio-group">
-              <label><input type="radio" formControlName="typeCompte" value="compte_courant" required /> Compte courant</label>
-              <label><input type="radio" formControlName="typeCompte" value="compte_epargne" /> Compte épargne</label>
-              <label><input type="radio" formControlName="typeCompte" value="compte_professionnel" /> Compte professionnel</label>
+        <div *ngIf="!showOtpField">
+          <fieldset>
+            <legend>Type de carte demandée</legend>
+            <div class="form-line">
+              <div class="radio-group">
+                <label><input type="radio" formControlName="typeCarte" value="visa_electron" required /> Carte Visa Electron</label>
+                <label><input type="radio" formControlName="typeCarte" value="visa_classic" /> Carte Visa Classic</label>
+                <label><input type="radio" formControlName="typeCarte" value="visa_premier" /> Carte Visa Premier</label>
+                <label><input type="radio" formControlName="typeCarte" value="mastercard" /> Carte Mastercard</label>
+                
+              </div>
             </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>3. Type de carte demandée</legend>
-
-          <div class="form-line">
-            <div class="radio-group">
-              <label><input type="radio" formControlName="typeCarte" value="visa_electron" required /> Carte Visa Electron</label>
-              <label><input type="radio" formControlName="typeCarte" value="visa_classic" /> Carte Visa Classic</label>
-              <label><input type="radio" formControlName="typeCarte" value="visa_premier" /> Carte Visa Premier</label>
-              <label><input type="radio" formControlName="typeCarte" value="mastercard" /> Carte Mastercard</label>
-              <label><input type="radio" formControlName="typeCarte" value="autre" /> Autre</label>
+            <div class="form-line" *ngIf="cardForm.get('typeCarte')?.value === 'autre'">
+              <label for="typeCarteAutre">Précisez le type de carte :</label>
+              <input type="text" id="typeCarteAutre" formControlName="typeCarteAutre" />
             </div>
-          </div>
+          </fieldset>
 
-          <div class="form-line">
-            <label for="typeCarteAutre">Si autre, précisez :</label>
-            <input type="text" id="typeCarteAutre" formControlName="typeCarteAutre" />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>4. Motif de la demande</legend>
-
-          <div class="form-line">
-            <div class="radio-group">
-              <label><input type="radio" formControlName="motif" value="nouvelle" required /> Nouvelle carte</label>
-              <label><input type="radio" formControlName="motif" value="perdue" /> Carte perdue / volée</label>
-              <label><input type="radio" formControlName="motif" value="expiree" /> Carte expirée</label>
-              <label><input type="radio" formControlName="motif" value="deterioree" /> Carte détériorée</label>
-              <label><input type="radio" formControlName="motif" value="autre" /> Autre</label>
+          <fieldset>
+            <legend>Informations de contact</legend>
+            <div class="form-line">
+              <label for="email">Adresse e-mail :</label>
+              <input type="email" id="email" formControlName="email" />
             </div>
-          </div>
-
-          <div class="form-line">
-            <label for="motifAutre">Si autre, précisez :</label>
-            <input type="text" id="motifAutre" formControlName="motifAutre" />
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>5. Modalité de retrait</legend>
-
-          <div class="form-line">
-            <div class="radio-group">
-              <label><input type="radio" formControlName="modaliteRetrait" value="agence" required /> Retrait en agence</label>
-              <label><input type="radio" formControlName="modaliteRetrait" value="courrier" /> Envoi par courrier recommandé</label>
+            <div class="form-line">
+              <label for="telephone">Téléphone :</label>
+              <input type="tel" id="telephone" formControlName="telephone" required />
             </div>
+          </fieldset>
+        </div>
+
+        <fieldset *ngIf="showOtpField">
+          <legend>Code OTP</legend>
+          <div class="form-line">
+            <label for="otp">Code OTP :</label>
+            <input type="number" id="otp" formControlName="otp" />
           </div>
         </fieldset>
-
-        <fieldset>
-          <legend>6. Signature</legend>
-          <p>Je soussigné(e), certifie l'exactitude des informations ci-dessus et demande l'émission d'une carte bancaire conformément aux conditions de la banque.</p>
-
-          <div class="form-line">
-            <label for="dateSignature">Date :</label>
-            <input type="date" id="dateSignature" formControlName="dateSignature" required />
-          </div>
-
-          <div class="form-line">
-            <label for="signature">Signature :</label>
-            <input type="text" id="signature" formControlName="signature" placeholder="Votre signature" required />
-          </div>
-        </fieldset>
-
-        <p class="note">Note : Merci de joindre une copie de votre carte d'identité nationale (CIN) lors de la soumission de ce formulaire.</p>
 
         <div class="form-line">
-          <button type="submit" [disabled]="isSubmitting || !cardForm.valid">
+          <button type="submit">
             {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande' }}
           </button>
         </div>

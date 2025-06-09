@@ -6,253 +6,243 @@
                     <h1>Formulaire KYC</h1>
                 </div>
                 
-                <!-- Informations Générales -->
-                <div class="form-line">
-                    <h2>A. Informations Générales</h2>
-                </div>
-                
-                <div class="form-line">
-                    <label for="civilite">1. Civilité</label>
-                    <select id="civilite" class="form-dropdown" formControlName="civilite">
-                        <option value="">Sélectionner</option>
-                        <option value="Monsieur">Monsieur</option>
-                        <option value="Madame">Madame</option>
-                        <option value="Mademoiselle">Mademoiselle</option>
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="prenom">2. Prénom</label>
-                    <input type="text" id="prenom" class="form-textbox" placeholder="Prénom" formControlName="prenom" >
-                </div>
-                
-                <div class="form-line">
-                    <label for="nom">3. Nom</label>
-                    <input type="text" id="nom" class="form-textbox" placeholder="Nom de famille" formControlName="nom" >
-                </div>
-                
-                <div class="form-line">
-                    <label for="paysNaissance">4. Pays de naissance</label>
-                    <select id="paysNaissance" class="form-dropdown" formControlName="paysNaissance">
-                        <option value="">Sélectionner le pays</option>
-                        <option value="Tunisie">Tunisie</option>
-                        <!-- Add more countries as needed -->
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="dateNaissance">5. Date de naissance</label>
-                    <input type="date" id="dateNaissance" class="form-textbox" formControlName="dateNaissance" >
-                </div>
-                
-                <div class="form-line">
-                    <label for="numeroTelephone">6. Numéro de téléphone</label>
-                    <input type="tel" id="numeroTelephone" class="form-textbox" placeholder="Numéro de téléphone" formControlName="numeroTelephone">
-                </div>
-                
-                <div class="form-line">
-                    <label for="mailPrincipal">7. Email</label>
-                    <input type="email" id="mailPrincipal" class="form-textbox" placeholder="exemple@email.com" formControlName="mailPrincipal">
-                </div>
-                
-                <div class="form-line">
-                    <label for="adresse">8. Adresse</label>
-                    <textarea id="adresse" class="form-textarea" placeholder="Adresse complète" formControlName="adresse"></textarea>
-                </div>
-                
-                <!-- New fields added here -->
-                <div class="form-line">
-                    <label for="motif">9. Motif</label>
-                    <input type="text" id="motif" class="form-textbox" placeholder="Motif" formControlName="motif">
-                </div>
-                
-                <div class="form-line">
-                    <label for="objetrelation">10. Objet de relation</label>
-                    <input type="text" id="objetrelation" class="form-textbox" placeholder="Objet de relation" formControlName="objetrelation">
-                </div>
-                
-                <!-- Informations Personnelles -->
-                <div class="form-line">
-                    <h2>B. Informations Personnelles</h2>
-                </div>
-                
-                <div class="form-line">
-                    <label for="nationalite">1. Nationalité principale</label>
-                    <select id="nationalite" class="form-dropdown" formControlName="nationalite">
-                        <option value="">Sélectionner la nationalité</option>
-                        <option value="Tunisienne">Tunisienne</option>
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="autreNationalite">2. Autre nationalité</label>
-                    <select id="autreNationalite" class="form-dropdown" formControlName="autreNationalite">
-                        <option value="">Sélectionner une autre nationalité</option>
-                        <option value="Aucune">Aucune</option>
-                        <!-- Add more nationalities as needed -->
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="nomMere">3. Nom complet de la mère</label>
-                    <div class="name-inputs">
-                        <input type="text" id="prenomMere" class="form-textbox" placeholder="Prénom de la mère" formControlName="prenomMere" >
-                        <input type="text" id="nomMere" class="form-textbox" placeholder="Nom de famille de la mère" formControlName="nomMere" >
+                <fieldset>
+                    <legend> Informations Générales</legend>
+                    
+                    <div class="form-line">
+                        <label for="civilite"> Civilité</label>
+                        <select id="civilite" class="form-dropdown" formControlName="civilite">
+                            <option value="">Sélectionner</option>
+                            <option value="Monsieur">Monsieur</option>
+                            <option value="Madame">Madame</option>
+                            <option value="Mademoiselle">Mademoiselle</option>
+                        </select>
                     </div>
-                </div>
-                
-                <div class="form-line">
-                    <label for="nomPere">4. Nom complet du père</label>
-                    <div class="name-inputs">
-                        <input type="text" id="prenomPere" class="form-textbox" placeholder="Prénom du père" formControlName="prenomPere" >
-                        <input type="text" id="nomPere" class="form-textbox" placeholder="Nom de famille du père" formControlName="nomPere" >
+                    
+                    <div class="form-line">
+                        <label for="prenom"> Prénom</label>
+                        <input type="text" id="prenom" class="form-textbox" placeholder="Prénom" formControlName="prenom">
                     </div>
-                </div>
-                <div class="form-line">
-                    <label>5. État civil</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="etatCivil" class="form-radio" value="Celibataire" formControlName="etatCivil">
-                            <span class="radio-custom"></span>
-                            Célibataire
+                    
+                    <div class="form-line">
+                        <label for="nom"> Nom</label>
+                        <input type="text" id="nom" class="form-textbox" placeholder="Nom de famille" formControlName="nom">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="paysNaissance"> Pays de naissance</label>
+                        <select id="paysNaissance" class="form-dropdown" formControlName="paysNaissance">
+                            <option value="">Sélectionner le pays</option>
+                            <option value="Tunisie">Tunisie</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="dateNaissance"> Date de naissance</label>
+                        <input type="date" id="dateNaissance" class="form-textbox" formControlName="dateNaissance">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="numeroTelephone"> Numéro de téléphone</label>
+                        <input type="tel" id="numeroTelephone" class="form-textbox" placeholder="Numéro de téléphone" formControlName="numeroTelephone">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="mailPrincipal"> Email</label>
+                        <input type="email" id="mailPrincipal" class="form-textbox" placeholder="exemple@email.com" formControlName="mailPrincipal">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="adresse"> Adresse</label>
+                        <textarea id="adresse" class="form-textarea" placeholder="Adresse complète" formControlName="adresse"></textarea>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="motif">Motif</label>
+                        <input type="text" id="motif" class="form-textbox" placeholder="Motif" formControlName="motif">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="objetrelation"> Objet de relation</label>
+                        <input type="text" id="objetrelation" class="form-textbox" placeholder="Objet de relation" formControlName="objetrelation">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend> Informations Personnelles</legend>
+                    
+                    <div class="form-line">
+                        <label for="nationalite"> Nationalité principale</label>
+                        <select id="nationalite" class="form-dropdown" formControlName="nationalite">
+                            <option value="">Sélectionner la nationalité</option>
+                            <option value="Tunisienne">Tunisienne</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="autreNationalite"> Autre nationalité</label>
+                        <select id="autreNationalite" class="form-dropdown" formControlName="autreNationalite">
+                            <option value="">Sélectionner une autre nationalité</option>
+                            <option value="Aucune">Aucune</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="nomMere"> Nom complet de la mère</label>
+                        <div class="name-inputs">
+                            <input type="text" id="prenomMere" class="form-textbox" placeholder="Prénom de la mère" formControlName="prenomMere">
+                            <input type="text" id="nomMere" class="form-textbox" placeholder="Nom de famille de la mère" formControlName="nomMere">
+                        </div>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="nomPere">Nom complet du père</label>
+                        <div class="name-inputs">
+                            <input type="text" id="prenomPere" class="form-textbox" placeholder="Prénom du père" formControlName="prenomPere">
+                            <input type="text" id="nomPere" class="form-textbox" placeholder="Nom de famille du père" formControlName="nomPere">
+                        </div>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label> État civil</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="etatCivil" class="form-radio" value="Celibataire" formControlName="etatCivil">
+                                <span class="radio-custom"></span>
+                                Célibataire
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="etatCivil" class="form-radio" value="Marie" formControlName="etatCivil">
+                                <span class="radio-custom"></span>
+                                Marié(e)
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend> Informations d'Identification</legend>
+                    
+                    <div class="form-line">
+                        <label for="resident"> Résidence</label>
+                        <select id="resident" class="form-dropdown" formControlName="resident">
+                            <option value="">Sélectionner</option>
+                            <option value="Resident">Résident</option>
+                            <option value="NonResident">Non-Résident</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="cin"> Numéro CIN</label>
+                        <input type="text" id="cin" class="form-textbox" placeholder="Numéro de carte d'identité" formControlName="cin">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="dateDelivrance"> Date de délivrance CIN</label>
+                        <input type="date" id="dateDelivrance" class="form-textbox" formControlName="dateDelivrance">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend> Informations Financières</legend>
+                    
+                    <div class="form-line">
+                        <label> Type de client</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="typeClient" class="form-radio" value="Particulier" checked>
+                                <span class="radio-custom"></span>
+                                Particulier
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="typeClient" class="form-radio" value="Professionnel">
+                                <span class="radio-custom"></span>
+                                Professionnel
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="natureActivite"> Nature de l'activité (pour professionnels)</label>
+                        <input type="text" id="natureActivite" class="form-textbox" placeholder="Nature de l'activité professionnelle" formControlName="natureActivite">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend> Agence de Domiciliation</legend>
+                    
+                    <div class="form-line">
+                        <label for="agenceDomiciliation"> Choix de l'agence de domiciliation</label>
+                        <select id="agenceDomiciliation" class="form-dropdown" formControlName="agenceDomiciliation">
+                            <option value="">Sélectionner l'agence</option>
+                            <option value="103">Agence 103</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="typeCompte"> Type du compte</label>
+                        <select id="typeCompte" class="form-dropdown" formControlName="typeCompte">
+                            <option value="">Sélectionner le type de compte</option>
+                            <option value="Compte Special Epargne Carte">Compte Special Epargne Carte</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="deviseCompte"> Devise du compte</label>
+                        <select id="deviseCompte" class="form-dropdown" formControlName="deviseCompte">
+                            <option value="TND">TND</option>
+                            <option value="EUR">EUR</option>
+                            <option value="USD">USD</option>
+                        </select>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend> Documents à Fournir</legend>
+                    
+                    <div class="form-line">
+                        <label for="documentCIN"> Copie de la CIN</label>
+                        <input type="file" id="documentCIN" class="form-upload" formControlName="documentCIN">
+                    </div>
+                    
+                    <div class="form-line">
+                        <label for="documentJustificatif"> Justificatif de domicile</label>
+                        <input type="file" id="documentJustificatif" class="form-upload" formControlName="documentJustificatif">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend> Déclaration et Signature</legend>
+                    
+                    <p class="declaration-text">Je déclare sous peine de sanctions que les informations fournies dans ce formulaire sont exactes et complètes.</p>
+                    
+                    <div class="form-line">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="declaration" class="form-checkbox" formControlName="declaration">
+                            <span class="checkbox-custom"></span>
+                            J'accepte les termes de cette déclaration
                         </label>
-                        <label class="radio-label">
-                            <input type="radio" name="etatCivil" class="form-radio" value="Marie" formControlName="etatCivil">
-                            <span class="radio-custom"></span>
-                            Marié(e)
-                        </label>
-                        
                     </div>
-                </div>
-                
-                <!-- Informations d'Identification -->
-                <div class="form-line">
-                    <h2>C. Informations d'Identification</h2>
-                </div>
-                
-                <div class="form-line">
-                    <label for="resident">1. Résidence</label>
-                    <select id="resident" class="form-dropdown" formControlName="resident">
-                        <option value="">Sélectionner</option>
-                        <option value="Resident">Résident</option>
-                        <option value="NonResident">Non-Résident</option>
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="cin">2. Numéro CIN</label>
-                    <input type="text" id="cin" class="form-textbox" placeholder="Numéro de carte d'identité" formControlName="cin" >
-                </div>
-                
-                <div class="form-line">
-                    <label for="dateDelivrance">3. Date de délivrance CIN</label>
-                    <input type="date" id="dateDelivrance" class="form-textbox" formControlName="dateDelivrance" >
-                </div>
-                
-                <!-- Informations Financières -->
-                <div class="form-line">
-                    <h2>D. Informations Financières</h2>
-                </div>
-                
-                <div class="form-line">
-                    <label>1. Type de client</label>
-                    <div class="radio-group">
-                        <label class="radio-label">
-                            <input type="radio" name="typeClient" class="form-radio" value="Particulier" checked>
-                            <span class="radio-custom"></span>
-                            Particulier
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="typeClient" class="form-radio" value="Professionnel">
-                            <span class="radio-custom"></span>
-                            Professionnel
-                        </label>
+                    
+                    <div class="signature-container">
+                        <label for="signature">Signature du Demandeur</label>
+                        <div class="signature-box">
+                            <canvas #signaturePad id="signature-pad" class="signature-pad"></canvas>
+                        </div>
+                        <div class="button-container">
+                            <button type="button" (click)="clearSignature()" class="clear-button">Effacer</button>
+                            <button type="button" (click)="saveSignature()" class="save-button">Enregistrer</button>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-line">
-                    <label for="natureActivite">2. Nature de l'activité (pour professionnels)</label>
-                    <input type="text" id="natureActivite" class="form-textbox" placeholder="Nature de l'activité professionnelle" formControlName="natureActivite">
-                </div>
-                
-                <!-- Agence de Domiciliation -->
-                <div class="form-line">
-                    <h2>E. Agence de Domiciliation</h2>
-                </div>
-                
-                <div class="form-line">
-                    <label for="agenceDomiciliation">1. Choix de l'agence de domiciliation</label>
-                    <select id="agenceDomiciliation" class="form-dropdown" formControlName="agenceDomiciliation">
-                        <option value="">Sélectionner l'agence</option>
-                        <option value="103">Agence 103</option>
-                        <!-- Add more agencies as needed -->
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="typeCompte">2. Type du compte</label>
-                    <select id="typeCompte" class="form-dropdown" formControlName="typeCompte">
-                        <option value="">Sélectionner le type de compte</option>
-                        <option value="Compte Special Epargne Carte">Compte Special Epargne Carte</option>
-                        <!-- Add more account types as needed -->
-                    </select>
-                </div>
-                
-                <div class="form-line">
-                    <label for="deviseCompte">3. Devise du compte</label>
-                    <select id="deviseCompte" class="form-dropdown" formControlName="deviseCompte">
-                        <option value="TND">TND</option>
-                        <option value="EUR">EUR</option>
-                        <option value="USD">USD</option>
-                    </select>
-                </div>
-                
-                <!-- Documents -->
-                <div class="form-line">
-                    <h2>F. Documents à Fournir</h2>
-                </div>
-                
-                <div class="form-line">
-                    <label for="documentCIN">1. Copie de la CIN</label>
-                    <input type="file" id="documentCIN" class="form-upload" formControlName="documentCIN">
-                </div>
-                
-                <div class="form-line">
-                    <label for="documentJustificatif">2. Justificatif de domicile</label>
-                    <input type="file" id="documentJustificatif" class="form-upload" formControlName="documentJustificatif">
-                </div>
-                
-                <!-- Déclaration et Signature -->
-                <div class="form-line">
-                    <h2>G. Déclaration et Signature</h2>
-                    <p>Je déclare sous peine de sanctions que les informations fournies dans ce formulaire sont exactes et complètes.</p>
-                </div>
-                
-                <div class="form-line">
-                    <label>
-                        <input type="checkbox" id="declaration" class="form-checkbox" formControlName="declaration">
-                        J'accepte les termes de cette déclaration
-                    </label>
-                </div>
-                <div class="signature-container">
-                    <label for="signature">Signature du Demandeur</label>
-                    <div class="signature-box">
-                        <canvas #signaturePad id="signature-pad" class="signature-pad"></canvas>
+                    
+                    <div class="form-line">
+                        <label for="date_signed">Date de Signature</label>
+                        <input type="date" id="date_signed" class="form-textbox date-input" formControlName="dateSigned">
                     </div>
-                    <div class="button-container">
-                        <button type="button" (click)="clearSignature()" class="clear-button">Effacer</button>
-                        <button type="button" (click)="saveSignature()" class="save-button">Enregistrer</button>
-                    </div>
-                    <div class="powered-by">
-                        Powered by Ajej
-                    </div>
-                </div>
-                <div class="form-line">
-                    <label for="date_signed">Date de Signature</label>
-                    <input type="date" id="date_signed" class="form-textbox date-input" formControlName="dateSigned">
-                </div>
-                <div class="form-line">
-                    <button type="submit" [disabled]="isSubmitting">
+                </fieldset>
+                
+                <div class="form-line submit-container">
+                    <button type="submit" class="submit-button" [disabled]="isSubmitting">
                         {{ isSubmitting ? 'Envoi en cours...' : 'Soumettre' }}
                     </button>
                 </div>

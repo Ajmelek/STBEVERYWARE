@@ -1,0 +1,64 @@
+<div class="card-container">
+  <div class="page-header">
+    <h2>Gestion des Cartes Bancaires</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+      </div>
+      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
+        <option value="">Tous les Statuts</option>
+        <option value="active">Active</option>
+        <option value="suspended">Suspendue</option>
+        <option value="expired">Expirée</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="cards-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Numéro de Carte</th>
+          <th>Titulaire</th>
+          <th>Date d'Expiration</th>
+          <th>Solde</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let card of filteredCards">
+          <td>{{ card.cardNumber }}</td>
+          <td>{{ card.cardHolder }}</td>
+          <td>{{ card.expiryDate }}</td>
+          <td>{{ card.balance | currency:'EUR':'symbol':'1.2-2' }}</td>
+          <td>
+            <span [class]="'status-badge status-' + card.status">
+              {{ card.status === 'active' ? 'Active' : card.status === 'suspended' ? 'Suspendue' : 'Expirée' }}
+            </span>
+          </td>
+          <td class="actions">
+            <button *ngIf="card.status !== 'suspended'"
+                    (click)="updateCardStatus(card, 'suspended')"
+                    class="btn btn-suspend">
+              <i class="bx bx-pause"></i>
+              Suspendre
+            </button>
+            <button *ngIf="card.status !== 'active'"
+                    (click)="updateCardStatus(card, 'active')"
+                    class="btn btn-approve">
+              <i class="bx bx-check"></i>
+              Activer
+            </button>
+            <button (click)="viewCardDetails(card)"
+                    class="btn btn-view">
+              <i class="bx bx-show"></i>
+              Détails
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

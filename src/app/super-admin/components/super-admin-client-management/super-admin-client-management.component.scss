@@ -4,6 +4,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 24px;
   margin: 24px;
+  
 
   .page-header {
     display: flex;
@@ -15,6 +16,7 @@
       color: #003d86;
       font-size: 24px;
       margin: 0;
+      
     }
 
     .header-actions {
@@ -58,11 +60,14 @@
     table {
       width: 100%;
       border-collapse: collapse;
+      
+      
 
       th, td {
         padding: 12px;
         text-align: left;
         border-bottom: 1px solid #eee;
+        
       }
 
       th {
@@ -73,6 +78,7 @@
 
       tr:hover {
         background-color: #f8f9fa;
+        
       }
 
       .status-badge {

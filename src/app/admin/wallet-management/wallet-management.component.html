@@ -1,0 +1,61 @@
+<div class="wallet-management">
+  <h2>Wallet Management</h2>
+
+  <div *ngIf="loading" class="loading">
+    Loading wallet demands...
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="wallet-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Client ID</th>
+          <th>Name</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let demand of walletDemands">
+          <td>{{ demand.clientId }}</td>
+          <td>{{ demand.client.prenom }} {{ demand.client.nom }}</td>
+          <td>{{ demand.telephone }}</td>
+          <td>{{ demand.adresseMail }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="getStatusClass(demand.etat)">
+              {{ getStatusText(demand.etat) }}
+            </span>
+          </td>
+          <td class="actions">
+            <div class="status-actions">
+              <button 
+                class="btn btn-pending" 
+                [disabled]="demand.etat === 0"
+                (click)="updateStatus(demand.id, 0)">
+                <i class="fas fa-clock"></i> Pending
+              </button>
+              <button 
+                class="btn btn-approve" 
+                [disabled]="demand.etat === 1"
+                (click)="updateStatus(demand.id, 1)">
+                <i class="fas fa-check"></i> Approve
+              </button>
+              <button 
+                class="btn btn-reject" 
+                [disabled]="demand.etat === 2"
+                (click)="updateStatus(demand.id, 2)">
+                <i class="fas fa-times"></i> Reject
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -5,8 +5,7 @@ import { SectionHeaderComponent } from './section-header/section-header.componen
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { FooterComponent } from './footer/footer.component';
 import { ProfilComponent } from './profil/profil.component';
-
-
+import { AuthService } from '../shared/services/auth.service';
 
 @NgModule({
   declarations: [
@@ -19,10 +18,14 @@ import { ProfilComponent } from './profil/profil.component';
     CommonModule,
     BreadcrumbModule
   ],
-  exports:[ NavBarComponent,
+  providers: [
+    AuthService
+  ],
+  exports:[ 
+    NavBarComponent,
     SectionHeaderComponent,
     FooterComponent,
     ProfilComponent
-    ]
+  ]
 })
 export class CoreModule { }

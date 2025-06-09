@@ -1,20 +1,40 @@
 <div class="admin-dashboard">
   <nav class="admin-nav">
+    
     <div class="nav-header">
       <h2>Administration</h2>
     </div>
     <ul>
       <li><a routerLink="kyc" routerLinkActive="active">
         <i class="bx bx-user-check"></i>
-        KYC Management
+        Gestion KYC 
       </a></li>
       <li><a routerLink="complaints" routerLinkActive="active">
         <i class="bx bx-message-square-detail"></i>
         Complaints Viewer
       </a></li>
+      <li><a routerLink="wallets" routerLinkActive="active">
+        <i class="bx bx-wallet"></i>
+        Gestion Wallet
+      </a></li>
+
+      <li><a routerLink="cartes-bancaires" routerLinkActive="active">
+  <i class="bx bx-credit-card"></i>
+  Gestion CarteBancaire
+       </a></li>
+       <li><a routerLink="chequiers" routerLinkActive="active">
+  <i class="bx bx-book"></i>
+  Gestion Chéquiers
+</a></li>
+      <li class="logout-item">
+        <a (click)="handleLogout()">
+          <i class="bx bx-log-out"></i>
+          Déconnexion
+        </a>
+      </li>
     </ul>
   </nav>
   <div class="content">
     <router-outlet></router-outlet>
   </div>
-</div> 
+</div>
