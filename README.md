@@ -27,45 +27,47 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
-style from angular.json
-"node_modules/bootstrap/dist/css/bootstrap.min.css",
+## 🚀 Running the Angular App with Docker Compose
 
+You can run this Angular project using Docker Compose in **production** or **development** mode.
 
-ng g c register/login 
-ng g m home --routing
-ng g s home --flat 
-ng add @ng-bootstrap/ng-bootstrap
-npm i xng-breadcrumb
+---
 
-npm install sweetalert2 @sweetalert2/ngx-sweetalert2
+### 📦 Production Mode (Static Build + Nginx)
 
+1. Ensure you have a `Dockerfile`, `nginx.conf`, and `docker-compose.yml` in the root directory.
+2. Replace the placeholder `<your-app-name>` in the Dockerfile with your actual Angular app name (the folder inside `dist/` after build).
+3. Build and start the container:
 
+`docker-compose up --build`
 
-npm i ng-select2-component --save
-https://github.com/Harvest-Dev/ng-select2
+yaml
+Copier
+Modifier
 
-sweetalert 
- fire (){
-    Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this imaginary file!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, keep it'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Your imaginary file has been deleted.',
-          'success'
-        )
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe',
-          'error'
-        )
-      }
-    });
-  }
+4. Open your browser and go to:  
+`http://localhost:4200`
+
+This serves the optimized production build using Nginx.
+
+---
+
+### 🔄 Development Mode (Live Reload)
+
+1. Create a `Dockerfile.dev` and `docker-compose.dev.yml` for the development environment.
+2. Run the app in development mode with live reload:
+
+`docker-compose -f docker-compose.dev.yml up --build`
+
+yaml
+Copier
+Modifier
+
+3. Open your browser and go to:  
+`http://localhost:4200`
+
+This runs the Angular CLI development server inside Docker with hot reloading.
+
+---
+README.md
+Affichage de README.md en cours...

@@ -1,16 +1,24 @@
-<div class="complaints-container">
+<div class="card-container">
+  <div class="page-header">
     <h2>Gestion des Réclamations</h2>
+  </div>
 
-  <div *ngIf="loading" class="loading">
-    Chargement des réclamations...
-      </div>
-
-  <div *ngIf="error" class="error">
+  <div *ngIf="error" class="error-message">
+    <i class="bx bx-error-circle"></i>
     {{ error }}
   </div>
 
-  <div *ngIf="!loading && !error" class="complaints-table">
-    <table>
+  <div class="cards-list">
+    <div *ngIf="loading" class="loading-spinner">
+      <i class="bx bx-loader-alt bx-spin"></i>
+      Chargement des réclamations...
+    </div>
+
+    <div *ngIf="!loading && reclamations.length === 0" class="no-results">
+      Aucune réclamation trouvée
+    </div>
+
+    <table *ngIf="!loading && reclamations.length > 0">
       <thead>
         <tr>
           <th>ID Client</th>
@@ -31,26 +39,34 @@
             </span>
           </td>
           <td class="actions">
-            <div class="status-actions">
-              <button (click)="updateStatus(reclamation, 0)"
-                      [disabled]="reclamation.etat === 0"
-                      class="btn btn-reopen">
-                <i class="bx bx-refresh"></i>
-                En attente
-              </button>
-              <button (click)="updateStatus(reclamation, 1)"
-                      [disabled]="reclamation.etat === 1"
-                      class="btn btn-progress">
-                <i class="bx bx-time"></i>
-                En cours
-              </button>
-              <button (click)="updateStatus(reclamation, 2)"
-                      [disabled]="reclamation.etat === 2"
-                      class="btn btn-solve">
-                <i class="bx bx-check"></i>
-                Résolue
+            <button (click)="updateStatus(reclamation, 0)"
+                    [disabled]="reclamation.etat === 0"
+                    class="btn btn-reopen"
+                    title="Remettre en attente">
+              <i class="bx bx-refresh"></i>
+              En attente
             </button>
-            </div>
+            <button (click)="updateStatus(reclamation, 1)"
+                    [disabled]="reclamation.etat === 1"
+                    class="btn btn-progress"
+                    title="Mettre en cours">
+              <i class="bx bx-time"></i>
+              En cours
+            </button>
+            <button (click)="updateStatus(reclamation, 3)"
+                    [disabled]="reclamation.etat === 3"
+                    class="btn btn-reject"
+                    title="Rejeter la réclamation">
+              <i class="bx bx-x"></i>
+              Rejeter
+            </button>
+            <button (click)="updateStatus(reclamation, 2)"
+                    [disabled]="reclamation.etat === 2"
+                    class="btn btn-solve"
+                    title="Marquer comme résolue">
+              <i class="bx bx-check"></i>
+              Résolue
+            </button>
           </td>
         </tr>
       </tbody>

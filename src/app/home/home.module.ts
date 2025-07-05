@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { CreateAccountComponent } from './create-account/create-account.component';
@@ -11,6 +11,7 @@ import { InformationsComponent } from './informations/informations.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { RequestWalletComponent } from './request-wallet/request-wallet.component';
+import { AccountDeactivationComponent } from '../account-deactivation/account-deactivation.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { RequestWalletComponent } from './request-wallet/request-wallet.componen
     InformationsComponent,
     ProfileComponent,
     ReclamationComponent,
-    RequestWalletComponent
+    RequestWalletComponent,
+    AccountDeactivationComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

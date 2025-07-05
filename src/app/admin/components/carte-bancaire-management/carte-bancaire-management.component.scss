@@ -4,6 +4,45 @@
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 
+  .error-message, .success-message {
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+
+  .error-message {
+    background-color: #ffebee;
+    color: #e74c3c;
+  }
+
+  .success-message {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+  }
+
+  .loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    gap: 10px;
+
+    i {
+      font-size: 1.5rem;
+      color: #3498db;
+    }
+  }
+
   .page-header {
     display: flex;
     justify-content: space-between;
@@ -13,6 +52,7 @@
     h2 {
       color: #2c3e50;
       margin: 0;
+      font-size: 1.5rem;
     }
 
     .header-actions {
@@ -29,18 +69,30 @@
           position: absolute;
           left: 10px;
           color: #7f8c8d;
+          font-size: 1.1rem;
         }
 
-        input {
+        .search-input {
           padding: 8px 15px 8px 35px;
           border: 1px solid #ddd;
           border-radius: 4px;
-          min-width: 250px;
-          transition: border-color 0.3s;
+          min-width: 300px;
+          transition: all 0.3s ease;
+          font-size: 0.9rem;
 
           &:focus {
             outline: none;
             border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+          }
+
+          &::placeholder {
+            color: #95a5a6;
+          }
+
+          &:disabled {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
           }
         }
       }
@@ -51,27 +103,52 @@
         border-radius: 4px;
         background-color: white;
         cursor: pointer;
+        font-size: 0.9rem;
+        min-width: 150px;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #3498db;
+          box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+        }
+
+        &:disabled {
+          background-color: #f8f9fa;
+          cursor: not-allowed;
+        }
       }
     }
   }
 
   .cards-list {
     overflow-x: auto;
+    background-color: #fff;
+    border-radius: 8px;
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: #7f8c8d;
+      font-size: 1.1rem;
+    }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      color: #000000;
+      color: #2c3e50;
 
       thead {
         background-color: #f8f9fa;
+        border-bottom: 2px solid #eee;
 
         th {
-          padding: 12px 15px;
+          padding: 15px;
           text-align: left;
           font-weight: 600;
           color: #2c3e50;
-          border-bottom: 2px solid #eee;
+          font-size: 0.9rem;
+          white-space: nowrap;
         }
       }
 
@@ -85,7 +162,9 @@
           }
 
           td {
-            padding: 12px 15px;
+            padding: 15px;
+            font-size: 0.9rem;
+            color: #34495e;
           }
         }
       }
@@ -94,23 +173,23 @@
 
   .status-badge {
     display: inline-block;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 500;
     text-transform: capitalize;
 
-    &.status-active {
-      background-color: #e8f5e9;
-      color: #2ecc71;
-    }
-
-    &.status-suspended {
+    &.status-pending {
       background-color: #fff3e0;
       color: #f39c12;
     }
 
-    &.status-expired {
+    &.status-approved {
+      background-color: #e8f5e9;
+      color: #2ecc71;
+    }
+
+    &.status-rejected {
       background-color: #ffebee;
       color: #e74c3c;
     }
@@ -125,32 +204,42 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border: none;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
 
       i {
-        font-size: 14px;
+        font-size: 1rem;
+      }
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
 
       &.btn-approve {
         background-color: #e8f5e9;
         color: #2ecc71;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background-color: #d4edda;
         }
       }
 
-      &.btn-suspend {
-        background-color: #fff3e0;
-        color: #f39c12;
+      &.btn-reject {
+        background-color: #ffebee;
+        color: #e74c3c;
 
-        &:hover {
-          background-color: #ffe0b2;
+        &:hover:not(:disabled) {
+          background-color: #f8d7da;
         }
       }
 
@@ -158,7 +247,7 @@
         background-color: #e3f2fd;
         color: #3498db;
 
-        &:hover {
+        &:hover:not(:disabled) {
           background-color: #d1e7ff;
         }
       }

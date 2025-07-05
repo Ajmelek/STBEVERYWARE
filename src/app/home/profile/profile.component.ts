@@ -20,7 +20,7 @@ interface Client {
   dateNaissance?: string;
   deviseCompteReserved?: string;
   environment?: string;
-  etatCivil?: string;
+  etatcivil?: string;
   gouvernorat?: string;
   mailPrincipal?: string;
   nationalite?: string;

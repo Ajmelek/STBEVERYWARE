@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-request-check',
@@ -15,7 +16,7 @@ export class RequestCheckComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.checkForm = this.fb.group({
-      telephone: ['', [Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
+      telephone: ['', [Validators.required, Validators.pattern(/^\+?\d{8,11}$/)]],
       email: ['', [Validators.required, Validators.email]],
       nombreChequiers: ['', [Validators.required, Validators.min(1)]],
       otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
@@ -35,7 +36,7 @@ export class RequestCheckComponent {
       if (isInitialValid) {
         this.sendOtp();
       } else {
-        alert('Veuillez remplir tous les champs obligatoires correctement.');
+        this.showErrorAlert('Veuillez remplir tous les champs obligatoires correctement.');
       }
       return;
     }
@@ -57,11 +58,11 @@ export class RequestCheckComponent {
         this.sentOtp = response.otp;
         this.showOtpField = true;
         this.isSubmitting = false;
-        alert(`Un code OTP a été envoyé à ${email}`);
+        this.showSuccessAlert(`Un code OTP a été envoyé à ${email}`);
       },
       error: (err) => {
         console.error('Error sending OTP:', err);
-        alert('Erreur lors de l\'envoi du code OTP');
+        this.showErrorAlert('Erreur lors de l\'envoi du code OTP');
         this.isSubmitting = false;
       }
     });
@@ -69,7 +70,7 @@ export class RequestCheckComponent {
 
   verifyAndSubmit(): void {
     if (!this.checkForm.get('otp')?.valid) {
-      alert('Veuillez entrer un code OTP valide (6 chiffres).');
+      this.showErrorAlert('Veuillez entrer un code OTP valide (6 chiffres).');
       return;
     }
 
@@ -87,13 +88,13 @@ export class RequestCheckComponent {
           // OTP verified, submit check request
           this.submitCheckRequest();
         } else {
-          alert('Code OTP invalide ou expiré');
+          this.showErrorAlert('Code OTP invalide ou expiré');
           this.isSubmitting = false;
         }
       },
       error: (err) => {
         console.error('Error verifying OTP:', err);
-        alert('Erreur lors de la vérification du code OTP');
+        this.showErrorAlert('Erreur lors de la vérification du code OTP');
         this.isSubmitting = false;
       }
     });
@@ -109,7 +110,7 @@ export class RequestCheckComponent {
 
     this.http.post('http://localhost:5082/api/DemandeDeChequier', formData).subscribe({
       next: (response: any) => {
-        alert('Demande de chéquier soumise avec succès!');
+        this.showSuccessAlert('Demande de chéquier soumise avec succès!');
         this.checkForm.reset();
         this.showOtpField = false;
         this.isSubmitting = false;
@@ -124,13 +125,35 @@ export class RequestCheckComponent {
 
   private handleCheckError(error: any): void {
     if (error.status === 0) {
-      alert('Impossible de se connecter au serveur. Vérifiez votre connexion internet.');
+      this.showErrorAlert('Impossible de se connecter au serveur. Vérifiez votre connexion internet.');
     } else if (error.status === 400) {
-      alert('Données invalides: ' + (error.error?.message || ''));
+      this.showErrorAlert('Données invalides: ' + (error.error?.message || ''));
     } else if (error.status === 401) {
-      alert('Authentification requise');
+      this.showErrorAlert('Authentification requise');
     } else {
-      alert(`Erreur serveur (${error.status}): ${error.message}`);
+      this.showErrorAlert(`Erreur serveur (${error.status}): ${error.message}`);
     }
+  }
+
+  private showSuccessAlert(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Succès!',
+      text: message,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#28a745',
+      timer: 4000,
+      timerProgressBar: true
+    });
+  }
+
+  private showErrorAlert(message: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur!',
+      text: message,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#dc3545'
+    });
   }
 }

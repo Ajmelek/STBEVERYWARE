@@ -1,58 +1,99 @@
-<div class="wallet-management">
-  <h2>Wallet Management</h2>
-
-  <div *ngIf="loading" class="loading">
-    Loading wallet demands...
+<div class="card-container">
+  <div class="page-header">
+    <h2>Gestion des Portefeuilles</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="bx bx-search"></i>
+        <input 
+          type="text" 
+          placeholder="Rechercher par ID, téléphone, email..." 
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="applyFilters()"
+          class="search-input"
+          [disabled]="loading">
+      </div>
+      <select 
+        [(ngModel)]="statusFilter" 
+        (ngModelChange)="applyFilters()" 
+        class="status-filter"
+        [disabled]="loading">
+        <option value="">Tous les Statuts</option>
+        <option value="En Attente">En Attente</option>
+        <option value="Approuvé">Approuvé</option>
+        <option value="Rejeté">Rejeté</option>
+      </select>
+    </div>
   </div>
 
   <div *ngIf="error" class="error-message">
+    <i class="bx bx-error-circle"></i>
     {{ error }}
   </div>
 
-  <div *ngIf="!loading && !error" class="wallet-table">
-    <table>
+  <div *ngIf="successMessage" class="success-message">
+    <i class="bx bx-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
+  <div class="cards-list">
+    <div *ngIf="loading" class="loading-spinner">
+      <i class="bx bx-loader-alt bx-spin"></i>
+      Chargement...
+    </div>
+
+    <div *ngIf="!loading && walletDemands.length === 0" class="no-results">
+      Aucune demande trouvée
+    </div>
+    
+    <table *ngIf="!loading && walletDemands.length > 0">
       <thead>
         <tr>
-          <th>Client ID</th>
-          <th>Name</th>
-          <th>Phone Number</th>
+          <th>ID Client</th>
+          <th>Nom Client</th>
+          <th>Téléphone</th>
           <th>Email</th>
-          <th>Status</th>
+          <th>Date de Demande</th>
+          <th>État</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let demand of walletDemands">
           <td>{{ demand.clientId }}</td>
-          <td>{{ demand.client.prenom }} {{ demand.client.nom }}</td>
-          <td>{{ demand.telephone }}</td>
-          <td>{{ demand.adresseMail }}</td>
+          <td>{{ demand.client?.prenom }} {{ demand.client?.nom }}</td>
+          <td>{{ demand.telephone || 'Non spécifié' }}</td>
+          <td>{{ demand.adresseMail || 'Non spécifié' }}</td>
+          <td>{{ demand.dateDemande | date:'dd/MM/yyyy' }}</td>
           <td>
-            <span class="status-badge" [ngClass]="getStatusClass(demand.etat)">
+            <span [class]="'status-badge ' + getStatusClass(demand.etat)">
               {{ getStatusText(demand.etat) }}
             </span>
           </td>
           <td class="actions">
-            <div class="status-actions">
-              <button 
-                class="btn btn-pending" 
-                [disabled]="demand.etat === 0"
-                (click)="updateStatus(demand.id, 0)">
-                <i class="fas fa-clock"></i> Pending
-              </button>
-              <button 
-                class="btn btn-approve" 
-                [disabled]="demand.etat === 1"
-                (click)="updateStatus(demand.id, 1)">
-                <i class="fas fa-check"></i> Approve
-              </button>
-              <button 
-                class="btn btn-reject" 
-                [disabled]="demand.etat === 2"
-                (click)="updateStatus(demand.id, 2)">
-                <i class="fas fa-times"></i> Reject
-              </button>
-            </div>
+            <button *ngIf="demand.etat === 0"
+                    (click)="updateStatus(demand.id, 1)"
+                    class="btn btn-approve"
+                    title="Approuver la demande"
+                    [disabled]="loading">
+              <i class="bx bx-check"></i>
+              Approuver
+            </button>
+            <button *ngIf="demand.etat === 0"
+                    (click)="updateStatus(demand.id, 2)"
+                    class="btn btn-reject"
+                    title="Rejeter la demande"
+                    [disabled]="loading">
+              <i class="bx bx-x"></i>
+              Rejeter
+            </button>
+            <button *ngIf="demand.etat === 0"
+                    (click)="updateStatus(demand.id, 0)"
+                    class="btn btn-view"
+                    title="Voir les détails"
+                    [disabled]="loading">
+              <i class="bx bx-time"></i>
+              En Attente
+            </button>
           </td>
         </tr>
       </tbody>

@@ -1,34 +1,62 @@
-<!-- <section class="container pb-2 pb-md-4 pb-lg-5 mb-3"> -->
-    <div class="card border-0 shadow-sm overflow-hidden mb-4">
-        <div class="row g-0">
-            <!-- <a  class="col-sm-4 bg-repeat-0 bg-position-center bg-size-cover"
-            style="background-image: url('assets/img/kimo.jpg'); min-height: 13rem;"></a>
-   -->
-            <!-- style="background-image: url('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'); min-height: 13rem;"></a> -->
-           
-            <div class="col-sm-3 text-center selfCenter py-2">
-                <img src="assets/img/téléchargement.jfif"  class="avatar">
-
-            </div>
-
-            
-            <div class="col-sm-9">
-                <div class="card-body">
-                    <div class="fs-sm text-muted mb-1">{{ formattedDate }}</div>
-                    <h2 class="h4 pb-1 mb-2">
-                        <a href="#">Mokhtar Hammami</a>
-                    </h2>
-                    <p class="mb-lg-1">Telephone : 98 110 161</p>
-                    <p class="mb-lg-1">Email : mokhtar.hammami&#64;stb.com.tn</p>
-                    <p class=" mb-lg-2">Adresse : Rue de Caire, Nouvelle Medina, 2063 Ben Arous </p>
-                    <div class="d-flex">
-                        <button type="button" class="btn btn-outline-secondary px-3 px-lg-4 me-3">
-                            <i class="bx bx-edit fs-xl me-xl-2"></i>
-                            <span class="d-none d-xl-inline">Consulter vos information</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+<section class="container pb-2 pb-md-4 pb-lg-5 mb-3">
+  <div class="card border-0 shadow-sm overflow-hidden mb-2" id="client-card">
+    <div class="row g-0">
+      <!-- Avatar Section - Left Side -->
+      <div class="col-sm-3 d-flex align-items-center justify-content-center py-2 px-1">
+        <div class="avatar-container">
+          <img src="assets/img/selfiPNg.png" class="avatar" alt="Profile Photo">
         </div>
+      </div>
+      
+      <!-- Client Information Section -->
+      <div class="col-sm-9">
+        <div class="card-body p-2">
+          <!-- Header Section -->
+          <div class="client-header mb-2">
+            <h2 class="client-name mb-1">
+              {{ client?.prenom }} {{ client?.nom }}
+            </h2>
+            <div class="client-status">
+              <span class="status-badge">Client Actif</span>
+            </div>
+          </div>
+          
+          <!-- Contact Information -->
+          <div class="contact-info mb-2">
+            <div class="info-item">
+              <i class="bx bx-phone info-icon"></i>
+              <div class="info-content">
+                <span class="info-label">Téléphone</span>
+                <span class="info-value">{{ client?.numeroTelephone || 'Non spécifié' }}</span>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="bx bx-envelope info-icon"></i>
+              <div class="info-content">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{ client?.mailPrincipal || 'Non spécifié' }}</span>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <i class="bx bx-map info-icon"></i>
+              <div class="info-content">
+                <span class="info-label">Adresse</span>
+                <span class="info-value">{{ client?.paysNaissance || 'Non spécifié' }} {{ client?.adresseComplete }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button type="button" class="btn btn-primary btn-modern">
+              <i class="bx bx-edit me-1"></i>
+              <span>Consulter vos informations</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-<!-- </section> -->
+  </div>
+</section>

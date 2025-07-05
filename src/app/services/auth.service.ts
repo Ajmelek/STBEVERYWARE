@@ -34,6 +34,10 @@ export class AuthService {
     return localStorage.getItem('userRole');
   }
 
+  getClientId(): string | null {
+    return localStorage.getItem('clientId');
+  }
+
   setToken(token: string) {
     localStorage.setItem('token', token);
     this.setAuthenticated(true);
@@ -47,10 +51,15 @@ export class AuthService {
     localStorage.setItem('userRole', role);
   }
 
+  setClientId(clientId: string) {
+    localStorage.setItem('clientId', clientId);
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('login');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('clientId');
     this.setAuthenticated(false);
     this.router.navigate(['/login']);
   }

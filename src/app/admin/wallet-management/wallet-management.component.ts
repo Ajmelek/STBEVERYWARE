@@ -29,12 +29,13 @@ export class WalletManagementComponent implements OnInit {
   walletDemands: WalletDemand[] = [];
   loading = true;
   error: string | null = null;
+  successMessage: string = '';
+  searchQuery: string = '';
+  statusFilter: string = '';
 
   // Existing wallet management section
   wallets: Wallet[] = [];
   filteredWallets: Wallet[] = [];
-  statusFilter: string = '';
-  searchQuery: string = '';
 
   constructor(private walletService: WalletService) {}
 
@@ -86,6 +87,7 @@ export class WalletManagementComponent implements OnInit {
   loadWalletDemands(): void {
     this.loading = true;
     this.error = null;
+    this.successMessage = '';
     
     this.walletService.getWalletDemands().subscribe({
       next: (demands) => {
@@ -102,23 +104,27 @@ export class WalletManagementComponent implements OnInit {
 
   getStatusText(etat: number): string {
     switch (etat) {
-      case 0: return 'Pending';
-      case 1: return 'Approved';
-      case 2: return 'Rejected';
+      case 0: return 'En Attente';
+      case 1: return 'Approuvé';
+      case 2: return 'Rejeté';
       default: return 'Unknown';
     }
   }
 
   getStatusClass(etat: number): string {
     switch (etat) {
-      case 0: return 'pending';
-      case 1: return 'approved';
-      case 2: return 'rejected';
+      case 0: return 'En_attente';
+      case 1: return 'Approuver';
+      case 2: return 'Rejeter';
       default: return '';
     }
   }
 
   updateStatus(id: number, etat: number): void {
+    this.loading = true;
+    this.error = null;
+    this.successMessage = '';
+    
     this.walletService.updateStatus(id, etat).subscribe({
       next: () => {
         // Update the local state after successful API call
@@ -126,12 +132,28 @@ export class WalletManagementComponent implements OnInit {
         if (demand) {
           demand.etat = etat;
         }
+        this.loading = false;
+        this.successMessage = `Statut mis à jour avec succès: ${this.getStatusText(etat)}`;
+        // Clear success message after 3 seconds
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
       },
       error: (err) => {
         console.error('Error updating wallet status:', err);
-        // You might want to show an error message to the user here
+        this.error = 'Erreur lors de la mise à jour du statut';
+        this.loading = false;
+        // Clear error message after 3 seconds
+        setTimeout(() => {
+          this.error = null;
+        }, 3000);
       }
     });
+  }
+
+  viewDemandeDetails(demand: WalletDemand): void {
+    console.log('Viewing demande details:', demand);
+    // You can implement a modal or detailed view here if needed
   }
 
   // Existing wallet management methods

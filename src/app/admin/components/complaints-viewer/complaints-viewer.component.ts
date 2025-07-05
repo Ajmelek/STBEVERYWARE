@@ -3,7 +3,7 @@ import { ReclamationService, Reclamation } from '../../../services/reclamation.s
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-complaints-viewer',
+  selector: 'app- ',
   templateUrl: './complaints-viewer.component.html',
   styleUrls: ['./complaints-viewer.component.scss']
 })
@@ -40,6 +40,7 @@ export class ComplaintsViewerComponent implements OnInit {
       case 0: return 'En attente';
       case 1: return 'En cours';
       case 2: return 'Résolue';
+      case 3: return 'Rejeté';
       default: return 'Inconnu';
     }
   }
@@ -49,6 +50,7 @@ export class ComplaintsViewerComponent implements OnInit {
       case 0: return 'pending';
       case 1: return 'in-progress';
       case 2: return 'resolved';
+      case 3: return 'rejected';
       default: return '';
     }
   }

@@ -12,6 +12,7 @@ import { CarteBancaireManagementComponent } from './components/carte-bancaire-ma
 import { ChequierManagementComponent } from './components/chequier-management/chequier-management.component';
 import { CoreModule } from '../core/core.module';
 import { ReclamationService } from '../services/reclamation.service';
+import { GestionDesactivationCompteComponent } from './components/account-deactivation-management/gestion-desactivation-compte.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'wallets', component: WalletManagementComponent },
       { path: 'cartes-bancaires', component: CarteBancaireManagementComponent },
       { path: 'chequiers', component: ChequierManagementComponent },
+      { path: 'desactivation-comptes', component: GestionDesactivationCompteComponent },
       { path: '', redirectTo: 'kyc', pathMatch: 'full' }
     ]
   }
@@ -36,7 +38,8 @@ const routes: Routes = [
     ComplaintsViewerComponent,
     WalletManagementComponent,
     CarteBancaireManagementComponent,
-    ChequierManagementComponent
+    ChequierManagementComponent,
+    GestionDesactivationCompteComponent
   ],
   imports: [
     CommonModule,

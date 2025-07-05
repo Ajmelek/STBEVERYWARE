@@ -16,7 +16,15 @@
   </div>
 
   <div class="submissions-list">
-    <table>
+    <div *ngIf="loading" class="loading-spinner">
+      <i class="bx bx-loader-alt bx-spin"></i>
+      Chargement des soumissions KYC...
+    </div>
+    <div *ngIf="error" class="error-message">
+      <i class="bx bx-error-circle"></i>
+      {{ error }}
+    </div>
+    <table *ngIf="!loading && !error">
       <thead>
         <tr>
           <th>ID Client</th>
@@ -68,37 +76,144 @@
         <button (click)="closeModal()" class="close-btn">×</button>
       </div>
       <div class="modal-body">
-        <div class="client-info">
-          <h4>Informations Client</h4>
-          <div class="info-grid">
-            <div class="info-item">
-              <label>ID Client:</label>
-              <span>{{ selectedSubmission.clientId || 'Non fourni' }}</span>
-            </div>
-            <div class="info-item">
-              <label>Nom Complet:</label>
-              <span>{{ selectedSubmission.details?.civilite || 'Non fourni' }} {{ selectedSubmission.details?.prenom || 'Non fourni' }} {{ selectedSubmission.details?.nom || 'Non fourni' }}</span>
-            </div>
-            <div class="info-item">
-              <label>Numéro CIN:</label>
-              <span>{{ selectedSubmission.details?.cin || 'Non fourni' }}</span>
-            </div>
-            <div class="info-item">
-              <label>Date Délivrance CIN:</label>
-              
+        <div class="card card-profile shadow">
+          <br>
+          <div class="row p-0 justify-content-center">
+            <div class="col-12 text-end pr-3" style="font-size: 12px;">
+              Fiche KYC :
+              <img src="assets/img/pdf-file.png" alt="" style="width: 35px; cursor: pointer;">
             </div>
           </div>
-        </div>
 
-        <div class="documents-section">
-          <h4>Documents</h4>
-          <div class="documents-grid">
-            <div *ngFor="let doc of selectedSubmission.documents" class="document-item">
-              <i class="bx bx-file"></i>
-              <span>{{ doc || 'Non fourni' }}</span>
-              <button class="btn-download" (click)="downloadDocument(doc)">
-                <i class="bx bx-download"></i>
-              </button>
+          <div *ngIf="loading" class="text-center p-5">
+            <p>Chargement des données du profil...</p>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger mx-4">
+            {{ error }}
+          </div>
+
+          <div *ngIf="selectedSubmission" id="content" class="px-4">
+            <div class="row">
+              <div class="col-lg-12 col-sm-12">
+                <div class="text-center mt-5">
+                  <h3>{{ selectedSubmission.prenom }} {{ selectedSubmission.nom }} <span class="font-weight-light"></span></h3>
+                  <div class="h6 font-weight-300">
+                    <i class="ni location_pin"></i>TUNISIE, {{ selectedSubmission.adresse || '' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="py-5 border-top">
+              <div class="row">
+                <div style="width: 30px!important;"></div>
+                <div class="col-lg-5 col-sm-12">
+                  <!-- General Information -->
+                  <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                    <h5 style="color: white; margin: 0;">Informations générales</h5>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-lg-12">
+                      <p>
+                        <br>
+                        <span><b>Civilité:</b></span> {{ selectedSubmission.civilite || 'Non spécifié' }}<br>
+                        <span><b>Pays de naissance:</b></span> {{ selectedSubmission.paysnaissance || 'Non spécifié' }}<br>
+                        <span><b>Date de naissance:</b></span> {{ selectedSubmission.datenaissance || 'Non spécifié' }}<br>
+                        <span><b>Numéro de téléphone:</b></span> {{ selectedSubmission.numeroTelephone || 'Non spécifié' }}<br>
+                        <span><b>Email:</b></span> {{ selectedSubmission.mailprincipal || 'Non spécifié' }}<br>
+                        <span><b>Adresse:</b></span> {{ selectedSubmission.adresse || 'Non spécifié' }}<br>
+                        <span><b>Motif:</b></span> {{ selectedSubmission.motif || 'Non spécifié' }}<br>
+                        <span><b>Objet de relation: </b></span> {{ selectedSubmission.objetrelation || 'Non spécifié' }}<br>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Financial Information -->
+                  <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                    <h5 style="color: white; margin: 0;">Informations financières</h5>
+                  </div>
+                  <div class="col-sm-12 col-lg-12">
+                    <p>
+                      <span><b>Vous êtes :</b></span><br>
+                      <span><b>- Particulier</b></span>
+                    </p>
+                  </div>
+                  <div class="col-sm-12 col-lg-12">
+                    <p>
+                      <span><b>Nature de l'activité:</b></span> {{ selectedSubmission.natureActivite || 'Non spécifié' }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col-lg-1"></div>
+
+                <div class="col-lg-5 col-sm-12">
+                  <!-- Personal Information -->
+                  <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                    <h5 style="color: white; margin: 0;">Informations personnelles</h5>
+                  </div>
+                  <div class="row" style="font-size: 12px;">
+                    <div class="col-sm-12 col-lg-12">
+                      <p>
+                        <span><b>Nationalité principale: </b></span> {{ selectedSubmission.nationalite || 'Non spécifié' }}<br>
+                        <span><b>Autre nationalité:</b></span> {{ selectedSubmission.autreNationalite || 'Non spécifié' }}<br>
+                        <span><b>Nom complet de la mère:</b></span> {{ (selectedSubmission.prenommere || '') + ' ' + (selectedSubmission.nommere || '') || 'Non spécifié' }}<br>
+                        <span><b>Nom complet du père:</b></span> {{ (selectedSubmission.prenompere || '') + ' ' + (selectedSubmission.nompere || '') || 'Non spécifié' }}<br>
+                        <span><b>État civil: </b></span> {{ selectedSubmission.etatcivil || 'Non spécifié' }}<br>
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Other Information -->
+                  <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                    <h5 style="color: white; margin: 0;">Autres informations</h5>
+                  </div>
+                  <div class="row" style="font-size: 12px;">
+                    <div class="col-lg-12 col-sm-12">
+                      <span><b>Résidence: </b> {{ selectedSubmission.resident || 'Non spécifié' }}</span><br>
+                      <span><b>Numéro CIN:</b> {{ selectedSubmission.cin || 'Non spécifié' }} </span><br>
+                      <span><b>Date de délivrance:</b> {{ selectedSubmission.datedelivrance || 'Non spécifié' }} </span><br>
+                    </div>
+                  </div>
+                  <!-- Domiciliation Agency -->
+                  <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                    <h5 style="color: white; margin: 0;">Agence de domiciliation</h5>
+                  </div>
+                  <div class="row" style="font-size: 12px;">
+                    <div class="col-lg-12 col-sm-12">
+                      <span><b>Choix de l'agence de domiciliation: </b> {{ selectedSubmission.agenceDomiciliation || 'Non spécifié' }}</span><br>
+                      <span><b>Type du compte: </b> {{ selectedSubmission.typeCompte || 'Non spécifié' }}</span><br>
+                      <span><b>Devise du compte: </b> {{ selectedSubmission.deviseCompte || 'Non spécifié' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Images Section -->
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="row" style="border-radius: 10px 0px; padding: 6px; background-color: #023c82;">
+                  <h5 style="color: white; margin: 0;">Documents & Signature</h5>
+                </div>
+                <div class="row d-flex flex-wrap align-items-center justify-content-start py-3 px-2">
+                  <div class="col-md-4 col-sm-12 text-center mb-3">
+                    <label style="font-weight: 600; color: #023c82;">Document CIN</label><br>
+                    <span style="font-size: 13px; color: #666;">{{ selectedSubmission.documentCINOriginalName }}</span><br>
+                    <img [src]="sanitizeImageUrl(selectedSubmission.documentCIN)" alt="Document CIN" style="max-width: 200px; max-height: 180px; border-radius: 6px; border: 1px solid #e3e7ed; margin: 10px 0; background: #f4f6fa; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                  </div>
+                  <div class="col-md-4 col-sm-12 text-center mb-3">
+                    <label style="font-weight: 600; color: #023c82;">Justificatif</label><br>
+                    <span style="font-size: 13px; color: #666;">{{ selectedSubmission.documentJustificatifOriginalName }}</span><br>
+                    <img [src]="sanitizeImageUrl(selectedSubmission.documentJustificatif)" alt="Justificatif" style="max-width: 200px; max-height: 180px; border-radius: 6px; border: 1px solid #e3e7ed; margin: 10px 0; background: #f4f6fa; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                  </div>
+                  <div class="col-md-4 col-sm-12 text-center mb-3">
+                    <label style="font-weight: 600; color: #023c82;">Signature</label><br>
+                    <span style="font-size: 13px; color: #666;">&nbsp;</span><br>
+                    <img [src]="sanitizeImageUrl(selectedSubmission.signaturePath)" alt="Signature" style="max-width: 200px; max-height: 180px; border-radius: 6px; border: 1px solid #e3e7ed; margin: 10px 0; background: #f4f6fa; box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -120,16 +235,6 @@
             </button>
             <button (click)="rejectWithComment()" class="btn-reject">
               <i class="bx bx-x"></i> Confirmer le rejet
-            </button>
-          </div>
-        </div>
-
-        <div class="view-details-actions">
-          <h4>Action de Visualisation</h4>
-          <textarea [(ngModel)]="viewComment" placeholder="Commentaire de visualisation (optionnel)..."></textarea>
-          <div class="action-buttons">
-            <button (click)="confirmView()" class="btn btn-view">
-              <i class="bx bx-show"></i> Confirmer la visualisation
             </button>
           </div>
         </div>

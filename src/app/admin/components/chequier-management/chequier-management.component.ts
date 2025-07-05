@@ -1,24 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-interface DemandeChequier {
-  id: number;
-  reference: string;
-  nom: string;
-  cin: string;
-  adresse: string;
-  telephone: string;
-  email: string;
-  rib: string;
-  agence: string;
-  typeCompte: string;
-  nombreChequiers: number;
-  motif: string;
-  motifAutre?: string;
-  dateDemande: Date;
-  statut: 'en_attente' | 'approuvé' | 'rejeté' | 'livré';
-  dateTraitement?: Date;
-  documents?: string[];
-}
+import { DemandeChequierService } from '../../services/demande-chequier.service';
+import { DemandeDeChequier } from '../../../admin/models/demande-chequier.model';
 
 @Component({
   selector: 'app-chequier-management',
@@ -26,85 +8,98 @@ interface DemandeChequier {
   styleUrls: ['./chequier-management.component.scss']
 })
 export class ChequierManagementComponent implements OnInit {
-  demandes: DemandeChequier[] = [];
-  filteredDemandes: DemandeChequier[] = [];
-  demandeSelectionnee?: DemandeChequier;
-  statutFilter: string = '';
-  searchQuery: string = '';
+  demandes: DemandeDeChequier[] = [];
+  filteredDemandes: DemandeDeChequier[] = [];
+  loading = false;
+  errorMessage = '';
+  searchQuery = '';
+  statutFilter = '';
+  demandeSelectionnee: DemandeDeChequier | null = null;
+
+  constructor(private demandeChequierService: DemandeChequierService) {}
 
   ngOnInit(): void {
-    this.chargerDemandes();
+    this.loadDemandes();
   }
 
-  chargerDemandes(): void {
-    // Ici vous devrez implémenter l'appel à votre service API
-    // Pour l'exemple, nous utilisons des données mockées
-    this.demandes = [
-      {
-        id: 1,
-        reference: 'CHQ-2023-001',
-        nom: 'Jean Dupont',
-        cin: 'AB123456',
-        adresse: '12 Rue des Fleurs, Casablanca',
-        telephone: '0612345678',
-        email: 'jean.dupont@email.com',
-        rib: '007 780 123456789123 45',
-        agence: 'Agence Centrale',
-        typeCompte: 'courant',
-        nombreChequiers: 2,
-        motif: 'renouvellement',
-        dateDemande: new Date('2023-05-15'),
-        statut: 'en_attente'
+  loadDemandes(): void {
+    this.loading = true;
+    this.errorMessage = '';
+    this.demandeChequierService.getDemandes().subscribe({
+      next: (data) => {
+        this.demandes = data;
+        this.applyFilters();
+        this.loading = false;
       },
-      // Ajoutez d'autres demandes mockées ici...
-    ];
-    this.applyFilters();
+      error: (error) => {
+        this.errorMessage = 'Erreur lors du chargement des demandes. Veuillez réessayer.';
+        this.loading = false;
+        console.error('Error loading demandes:', error);
+      }
+    });
   }
 
   applyFilters(): void {
     this.filteredDemandes = this.demandes.filter(demande => {
-      const matchesStatut = !this.statutFilter || demande.statut === this.statutFilter;
       const matchesSearch = !this.searchQuery || 
-        demande.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        demande.cin.includes(this.searchQuery) ||
-        demande.reference.includes(this.searchQuery);
-      return matchesStatut && matchesSearch;
+        demande.client.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        demande.client.prenom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        demande.telephone.includes(this.searchQuery) ||
+        demande.adresseEmail.toLowerCase().includes(this.searchQuery.toLowerCase());
+
+      const matchesStatus = !this.statutFilter || 
+        (this.statutFilter === 'en_attente' && demande.etat === 0) ||
+        (this.statutFilter === 'approuvé' && demande.etat === 1) ||
+        (this.statutFilter === 'rejeté' && demande.etat === 2);
+
+      return matchesSearch && matchesStatus;
     });
   }
 
-  getStatusText(statut: string): string {
-    switch(statut) {
-      case 'en_attente': return 'En attente';
-      case 'approuvé': return 'Approuvé';
-      case 'rejeté': return 'Rejeté';
-      case 'livré': return 'Livré';
-      default: return statut;
+  getStatusText(etat: number): string {
+    switch (etat) {
+      case 0:
+        return 'En Attente';
+      case 1:
+        return 'Approuvé';
+      case 2:
+        return 'Rejeté';
+      default:
+        return 'Inconnu';
     }
   }
 
-  voirDetails(demande: DemandeChequier): void {
+  traiterDemande(demande: DemandeDeChequier, action: 'approuvé' | 'rejeté'): void {
+    const newEtat = action === 'approuvé' ? 1 : 2;
+    
+    this.loading = true;
+    this.errorMessage = '';
+
+    this.demandeChequierService.updateStatus(demande.id, newEtat).subscribe({
+      next: () => {
+        // Update the local state
+        demande.etat = newEtat;
+        this.applyFilters();
+        this.loading = false;
+        
+        // Close modal if open
+        if (this.demandeSelectionnee?.id === demande.id) {
+          this.fermerModal();
+        }
+      },
+      error: (error) => {
+        this.errorMessage = `Erreur lors de la mise à jour du statut. Veuillez réessayer.`;
+        this.loading = false;
+        console.error('Error updating status:', error);
+      }
+    });
+  }
+
+  voirDetails(demande: DemandeDeChequier): void {
     this.demandeSelectionnee = demande;
   }
 
   fermerModal(): void {
-    this.demandeSelectionnee = undefined;
-  }
-
-  traiterDemande(demande: DemandeChequier, nouveauStatut: 'approuvé' | 'rejeté'): void {
-    demande.statut = nouveauStatut;
-    demande.dateTraitement = new Date();
-    // Ici vous devrez ajouter l'appel API pour sauvegarder le changement
-    this.applyFilters();
-  }
-
-  marquerCommeLivre(demande: DemandeChequier): void {
-    demande.statut = 'livré';
-    // Ici vous devrez ajouter l'appel API pour sauvegarder le changement
-    this.applyFilters();
-  }
-
-  telechargerDocuments(demande: DemandeChequier): void {
-    // Implémentez la logique de téléchargement des documents
-    console.log('Téléchargement des documents pour', demande.reference);
+    this.demandeSelectionnee = null;
   }
 }

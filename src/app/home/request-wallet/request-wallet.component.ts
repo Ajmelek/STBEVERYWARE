@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-request-wallet',
@@ -14,7 +15,7 @@ export class RequestWalletComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.walletForm = this.fb.group({
-      telephone: ['', [Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
+      telephone: ['', [Validators.required, Validators.pattern(/^\+?\d{8,11}$/)]],
       email: ['', [Validators.required, Validators.email]],
       otp: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]
     });
@@ -28,7 +29,7 @@ export class RequestWalletComponent {
       if (this.walletForm.get('telephone')?.valid && this.walletForm.get('email')?.valid) {
         this.sendOtp();
       } else {
-        alert('Veuillez corriger les erreurs dans le formulaire');
+        this.showErrorAlert('Veuillez corriger les erreurs dans le formulaire');
       }
       return;
     }
@@ -48,10 +49,11 @@ export class RequestWalletComponent {
       next: (res: any) => {
         this.showOtpField = true;
         this.isSubmitting = false;
+        this.showSuccessAlert(`Un code OTP a été envoyé à ${email}`);
       },
       error: (err) => {
         console.error(err);
-        alert('Erreur d\'envoi d\'OTP');
+        this.showErrorAlert('Erreur d\'envoi d\'OTP');
         this.isSubmitting = false;
       }
     });
@@ -81,7 +83,7 @@ export class RequestWalletComponent {
           this.http.post('http://localhost:5082/api/DemandeWallet', formData)
             .subscribe({
               next: (walletRes: any) => {
-                alert('Votre demande de wallet a été enregistrée avec succès!');
+                this.showSuccessAlert('Votre demande de wallet a été enregistrée avec succès!');
                 this.walletForm.reset();
                 this.showOtpField = false;
                 this.isSubmitting = false;
@@ -89,14 +91,14 @@ export class RequestWalletComponent {
               error: (err) => {
                 if (err.status === 400) {
                   console.error('Bad Request Error:', err.error);
-                  alert('Erreur de validation: ' + (err.error?.message || 'Données invalides'));
+                  this.showErrorAlert('Erreur de validation: ' + (err.error?.message || 'Données invalides'));
                 } else {
                   this.handleError(err);
                 }
               }
             });
         } else {
-          alert('Code OTP invalide');
+          this.showErrorAlert('Code OTP invalide');
           this.isSubmitting = false;
         }
       },
@@ -111,11 +113,33 @@ export class RequestWalletComponent {
     this.isSubmitting = false;
     
     if (error.status === 0) {
-      alert('Serveur inaccessible');
+      this.showErrorAlert('Serveur inaccessible');
     } else if (error.status === 400) {
-      alert(`Erreur de validation: ${error.error?.message || 'Données invalides'}`);
+      this.showErrorAlert(`Erreur de validation: ${error.error?.message || 'Données invalides'}`);
     } else {
-      alert(`Erreur: ${error.status} - ${error.error?.message || error.message}`);
+      this.showErrorAlert(`Erreur: ${error.status} - ${error.error?.message || error.message}`);
     }
+  }
+
+  private showSuccessAlert(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Succès!',
+      text: message,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#28a745',
+      timer: 4000,
+      timerProgressBar: true
+    });
+  }
+
+  private showErrorAlert(message: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur!',
+      text: message,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#dc3545'
+    });
   }
 }

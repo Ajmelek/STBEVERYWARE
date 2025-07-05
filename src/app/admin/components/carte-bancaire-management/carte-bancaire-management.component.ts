@@ -1,14 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface BankCard {
-  id: number;
-  cardNumber: string;
-  cardHolder: string;
-  expiryDate: string;
-  status: 'active' | 'suspended' | 'expired';
-  balance: number;
-  lastTransaction: Date;
-}
+import { DemandeCarteBancaireService, DemandeDeCarteBancaire } from '../../../services/demande-carte-bancaire.service';
 
 @Component({
   selector: 'app-carte-bancaire-management',
@@ -16,75 +7,98 @@ interface BankCard {
   styleUrls: ['./carte-bancaire-management.component.scss']
 })
 export class CarteBancaireManagementComponent implements OnInit {
-  bankCards: BankCard[] = [];
-  filteredCards: BankCard[] = [];
+  demandes: DemandeDeCarteBancaire[] = [];
+  filteredDemandes: DemandeDeCarteBancaire[] = [];
   statusFilter: string = '';
   searchQuery: string = '';
+  loading: boolean = false;
+  errorMessage: string = '';
+  successMessage: string = '';
+
+  constructor(private demandeService: DemandeCarteBancaireService) {}
 
   ngOnInit(): void {
-    this.loadMockData();
-    this.applyFilters();
+    this.loadDemandes();
   }
 
-  private loadMockData(): void {
-    this.bankCards = [
-      {
-        id: 1,
-        cardNumber: '**** **** **** 1234',
-        cardHolder: 'Jean Dupont',
-        expiryDate: '12/25',
-        status: 'active',
-        balance: 1250.50,
-        lastTransaction: new Date('2024-03-15')
+  loadDemandes(): void {
+    this.loading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.demandeService.getAllDemandes().subscribe({
+      next: (data) => {
+        this.demandes = data;
+        this.applyFilters();
+        this.loading = false;
       },
-      {
-        id: 2,
-        cardNumber: '**** **** **** 5678',
-        cardHolder: 'Marie Martin',
-        expiryDate: '06/24',
-        status: 'suspended',
-        balance: 3200.00,
-        lastTransaction: new Date('2024-03-14')
-      },
-      {
-        id: 3,
-        cardNumber: '**** **** **** 9012',
-        cardHolder: 'Pierre Durand',
-        expiryDate: '03/23',
-        status: 'expired',
-        balance: 500.75,
-        lastTransaction: new Date('2024-03-13')
-      },
-      {
-        id: 4,
-        cardNumber: '**** **** **** 3456',
-        cardHolder: 'Sophie Bernard',
-        expiryDate: '09/26',
-        status: 'active',
-        balance: 0.00,
-        lastTransaction: new Date('2024-03-16')
+      error: (error) => {
+        console.error('Error loading demandes:', error);
+        this.errorMessage = 'Erreur lors du chargement des demandes';
+        this.loading = false;
       }
-    ];
+    });
   }
 
   applyFilters(): void {
-    this.filteredCards = this.bankCards.filter(card => {
-      const matchesStatus = !this.statusFilter || card.status === this.statusFilter;
+    this.filteredDemandes = this.demandes.filter(demande => {
+      const matchesStatus = !this.statusFilter || this.getEtatText(demande.etat) === this.statusFilter;
       const matchesSearch = !this.searchQuery || 
-        card.cardHolder.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        card.cardNumber.includes(this.searchQuery);
+        demande.clientId.toString().includes(this.searchQuery) ||
+        demande.telephone.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        demande.adresseEmail.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        demande.typeDeCarte.toLowerCase().includes(this.searchQuery.toLowerCase());
       return matchesStatus && matchesSearch;
     });
   }
 
-  updateCardStatus(card: BankCard, newStatus: 'active' | 'suspended' | 'expired'): void {
-    card.status = newStatus;
-    this.applyFilters();
-    console.log(`Card ${card.cardNumber} status updated to ${newStatus}`);
+  getEtatText(etat: number): string {
+    switch (etat) {
+      case 0: return 'En Attente';
+      case 1: return 'Approuvé';
+      case 2: return 'Rejeté';
+      default: return 'Inconnu';
+    }
   }
 
-  viewCardDetails(card: BankCard): void {
-    console.log('Viewing card details:', card);
-    alert(`Détails de la carte:\n\nNuméro: ${card.cardNumber}\nTitulaire: ${card.cardHolder}\nExpiration: ${card.expiryDate}\nSolde: ${card.balance} €\nStatut: ${card.status}`);
+  getEtatClass(etat: number): string {
+    switch (etat) {
+      case 0: return 'status-pending';
+      case 1: return 'status-approved';
+      case 2: return 'status-rejected';
+      default: return '';
+    }
+  }
+
+  updateDemandeStatus(demande: DemandeDeCarteBancaire, newEtat: number): void {
+    this.loading = true;
+    this.errorMessage = '';
+    this.successMessage = '';
+    
+    this.demandeService.updateStatus(demande.id, newEtat).subscribe({
+      next: () => {
+        demande.etat = newEtat;
+    this.applyFilters();
+        this.loading = false;
+        this.successMessage = `Statut mis à jour avec succès: ${this.getEtatText(newEtat)}`;
+        // Clear success message after 3 seconds
+        setTimeout(() => {
+          this.successMessage = '';
+        }, 3000);
+      },
+      error: (error) => {
+        console.error('Error updating status:', error);
+        this.errorMessage = 'Erreur lors de la mise à jour du statut';
+        this.loading = false;
+        // Clear error message after 3 seconds
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 3000);
+      }
+    });
+  }
+
+  viewDemandeDetails(demande: DemandeDeCarteBancaire): void {
+    console.log('Viewing demande details:', demande);
+    // You can implement a modal or detailed view here if needed
   }
 }

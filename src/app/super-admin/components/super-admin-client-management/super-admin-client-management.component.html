@@ -10,82 +10,159 @@
           (input)="applyFilters()"
         >
       </div>
-      <div class="status-filter">
-        <select [(ngModel)]="statusFilter" (change)="applyFilters()">
-          <option value="">Tous les Statuts</option>
-          <option value="actif">Actif</option>
-          <option value="inactif">Inactif</option>
-          <option value="bloqué">Bloqué</option>
-        </select>
-      </div>
     </div>
   </div>
 
-  <div class="clients-list">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Chargement des clients...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !isLoading" class="error-state">
+    <p>{{ error }}</p>
+    <button (click)="loadClients()" class="btn-retry">Réessayer</button>
+  </div>
+
+  <!-- Clients List -->
+  <div *ngIf="!isLoading && !error" class="clients-list">
     <table>
       <thead>
         <tr>
-          <th>ID Client</th>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Email</th>
-          <th>Statut</th>
-          <th>Date de Création</th>
-          <th>Dernière Connexion</th>
+          <th>ID</th>
+          <th>Nom Complet</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let client of filteredClients">
-          <td>{{ client.clientId }}</td>
-          <td>{{ client.nom }}</td>
-          <td>{{ client.prenom }}</td>
-          <td>{{ client.email }}</td>
-          <td>
-            <span class="status-badge" [ngClass]="client.status">
-              {{ client.status }}
-            </span>
-          </td>
-          <td>{{ client.dateCreation }}</td>
-          <td>{{ client.derniereConnexion }}</td>
+          <td>{{ client.id }}</td>
+          <td>{{ getFullName(client) }}</td>
           <td class="actions">
             <button 
               class="btn-view" 
-              (click)="showMockAction('voir', client)"
+              (click)="viewClientDetails(client)"
             >
-              Voir
-            </button>
-            <button 
-              *ngIf="client.status === 'actif'"
-              class="btn-block" 
-              (click)="showMockAction('bloquer', client)"
-            >
-              Bloquer
-            </button>
-            <button 
-              *ngIf="client.status === 'bloqué'"
-              class="btn-unblock" 
-              (click)="showMockAction('débloquer', client)"
-            >
-              Débloquer
-            </button>
-            <button 
-              *ngIf="client.status === 'inactif'"
-              class="btn-activate" 
-              (click)="showMockAction('activer', client)"
-            >
-              Activer
-            </button>
-            <button 
-              *ngIf="client.status === 'actif'"
-              class="btn-deactivate" 
-              (click)="showMockAction('désactiver', client)"
-            >
-              Désactiver
+              Voir Détails
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Detail View Modal -->
+  <div *ngIf="showDetailView && selectedClient" class="detail-modal-overlay" (click)="closeDetailView()">
+    <div class="detail-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Détails du Client</h3>
+        <button class="btn-close" (click)="closeDetailView()">×</button>
+      </div>
+      
+      <div class="modal-content">
+        <div class="client-info-grid">
+          <div class="info-section">
+            <h4>Informations Personnelles</h4>
+            <div class="info-row">
+              <span class="label">ID:</span>
+              <span class="value">{{ selectedClient.id }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Nom:</span>
+              <span class="value">{{ selectedClient.nom || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Prénom:</span>
+              <span class="value">{{ selectedClient.prenom || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">CIN:</span>
+              <span class="value">{{ selectedClient.cin || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Date de Naissance:</span>
+              <span class="value">{{ selectedClient.dateNaissance || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Nationalité:</span>
+              <span class="value">{{ selectedClient.nationalite || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">État Civil:</span>
+              <span class="value">{{ selectedClient.etatcivil || 'N/A' }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h4>Coordonnées</h4>
+            <div class="info-row">
+              <span class="label">Email:</span>
+              <span class="value">{{ selectedClient.mailPrincipal || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Téléphone:</span>
+              <span class="value">{{ selectedClient.numeroTelephone || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Adresse:</span>
+              <span class="value">{{ selectedClient.adresse || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Code Postal:</span>
+              <span class="value">{{ selectedClient.codepostal || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Gouvernorat:</span>
+              <span class="value">{{ selectedClient.gouvernorat || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Pays:</span>
+              <span class="value">{{ selectedClient.pays || 'N/A' }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h4>Informations Bancaires</h4>
+            <div class="info-row">
+              <span class="label">RIB:</span>
+              <span class="value">{{ selectedClient.rib || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Agence:</span>
+              <span class="value">{{ selectedClient.agence || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Login:</span>
+              <span class="value">{{ selectedClient.login || 'N/A' }}</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h4>Informations Supplémentaires</h4>
+            <div class="info-row">
+              <span class="label">Profession:</span>
+              <span class="value">{{ selectedClient.statutpro || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Nom du Père:</span>
+              <span class="value">{{ selectedClient.nomPere || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Nom de la Mère:</span>
+              <span class="value">{{ selectedClient.nomMere || 'N/A' }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Pays de Naissance:</span>
+              <span class="value">{{ selectedClient.paysNaissance || 'N/A' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeDetailView()">Fermer</button>
+      </div>
+    </div>
   </div>
 </div> 

@@ -1,16 +1,7 @@
-.mainEspaceClient{
+.mainEspaceClient {
     padding-top: 100px;
 }
-// @media (min-width: 1200px) {
-//     .d-xl-block {
-//         display: block !important;
-//     }
-// }
-// @media (min-width: 992px) {
-//     .d-lg-block {
-//         display: block !important;
-//     }
-// }
+
 .pt-4 {
     padding-top: 1.5rem !important;
 }
@@ -25,69 +16,19 @@
     display: block !important
 }
 
-// Custom hover effects and transitions
-.hover-scale {
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2) !important;
-  }
-}
-
-.hover-bg-white {
-  transition: background-color 0.2s ease-in-out;
-  
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-}
-
-// Card styles
+/* Card styles */
 .card {
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    .card-body {
-      transform: translateY(-2px);
-    }
-  }
+    backdrop-filter: blur(10px);
 }
 
-// Navigation styles
-.nav-link {
-  transition: all 0.2s ease;
-  
-  &:hover {
-    transform: translateX(5px);
-  }
-}
-
-// Text styles
+/* Text styles */
 .text-white-50 {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
-// Responsive adjustments
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .card {
-    margin-bottom: 1rem;
-  }
-}
-
-// Animation for page transitions
-.page-wrapper {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    .card {
+        margin-bottom: 1rem;
+    }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface KycSubmission {
   id: number;
@@ -27,66 +29,70 @@ export class KycManagementComponent implements OnInit {
   filteredSubmissions: KycSubmission[] = [];
   statusFilter: string = '';
   searchQuery: string = '';
-  selectedSubmission: KycSubmission | null = null;
+  selectedSubmission: any = null;
   adminComment: string = '';
   viewComment: string = '';
   showModal: boolean = false;
+  loading: boolean = false;
+  error: string | null = null;
+
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     this.loadSubmissions();
   }
 
   loadSubmissions() {
-    this.submissions = [
-      {
-        id: 1,
-        clientId: 'CLI001',
-        clientName: 'Jean Dupont',
-        status: 'en attente',
-        submissionDate: '2024-03-15',
-        documents: ['Carte d\'identité', 'Justificatif de domicile'],
-        details: {
-          civilite: 'Monsieur',
-          prenom: 'Jean',
-          nom: 'Dupont',
-          cin: '12345678',
-          dateDelivrance: '2020-05-10',
-          sigNature: 'assets/signatures/signature1.png'
-        }
+    this.loading = true;
+    this.error = null;
+    this.http.get<any>('http://localhost:5082/api/Demande/GetAllDemandes').subscribe({
+      next: (response) => {
+        const data = response && response.data ? response.data : [];
+        this.submissions = data.map((item: any) => {
+          // Map status from etat
+          let status: 'en attente' | 'approuvé' | 'rejeté' = 'en attente';
+          if (item.etat === 1) status = 'approuvé';
+          else if (item.etat === 2) status = 'rejeté';
+          // Map clientName from prenom + nom if not present
+          let clientName = (item.prenom || '') + (item.nom ? ' ' + item.nom : '');
+          if (!clientName.trim()) clientName = 'Non fourni';
+          // Documents array
+          const documents = [];
+          if (item.documentCIN) documents.push('CIN: ' + (item.documentCINOriginalName || item.documentCIN));
+          if (item.documentJustificatif) documents.push('Justificatif: ' + (item.documentJustificatifOriginalName || item.documentJustificatif));
+          // Details for modal
+          const details = {
+            civilite: item.civilite,
+            prenom: item.prenom,
+            nom: item.nom,
+            cin: item.cin,
+            dateDelivrance: item.datedelivrance,
+            sigNature: item.signaturePath
+          };
+          // Attach original object for full details
+          const mapped = {
+            id: item.id,
+            clientId: item.clientID ? String(item.clientID) : '',
+            clientName,
+            status,
+            submissionDate: item.dateDemande,
+            documents,
+            details,
+            _original: item
+          };
+          return mapped;
+        });
+        this.applyFilters();
+        this.loading = false;
       },
-      {
-        id: 2,
-        clientId: 'CLI002',
-        clientName: 'Marie Martin',
-        status: 'approuvé',
-        submissionDate: '2024-03-14',
-        documents: ['Passeport', 'Relevé bancaire'],
-        details: {
-          civilite: 'Madame',
-          prenom: 'Marie',
-          nom: 'Martin',
-          cin: '87654321',
-          dateDelivrance: '2019-11-22',
-          sigNature: 'assets/signatures/signature2.png'
-        }
-      },
-      {
-        id: 3,
-        clientId: 'CLI003',
-        clientName: 'Pierre Lambert',
-        status: 'en attente',
-        submissionDate: '2024-03-16',
-        documents: ['Permis de conduire', 'Facture EDF'],
-        details: {
-          civilite: 'Monsieur',
-          prenom: 'Pierre',
-          nom: 'Lambert',
-          cin: '13579246',
-          dateDelivrance: '2021-02-15'
-        }
+      error: (err) => {
+        this.error = 'Erreur lors du chargement des soumissions KYC.';
+        this.loading = false;
+        this.submissions = [];
+        this.filteredSubmissions = [];
+        console.error('Erreur API KYC:', err);
       }
-    ];
-    this.applyFilters();
+    });
   }
 
   handleImageError(event: Event) {
@@ -114,8 +120,8 @@ export class KycManagementComponent implements OnInit {
     }
   }
 
-  viewDetails(submission: KycSubmission) {
-    this.selectedSubmission = submission;
+  viewDetails(submission: any) {
+    this.selectedSubmission = submission._original || submission;
     this.showModal = true;
   }
 
@@ -129,42 +135,78 @@ export class KycManagementComponent implements OnInit {
   approveSubmission(submissionId: number) {
     const submission = this.submissions.find(s => s.id === submissionId);
     if (submission) {
-      submission.status = 'approuvé';
-      this.applyFilters();
-      alert(`La soumission de ${submission.clientName} a été approuvée.`);
+      // Make API call to approve the demande
+      this.http.post(`http://localhost:5082/api/Demande/ApproveDemande/${submissionId}`, {}).subscribe({
+        next: (response) => {
+          submission.status = 'approuvé';
+          this.applyFilters();
+          alert(`La soumission de ${submission.clientName} a été approuvée.`);
+        },
+        error: (error) => {
+          console.error('Erreur lors de l\'approbation:', error);
+          alert(`Erreur lors de l'approbation de la soumission de ${submission.clientName}.`);
+        }
+      });
     }
   }
 
   rejectSubmission(submissionId: number) {
     const submission = this.submissions.find(s => s.id === submissionId);
     if (submission) {
-      submission.status = 'rejeté';
-      this.applyFilters();
-      alert(`La soumission de ${submission.clientName} a été rejetée.`);
+      // Make API call to reject the demande
+      this.http.post(`http://localhost:5082/api/Demande/RejectDemande/${submissionId}`, {}).subscribe({
+        next: (response) => {
+          submission.status = 'rejeté';
+          this.applyFilters();
+          alert(`La soumission de ${submission.clientName} a été rejetée.`);
+        },
+        error: (error) => {
+          console.error('Erreur lors du rejet:', error);
+          alert(`Erreur lors du rejet de la soumission de ${submission.clientName}.`);
+        }
+      });
     }
   }
 
   approveWithComment() {
     if (this.selectedSubmission) {
-      this.selectedSubmission.status = 'approuvé';
-      if (this.adminComment) {
-        console.log('Commentaire admin:', this.adminComment);
-      }
-      this.applyFilters();
-      this.closeModal();
-      alert(`La soumission a été approuvée avec succès.\nCommentaire: ${this.adminComment || 'Aucun commentaire'}`);
+      // Make API call to approve the demande
+      this.http.post(`http://localhost:5082/api/Demande/ApproveDemande/${this.selectedSubmission.id}`, {}).subscribe({
+        next: (response) => {
+          this.selectedSubmission.status = 'approuvé';
+          if (this.adminComment) {
+            console.log('Commentaire admin:', this.adminComment);
+          }
+          this.applyFilters();
+          this.closeModal();
+          alert(`La soumission a été approuvée avec succès.\nCommentaire: ${this.adminComment || 'Aucun commentaire'}`);
+        },
+        error: (error) => {
+          console.error('Erreur lors de l\'approbation:', error);
+          alert(`Erreur lors de l'approbation de la soumission.`);
+        }
+      });
     }
   }
 
   rejectWithComment() {
     if (this.selectedSubmission) {
-      this.selectedSubmission.status = 'rejeté';
-      if (this.adminComment) {
-        console.log('Commentaire admin:', this.adminComment);
-      }
-      this.applyFilters();
-      this.closeModal();
-      alert(`La soumission a été rejetée avec succès.\nCommentaire: ${this.adminComment || 'Aucun commentaire'}`);
+      // Make API call to reject the demande
+      this.http.post(`http://localhost:5082/api/Demande/RejectDemande/${this.selectedSubmission.id}`, {}).subscribe({
+        next: (response) => {
+          this.selectedSubmission.status = 'rejeté';
+          if (this.adminComment) {
+            console.log('Commentaire admin:', this.adminComment);
+          }
+          this.applyFilters();
+          this.closeModal();
+          alert(`La soumission a été rejetée avec succès.\nCommentaire: ${this.adminComment || 'Aucun commentaire'}`);
+        },
+        error: (error) => {
+          console.error('Erreur lors du rejet:', error);
+          alert(`Erreur lors du rejet de la soumission.`);
+        }
+      });
     }
   }
 
@@ -181,5 +223,33 @@ export class KycManagementComponent implements OnInit {
 
   downloadDocument(docName: string) {
     alert(`Téléchargement simulé du document: ${docName}`);
+  }
+
+  public isImageField(field: string): boolean {
+    return [
+      'documentCIN',
+      'documentJustificatif',
+      'signaturePath',
+      'selfie'
+    ].includes(field);
+  }
+
+  public getFullImagePath(path: string): string {
+    if (!path) return '';
+    if (path.startsWith('http') || path.startsWith('data:')) return path;
+    return `http://localhost:5082${path}`;
+  }
+
+  public toStr(val: any): string {
+    return val === null || val === undefined ? '' : String(val);
+  }
+
+  sanitizeImageUrl(url: string): SafeResourceUrl {
+    if (!url) return '';
+    // If already absolute, don't prepend
+    if (url.startsWith('http') || url.startsWith('data:')) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    return this.sanitizer.bypassSecurityTrustResourceUrl('http://localhost:5082' + url);
   }
 }

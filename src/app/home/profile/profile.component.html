@@ -2,7 +2,7 @@
         <br>
         <div class="row p-0 justify-content-center">
             <div class="col-12 text-end pr-3" style="font-size: 12px;">
-                Fiche KYC :<img src="assets/img/pdf.png" alt="" style="width: 35px; cursor: pointer;">
+                Fiche KYC :<img src="assets/img/pdf-file.png" alt="" style="width: 35px; cursor: pointer;">
             </div>
         </div>
         
@@ -20,7 +20,7 @@
                     <div class="text-center mt-5">
                         <h3>{{ client.prenom }} {{ client.nom }} <span class="font-weight-light"></span></h3>
                         <div class="h6 font-weight-300">
-                            <i class="ni location_pin"></i>TUNISIE, {{ client.adresse || '' }}
+                            <i class="ni location_pin"></i> {{ client.paysNaissance  }},{{ client.adresseComplete }}
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,9 @@
                             
 
                                 <div class="col-sm-12 col-lg-12">
-                                    <p>
-                                        <span><b>Nature de l'activité:</b></span>
+                                    <p> 
+                                        <!-- Nature de l'activité: -->
+                                        <span><b></b></span>
                                         
             
                                     </div>
@@ -89,7 +90,7 @@
                                     <span><b>Autre nationalité:</b></span> {{ client.autreNationalite || 'Non spécifié' }}<br>
                                     <span><b>Nom complet de la mère:</b></span> {{ client.nomMere+ ' ' + client.prenommere || 'Non spécifié' }}<br>
                                     <span><b>Nom complet du père:</b></span> {{ client.nomPere+ ' ' + client.prenompere || 'Non spécifié' }}<br>
-                                    <span><b>Etat civil: </b></span> {{ client.etatCivil || 'Non spécifié' }}<br>
+                                    <span><b>Etat civil: </b></span> {{ client.etatcivil || 'Non spécifié' }}<br>
                                 </p>
                             </div>
                         </div>
@@ -122,7 +123,8 @@
         
         
         
-        <div class="text-center mt-4">
-            <button class="btn btn-primary" (click)="navigateToKycForm()">Demande Mise à Jour KYC Form</button>
-        </div>
+        <div class="text-center my-6">
+    <div class="text-center my-6">
+    <button class="kyc-button" (click)="navigateToKycForm()">Demande Mise à Jour KYC Form</button>
+</div>
     </div>

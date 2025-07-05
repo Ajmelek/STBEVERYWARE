@@ -4,57 +4,97 @@
     <div class="header-actions">
       <div class="search-box">
         <i class="bx bx-search"></i>
-        <input type="text" placeholder="Rechercher..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+        <input 
+          type="text" 
+          placeholder="Rechercher par ID, téléphone, email..." 
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="applyFilters()"
+          class="search-input"
+          [disabled]="loading">
       </div>
-      <select [(ngModel)]="statusFilter" (ngModelChange)="applyFilters()" class="status-filter">
+      <select 
+        [(ngModel)]="statusFilter" 
+        (ngModelChange)="applyFilters()" 
+        class="status-filter"
+        [disabled]="loading">
         <option value="">Tous les Statuts</option>
-        <option value="active">Active</option>
-        <option value="suspended">Suspendue</option>
-        <option value="expired">Expirée</option>
+        <option value="En Attente">En Attente</option>
+        <option value="Approuvé">Approuvé</option>
+        <option value="Rejeté">Rejeté</option>
       </select>
     </div>
   </div>
 
+  <div *ngIf="errorMessage" class="error-message">
+    <i class="bx bx-error-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    <i class="bx bx-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
   <div class="cards-list">
-    <table>
+    <div *ngIf="loading" class="loading-spinner">
+      <i class="bx bx-loader-alt bx-spin"></i>
+      Chargement...
+    </div>
+
+    <div *ngIf="!loading && filteredDemandes.length === 0" class="no-results">
+      Aucune demande trouvée
+    </div>
+    
+    <table *ngIf="!loading && filteredDemandes.length > 0">
       <thead>
         <tr>
-          <th>Numéro de Carte</th>
-          <th>Titulaire</th>
-          <th>Date d'Expiration</th>
-          <th>Solde</th>
-          <th>Statut</th>
+          <th>ID Client</th>
+          <th>Nom Client</th>
+          <th>Téléphone</th>
+          <th>Email</th>
+          <th>Type de Carte</th>
+          <th>Date de Demande</th>
+          <th>État</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let card of filteredCards">
-          <td>{{ card.cardNumber }}</td>
-          <td>{{ card.cardHolder }}</td>
-          <td>{{ card.expiryDate }}</td>
-          <td>{{ card.balance | currency:'EUR':'symbol':'1.2-2' }}</td>
+        <tr *ngFor="let demande of filteredDemandes">
+          <td>{{ demande.clientId }}</td>
+          <td>{{ demande.client?.nom }} {{ demande.client?.prenom }}</td>
+          <td>{{ demande.telephone || 'Non spécifié' }}</td>
+          <td>{{ demande.adresseEmail || 'Non spécifié' }}</td>
+          <td>{{ demande.typeDeCarte || 'Non spécifié' }}</td>
+          <td>{{ demande.dateDemande | date:'dd/MM/yyyy' }}</td>
           <td>
-            <span [class]="'status-badge status-' + card.status">
-              {{ card.status === 'active' ? 'Active' : card.status === 'suspended' ? 'Suspendue' : 'Expirée' }}
+            <span [class]="'status-badge ' + getEtatClass(demande.etat)">
+              {{ getEtatText(demande.etat) }}
             </span>
           </td>
           <td class="actions">
-            <button *ngIf="card.status !== 'suspended'"
-                    (click)="updateCardStatus(card, 'suspended')"
-                    class="btn btn-suspend">
-              <i class="bx bx-pause"></i>
-              Suspendre
-            </button>
-            <button *ngIf="card.status !== 'active'"
-                    (click)="updateCardStatus(card, 'active')"
-                    class="btn btn-approve">
+            <button *ngIf="demande.etat === 0"
+                    (click)="updateDemandeStatus(demande, 1)"
+                    class="btn btn-approve"
+                    title="Approuver la demande"
+                    [disabled]="loading">
               <i class="bx bx-check"></i>
-              Activer
+              Approuver
             </button>
-            <button (click)="viewCardDetails(card)"
-                    class="btn btn-view">
-              <i class="bx bx-show"></i>
-              Détails
+            <button *ngIf="demande.etat === 0"
+                    (click)="updateDemandeStatus(demande, 2)"
+                    class="btn btn-reject"
+                    title="Rejeter la demande"
+                    [disabled]="loading">
+              <i class="bx bx-x"></i>
+              Rejeter
+            </button>
+            <button *ngIf="demande.etat === 0"
+                    (click)="viewDemandeDetails(demande)"
+                    class="btn btn-view"
+                    title="Voir les détails"
+                    [disabled]="loading">
+              <i class="bx bx-time"></i>
+              En Attente
             </button>
           </td>
         </tr>

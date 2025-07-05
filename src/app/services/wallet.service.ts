@@ -33,10 +33,16 @@ export class WalletService {
   }
 
   updateStatus(id: number, etat: number): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/etat`, { etat }, {
-      headers: {
-        'Content-Type': 'application/json-patch+json'
-      }
-    });
+    const url = `${this.apiUrl}/${id}/etat`;
+    const body = { etat };
+    const headers = {
+      'Content-Type': 'application/json-patch+json'
+    };
+    
+    console.log('Making PUT request to:', url);
+    console.log('Request body:', body);
+    console.log('Request headers:', headers);
+    
+    return this.http.put(url, body, { headers });
   }
 } 

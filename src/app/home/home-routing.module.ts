@@ -8,17 +8,19 @@ import { RequestCheckComponent } from './request-check/request-check.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReclamationComponent } from './reclamation/reclamation.component';
 import { RequestWalletComponent } from './request-wallet/request-wallet.component';
+import { AccountDeactivationComponent } from '../account-deactivation/account-deactivation.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent , data: { breadcrumb: 'Home' },
   children: [
-      { path: 'RequestAccount', component: CreateAccountComponent, data: { breadcrumb: 'Creation Compte' }},
+      { path: 'RequestAccount', component: CreateAccountComponent, data: { breadcrumb: 'Consulter' }},
       { path: 'RequestCard', component: RequestCardComponent, data: { breadcrumb: 'Demander Carte' }},
       { path: 'RequestCheck', component: RequestCheckComponent, data: { breadcrumb: 'Demande Chequier' }},
       { path: 'KycForm', component: InformationsComponent, data: { breadcrumb: 'KycForm' }},
       { path: 'Informations', component: ProfileComponent, data: { breadcrumb: 'Mes Informations' }},
       { path: 'reclamation', component: ReclamationComponent, data: { breadcrumb: 'Réclamation' }},
       { path: 'request-wallet', component: RequestWalletComponent, data: { breadcrumb: 'Demande de Wallet' } },
+      { path: 'account-deactivation', component: AccountDeactivationComponent, data: { breadcrumb: 'Désactivation du compte' } },
 
       //     { path: 'paiement', component : PaiementComponent, data: { breadcrumb: 'Paiement' } },
   

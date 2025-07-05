@@ -1,15 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-interface Client {
-  id: number;
-  clientId: string;
-  nom: string;
-  prenom: string;
-  email: string;
-  status: 'actif' | 'inactif' | 'bloqué';
-  dateCreation: string;
-  derniereConnexion: string;
-}
+import { ClientManagementService, Client } from '../../services/client-management.service';
 
 @Component({
   selector: 'app-super-admin-client-management',
@@ -19,70 +9,91 @@ interface Client {
 export class SuperAdminClientManagementComponent implements OnInit {
   clients: Client[] = [];
   filteredClients: Client[] = [];
-  statusFilter: string = '';
+  selectedClient: Client | null = null;
+  showDetailView = false;
+  isLoading = false;
+  error: string | null = null;
   searchQuery: string = '';
 
+  constructor(private clientService: ClientManagementService) {}
+
   ngOnInit() {
-    // Mock data
-    this.clients = [
-      {
-        id: 1,
-        clientId: 'CLI001',
-        nom: 'Dupont',
-        prenom: 'Jean',
-        email: 'jean.dupont@email.com',
-        status: 'actif',
-        dateCreation: '2024-01-15',
-        derniereConnexion: '2024-03-16'
+    this.loadClients();
+  }
+
+  loadClients() {
+    this.isLoading = true;
+    this.error = null;
+    
+    this.clientService.getAllClients().subscribe({
+      next: (data) => {
+        this.clients = data;
+        this.applyFilters();
+        this.isLoading = false;
       },
-      {
-        id: 2,
-        clientId: 'CLI002',
-        nom: 'Martin',
-        prenom: 'Marie',
-        email: 'marie.martin@email.com',
-        status: 'inactif',
-        dateCreation: '2024-02-01',
-        derniereConnexion: '2024-03-10'
-      },
-      {
-        id: 3,
-        clientId: 'CLI003',
-        nom: 'Durand',
-        prenom: 'Pierre',
-        email: 'pierre.durand@email.com',
-        status: 'bloqué',
-        dateCreation: '2024-01-20',
-        derniereConnexion: '2024-03-05'
-      },
-      {
-        id: 4,
-        clientId: 'CLI004',
-        nom: 'Bernard',
-        prenom: 'Sophie',
-        email: 'sophie.bernard@email.com',
-        status: 'actif',
-        dateCreation: '2024-02-15',
-        derniereConnexion: '2024-03-16'
+      error: (err) => {
+        this.error = 'Erreur lors du chargement des clients';
+        this.isLoading = false;
+        console.error('Error loading clients:', err);
       }
-    ];
-    this.applyFilters();
+    });
   }
 
   applyFilters() {
     this.filteredClients = this.clients.filter(client => {
-      const matchesStatus = !this.statusFilter || client.status === this.statusFilter;
       const matchesSearch = !this.searchQuery || 
-        client.nom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        client.prenom.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        client.clientId.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        client.email.toLowerCase().includes(this.searchQuery.toLowerCase());
-      return matchesStatus && matchesSearch;
+        (client.nom && client.nom.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+        (client.prenom && client.prenom.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+        (client.id && client.id.toString().includes(this.searchQuery)) ||
+        (client.mailPrincipal && client.mailPrincipal.toLowerCase().includes(this.searchQuery.toLowerCase()));
+      return matchesSearch;
     });
   }
 
-  showMockAction(action: string, client: Client) {
-    console.log(`Action simulée ${action} pour le client:`, client);
-    alert(`Ceci est une action simulée ${action} pour le client ${client.prenom} ${client.nom}.`);
+  getFullName(client: Client): string {
+    const nom = client.nom || '';
+    const prenom = client.prenom || '';
+    
+    if (nom && prenom) {
+      return `${nom} ${prenom}`;
+    } else if (nom) {
+      return nom;
+    } else if (prenom) {
+      return prenom;
+    } else {
+      return 'N/A';
+    }
+  }
+
+  viewClientDetails(client: Client) {
+    this.selectedClient = client;
+    this.showDetailView = true;
+  }
+
+  closeDetailView() {
+    this.showDetailView = false;
+    this.selectedClient = null;
+  }
+
+  getClientStatus(client: Client): string {
+    // You can implement your own logic to determine client status
+    // For now, we'll use a simple approach based on available data
+    if (client.mailPrincipal && client.nom && client.prenom) {
+      return 'Actif';
+    }
+    return 'Inactif';
+  }
+
+  getStatusClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'actif':
+        return 'status-active';
+      case 'inactif':
+        return 'status-inactive';
+      case 'bloqué':
+        return 'status-blocked';
+      default:
+        return 'status-inactive';
+    }
   }
 } 

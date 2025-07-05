@@ -1,0 +1,86 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-7">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-4 p-md-5">
+          
+          <!-- Header Section -->
+          <div class="text-center mb-4">
+            <h2 class="h4 mb-3 text-dark fw-bold">Demande de désactivation de compte</h2>
+            <p class="text-muted mb-0">Cette action est irréversible</p>
+          </div>
+          
+          <!-- Warning Alert -->
+          <div class="alert alert-warning border-0 mb-4" role="alert">
+            <div class="d-flex align-items-start">
+              <i class="bx bx-error-circle fs-4 text-warning me-3 mt-1"></i>
+              <div class="flex-grow-1">
+                <h5 class="alert-heading mb-3 fw-semibold">Êtes-vous sûr(e) de vouloir désactiver votre compte ?</h5>
+                <p class="mb-3">Nous sommes désolés de vous voir partir. Veuillez noter qu'une fois votre compte désactivé :</p>
+                
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex align-items-start mb-3">
+                    <i class="bx bx-right-arrow-circle text-warning me-2 mt-1 flex-shrink-0"></i>
+                    <span>Nous ne conserverons plus aucune trace de vos commandes ou messages avec notre équipe d'assistance.</span>
+                  </li>
+                  <li class="d-flex align-items-start mb-3">
+                    <i class="bx bx-right-arrow-circle text-warning me-2 mt-1 flex-shrink-0"></i>
+                    <span>Vos points et crédits accumulés dans ce compte seront perdus.</span>
+                  </li>
+                  <li class="d-flex align-items-start mb-3">
+                    <i class="bx bx-right-arrow-circle text-warning me-2 mt-1 flex-shrink-0"></i>
+                    <span>Vous ne pourrez plus participer à nos événements exclusifs ou à notre programme de fidélité.</span>
+                  </li>
+                  <li class="d-flex align-items-start">
+                    <i class="bx bx-right-arrow-circle text-warning me-2 mt-1 flex-shrink-0"></i>
+                    <span>Vous ne recevrez plus nos e-mails promotionnels.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email Input Field -->
+          <div class="mb-4">
+            <label for="email" class="form-label fw-semibold text-dark">Adresse e-mail de confirmation</label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bx bx-envelope"></i>
+              </span>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                name="email"
+                [(ngModel)]="email"
+                placeholder="Entrez votre adresse e-mail"
+                required
+                [class.is-invalid]="emailError"
+                style="background-color: #f8f9fa;"
+              >
+            </div>
+            <div *ngIf="emailError" class="invalid-feedback d-block">
+              Veuillez entrer votre adresse e-mail pour confirmer la demande.
+            </div>
+            <small class="form-text text-muted">
+              Cette adresse e-mail sera utilisée pour confirmer votre demande de désactivation.
+            </small>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="d-flex flex-column flex-sm-row justify-content-end gap-3">
+            <button class="btn btn-outline-secondary px-4 py-2" (click)="goBack()">
+              <i class="bx bx-arrow-back me-2"></i>
+              Annuler
+            </button>
+            <button class="btn btn-danger px-4 py-2" (click)="confirmDeactivation()">
+              <i class="bx bx-pause-circle me-2"></i>
+              Oui, je suis sûr(e)
+            </button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

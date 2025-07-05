@@ -8,27 +8,23 @@ import { catchError, retry, throwError } from 'rxjs';
 export class LoginService {
   constructor(private http: HttpClient) { }
 
-  
-  getTiersByIdDigital(token:any) {
-
+  getTiersByIdDigital(token: any) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept': 'application/json',
         'content-type': 'application/json',
-        'Authorization':'Bearer '+token
+        'Authorization': 'Bearer ' + token
       })
     };
-    let body={
-  }
-    return this.http.post("https://openbank.stb.com.tn/api/",JSON.stringify(body), httpOptions)
-    .pipe(
-      retry(2),
-      catchError(this.handleError));
+    let body = {};
+    return this.http.post("https://openbank.stb.com.tn/api/", JSON.stringify(body), httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
   }
 
-  // a: string,b: string
   AuthentifiactionAD() {
-
     const body = new URLSearchParams();
     body.set('username', '');
     body.set('password', '');
@@ -36,25 +32,17 @@ export class LoginService {
     body.set('scope', '');
     body.set('client_secret', '');
     body.set('client_id', '');
-    // body.set('response_type', 'token id_token');
-   
-     let headers= new HttpHeaders({
-       
-    
+
+    let headers = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-
-    })
-    return this.http.post<any>('api_connexion',body.toString(), {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    });
+    return this.http.post<any>('api_connexion', body.toString(), {
       headers,
-     
       observe: 'response',
-      reportProgress: true,
-      
+      reportProgress: true
     }).pipe(
-      // retry(1),
-
       catchError(this.handleError)
     );
   }
@@ -77,7 +65,7 @@ export class LoginService {
 
     return this.http.post<any>('http://localhost:5082/api/Client/login', loginData, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json-patch+json' // Match Swagger's Content-Type
       }),
       observe: 'response',
       reportProgress: true

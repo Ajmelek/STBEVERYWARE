@@ -1,0 +1,21 @@
+<div class="desactivation-container">
+  <div class="page-header">
+    <h2>Gestion Désactivation des Comptes</h2>
+  </div>
+  <div class="client-list">
+    <div class="client-card" *ngFor="let client of clients">
+      <div class="client-info">
+        <span class="client-name">{{ client.prenom }} {{ client.nom }}</span>
+        <span class="status-badge" [ngClass]="{
+          'status-pending': client.statut === 'En attente',
+          'status-approved': client.statut === 'Approuvé',
+          'status-rejected': client.statut === 'Rejeté'
+        }">{{ client.statut }}</span>
+      </div>
+      <div class="actions">
+        <button class="btn btn-approve" (click)="approuver(client)" [disabled]="client.statut !== 'En attente'">Approuver</button>
+        <button class="btn btn-reject" (click)="rejeter(client)" [disabled]="client.statut !== 'En attente'">Rejeter</button>
+      </div>
+    </div>
+  </div>
+</div> 

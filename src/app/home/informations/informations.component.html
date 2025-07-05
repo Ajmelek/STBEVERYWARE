@@ -30,12 +30,42 @@
                     </div>
                     
                     <div class="form-line">
-                        <label for="paysNaissance"> Pays de naissance</label>
-                        <select id="paysNaissance" class="form-dropdown" formControlName="paysNaissance">
-                            <option value="">Sélectionner le pays</option>
-                            <option value="Tunisie">Tunisie</option>
-                        </select>
-                    </div>
+                         <label for="paysNaissance">Pays de naissance</label>
+                         <select id="paysNaissance" class="form-dropdown" formControlName="paysNaissance">
+        <option value="">Sélectionner le pays</option>
+        <option value="Tunisie">Tunisie</option>
+        <option value="France">France</option>
+        <option value="Algerie">Algérie</option>
+        <option value="Maroc">Maroc</option>
+        <option value="Egypte">Égypte</option>
+        <option value="Allemagne">Allemagne</option>
+        <option value="Belgique">Belgique</option>
+        <option value="Canada">Canada</option>
+        <option value="Espagne">Espagne</option>
+        <option value="Italie">Italie</option>
+        <option value="Liban">Liban</option>
+        <option value="Mauritanie">Mauritanie</option>
+        <option value="Suisse">Suisse</option>
+        <option value="Senegal">Sénégal</option>
+        <option value="EtatsUnis">États-Unis</option>
+        <option value="Argentine">Argentine</option>
+        <option value="Australie">Australie</option>
+        <option value="Bresil">Brésil</option>
+        <option value="Chine">Chine</option>
+        <option value="CoteIvoire">Côte d'Ivoire</option>
+        <option value="Inde">Inde</option>
+        <option value="Japon">Japon</option>
+        <option value="Mexique">Mexique</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="RoyaumeUni">Royaume-Uni</option>
+        <option value="Russie">Russie</option>
+        <option value="AfriqueDuSud">Afrique du Sud</option>
+        <option value="Suede">Suède</option>
+        <option value="Turquie">Turquie</option>
+        <option value="EmiratsArabesUnis">Émirats Arabes Unis</option>                                                
+        <!-- Add more countries as needed -->
+                  </select>
+</div>
                     
                     <div class="form-line">
                         <label for="dateNaissance"> Date de naissance</label>
@@ -57,7 +87,7 @@
                         <textarea id="adresse" class="form-textarea" placeholder="Adresse complète" formControlName="adresse"></textarea>
                     </div>
                     
-                    <div class="form-line">
+                    <!-- <div class="form-line">
                         <label for="motif">Motif</label>
                         <input type="text" id="motif" class="form-textbox" placeholder="Motif" formControlName="motif">
                     </div>
@@ -65,7 +95,7 @@
                     <div class="form-line">
                         <label for="objetrelation"> Objet de relation</label>
                         <input type="text" id="objetrelation" class="form-textbox" placeholder="Objet de relation" formControlName="objetrelation">
-                    </div>
+                    </div> -->
                 </fieldset>
                 
                 <fieldset>
@@ -83,6 +113,35 @@
                         <label for="autreNationalite"> Autre nationalité</label>
                         <select id="autreNationalite" class="form-dropdown" formControlName="autreNationalite">
                             <option value="">Sélectionner une autre nationalité</option>
+                            <option value="Tunisie">Tunisie</option>
+        <option value="France">France</option>
+        <option value="Algerie">Algérie</option>
+        <option value="Maroc">Maroc</option>
+        <option value="Egypte">Égypte</option>
+        <option value="Allemagne">Allemagne</option>
+        <option value="Belgique">Belgique</option>
+        <option value="Canada">Canada</option>
+        <option value="Espagne">Espagne</option>
+        <option value="Italie">Italie</option>
+        <option value="Liban">Liban</option>
+        <option value="Mauritanie">Mauritanie</option>
+        <option value="Suisse">Suisse</option>
+        <option value="Senegal">Sénégal</option>
+        <option value="EtatsUnis">États-Unis</option>
+        <option value="Argentine">Argentine</option>
+        <option value="Australie">Australie</option>
+        <option value="Bresil">Brésil</option>
+        <option value="Chine">Chine</option>
+        <option value="CoteIvoire">Côte d'Ivoire</option>
+        <option value="Inde">Inde</option>
+        <option value="Japon">Japon</option>
+        <option value="Mexique">Mexique</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="RoyaumeUni">Royaume-Uni</option>
+        <option value="Russie">Russie</option>
+        <option value="AfriqueDuSud">Afrique du Sud</option>
+        <option value="Suede">Suède</option>
+        <option value="Turquie">Turquie</option>
                             <option value="Aucune">Aucune</option>
                         </select>
                     </div>
@@ -143,71 +202,19 @@
                     </div>
                 </fieldset>
                 
-                <fieldset>
-                    <legend> Informations Financières</legend>
-                    
-                    <div class="form-line">
-                        <label> Type de client</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="typeClient" class="form-radio" value="Particulier" checked>
-                                <span class="radio-custom"></span>
-                                Particulier
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="typeClient" class="form-radio" value="Professionnel">
-                                <span class="radio-custom"></span>
-                                Professionnel
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-line">
-                        <label for="natureActivite"> Nature de l'activité (pour professionnels)</label>
-                        <input type="text" id="natureActivite" class="form-textbox" placeholder="Nature de l'activité professionnelle" formControlName="natureActivite">
-                    </div>
-                </fieldset>
-                
-                <fieldset>
-                    <legend> Agence de Domiciliation</legend>
-                    
-                    <div class="form-line">
-                        <label for="agenceDomiciliation"> Choix de l'agence de domiciliation</label>
-                        <select id="agenceDomiciliation" class="form-dropdown" formControlName="agenceDomiciliation">
-                            <option value="">Sélectionner l'agence</option>
-                            <option value="103">Agence 103</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-line">
-                        <label for="typeCompte"> Type du compte</label>
-                        <select id="typeCompte" class="form-dropdown" formControlName="typeCompte">
-                            <option value="">Sélectionner le type de compte</option>
-                            <option value="Compte Special Epargne Carte">Compte Special Epargne Carte</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-line">
-                        <label for="deviseCompte"> Devise du compte</label>
-                        <select id="deviseCompte" class="form-dropdown" formControlName="deviseCompte">
-                            <option value="TND">TND</option>
-                            <option value="EUR">EUR</option>
-                            <option value="USD">USD</option>
-                        </select>
-                    </div>
-                </fieldset>
+               
                 
                 <fieldset>
                     <legend> Documents à Fournir</legend>
                     
                     <div class="form-line">
                         <label for="documentCIN"> Copie de la CIN</label>
-                        <input type="file" id="documentCIN" class="form-upload" formControlName="documentCIN">
+                        <input type="file" id="documentCIN" class="form-upload" formControlName="documentCIN" #documentCIN>
                     </div>
                     
                     <div class="form-line">
                         <label for="documentJustificatif"> Justificatif de domicile</label>
-                        <input type="file" id="documentJustificatif" class="form-upload" formControlName="documentJustificatif">
+                        <input type="file" id="documentJustificatif" class="form-upload" formControlName="documentJustificatif" #documentJustificatif>
                     </div>
                 </fieldset>
                 

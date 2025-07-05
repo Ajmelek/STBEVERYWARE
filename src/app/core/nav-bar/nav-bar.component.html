@@ -3,15 +3,57 @@
          <header class="header navbar navbar-expand-lg position-absolute navbar-sticky" style="background-color: #002148">
             
             <div class="container px-3 d-flex justify-content-between align-items-center">
-               <a href="#" class="navbar-brand pe-3">
+               <a class="navbar-brand pe-3">
                <img src="assets/img/logo_stb.png" width="47" alt="Silicon">
                STB Everywhere
                </a>
-               <div class="d-flex align-items-center">
+               <div class="d-flex align-items-center position-relative">
                  <button class="btn btn-logout" (click)="handleLogout()">Deconnexion</button>
-                 <button class="btn btn-notification" (click)="handleNotifications()">
+                 <button class="btn btn-notification position-relative" (click)="handleNotifications()">
                    <i class="bx bx-bell"></i>
+                   <span *ngIf="unreadCount > 0" class="notification-bell-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                     {{ unreadCount }}
+                   </span>
                  </button>
+                 <div *ngIf="showNotifications && isClient" class="notification-panel shadow-lg animate-slide-in">
+                   <div class="notification-header d-flex justify-content-between align-items-center">
+                     <span>Notifications</span>
+                     <button class="btn btn-sm btn-close" (click)="showNotifications = false" aria-label="Fermer"></button>
+                   </div>
+                   <div *ngIf="isLoading" class="notification-loading">
+                     <div class="spinner-border spinner-border-sm text-primary" role="status">
+                       <span class="visually-hidden">Chargement...</span>
+                     </div>
+                     <span class="ms-2">Chargement...</span>
+                   </div>
+                   <div *ngIf="!isLoading">
+                     <div class="notification-list-wrapper">
+                       <ul class="notification-list list-unstyled mb-0">
+                         <li *ngFor="let notif of notifications" 
+                             class="notification-item d-flex align-items-start gap-3 py-3 px-3"
+                             [class.unread]="!notif.isRead"
+                             (click)="markAsRead(notif)">
+                           <i class="{{notif.icon}} notification-icon mt-1"
+                              [class.text-success]="notif.status === 'approved' || notif.status === 'approuvé'"
+                              [class.text-warning]="notif.status === 'pending' || notif.status === 'en attente' || notif.status === 'processing' || notif.status === 'en cours'"
+                              [class.text-danger]="notif.status === 'rejected' || notif.status === 'rejeté'"></i>
+                           <div class="notification-content flex-grow-1">
+                             <div class="notification-message mb-1">{{notif.message}}</div>
+                             <div class="notification-time text-muted small">{{notif.time}}</div>
+                           </div>
+                           <div *ngIf="!notif.isRead" class="notification-badge mt-2"></div>
+                         </li>
+                         <li *ngIf="notifications.length === 0" class="notification-item text-center text-muted py-4">
+                           Aucune notification
+                         </li>
+                       </ul>
+                     </div>
+                     <div class="notification-actions d-flex flex-column gap-2 p-3 border-top mt-2">
+                       <button class="btn btn-outline-primary w-100" type="button" (click)="markAllAsRead()">Tout marquer comme lu</button>
+                       <a href="#" class="btn btn-link w-100 text-center" (click)="goToNotifications($event)">Voir toutes les notifications</a>
+                     </div>
+                   </div>
+                 </div>
                </div>
               
                <!-- <div id="navbarNav" class="offcanvas offcanvas-end">

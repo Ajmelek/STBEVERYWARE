@@ -5,6 +5,7 @@ import { Select2Data } from 'ng-select2-component';
 import { LoginService } from './login.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private router: Router,
     private loginService: LoginService,
-    private authService: AuthService
+    private authService: AuthService,
+    private http: HttpClient
   ) {
     this.createForm();
   }
@@ -29,6 +31,43 @@ export class LoginComponent {
     this.authService.logout(); // Clear any existing auth data
     this.f?.['login'].setValue("");
     this.f?.['pwd'].setValue("");
+  }
+
+  private extractClientIdFromToken(token: string): string | null {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('JWT payload:', payload);
+      console.log('Available JWT claims:', Object.keys(payload));
+      
+      // Try to get client ID from JWT claims
+      const clientId = payload.nameidentifier || payload.sub || payload.clientId || payload.client_id || payload.nameidentifier || payload.userId || payload.id;
+      console.log('Extracted client ID:', clientId);
+      
+      if (clientId) {
+        return clientId.toString();
+      }
+      
+      console.log('No client ID found in JWT token');
+      return null;
+    } catch (error) {
+      console.error('Error parsing JWT token:', error);
+      return null;
+    }
+  }
+
+  private fetchAndStoreClientId(username: string): void {
+    this.http.get<any>(`http://localhost:5082/api/Client/byLogin/${username}`).subscribe({
+      next: (data) => {
+        console.log('Client data from API:', data);
+        if (data && data.id) {
+          this.authService.setClientId(data.id.toString());
+          console.log('Stored client ID from API:', data.id);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching client data:', err);
+      }
+    });
   }
 
   createForm() {
@@ -86,6 +125,18 @@ export class LoginComponent {
                         this.authService.setUsername(username.trim());
                         this.authService.setToken(clientResponse.body.token);
                         this.authService.setUserRole('client');
+                        
+                        // Extract and store client ID from JWT token
+                        const clientId = this.extractClientIdFromToken(clientResponse.body.token);
+                        if (clientId) {
+                          this.authService.setClientId(clientId);
+                          console.log('Stored client ID from JWT:', clientId);
+                        } else {
+                          // Fallback: fetch client ID from API
+                          console.log('JWT extraction failed, fetching from API...');
+                          this.fetchAndStoreClientId(username.trim());
+                        }
+                        
                         this.router.navigate(['/home']);
                       } else {
                         Swal.fire({
@@ -118,6 +169,18 @@ export class LoginComponent {
                         this.authService.setUsername(username.trim());
                         this.authService.setToken(clientResponse.body.token);
                         this.authService.setUserRole('client');
+                        
+                        // Extract and store client ID from JWT token
+                        const clientId = this.extractClientIdFromToken(clientResponse.body.token);
+                        if (clientId) {
+                          this.authService.setClientId(clientId);
+                          console.log('Stored client ID:', clientId);
+                        } else {
+                          // Fallback: fetch client ID from API
+                          console.log('JWT extraction failed, fetching from API...');
+                          this.fetchAndStoreClientId(username.trim());
+                        }
+                        
                         this.router.navigate(['/home']);
                       } else {
                         Swal.fire({
@@ -167,6 +230,18 @@ export class LoginComponent {
                         this.authService.setUsername(username.trim());
                         this.authService.setToken(clientResponse.body.token);
                         this.authService.setUserRole('client');
+                        
+                        // Extract and store client ID from JWT token
+                        const clientId = this.extractClientIdFromToken(clientResponse.body.token);
+                        if (clientId) {
+                          this.authService.setClientId(clientId);
+                          console.log('Stored client ID:', clientId);
+                        } else {
+                          // Fallback: fetch client ID from API
+                          console.log('JWT extraction failed, fetching from API...');
+                          this.fetchAndStoreClientId(username.trim());
+                        }
+                        
                         this.router.navigate(['/home']);
                       } else {
                         Swal.fire({
@@ -199,6 +274,18 @@ export class LoginComponent {
                         this.authService.setUsername(username.trim());
                         this.authService.setToken(clientResponse.body.token);
                         this.authService.setUserRole('client');
+                        
+                        // Extract and store client ID from JWT token
+                        const clientId = this.extractClientIdFromToken(clientResponse.body.token);
+                        if (clientId) {
+                          this.authService.setClientId(clientId);
+                          console.log('Stored client ID:', clientId);
+                        } else {
+                          // Fallback: fetch client ID from API
+                          console.log('JWT extraction failed, fetching from API...');
+                          this.fetchAndStoreClientId(username.trim());
+                        }
+                        
                         this.router.navigate(['/home']);
                       } else {
                         Swal.fire({
