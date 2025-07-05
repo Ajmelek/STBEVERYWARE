@@ -67,6 +67,19 @@ jobs:
           CI: true
       - name: Build with Angular
         run: ${{ steps.detect-package-manager.outputs.runner }} ng build --configuration production --base-href=/STBEVERYWARE/
+      - name: Build Angular app
+        run: npm run build -- --prod
+      - name: Debug dist folder
+        run: ls -la dist/
+      - name: Check if dist folder exists
+        run: |
+          if [ -d "dist/your-angular-app" ]; then
+            echo "Dist folder exists"
+          else
+            echo "Dist folder not found" && exit 1
+          fi
+      - name: Archive artifact
+        run: tar -czf artifact.tar.gz dist/your-angular-app
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
