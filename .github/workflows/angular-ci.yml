@@ -73,17 +73,17 @@ jobs:
         run: ls -la dist/
       - name: Check if dist folder exists
         run: |
-          if [ -d "dist/your-angular-app" ]; then
+          if [ -d "dist/stbeverywhere-espaceclient" ]; then
             echo "Dist folder exists"
           else
             echo "Dist folder not found" && exit 1
           fi
       - name: Archive artifact
-        run: tar -czf artifact.tar.gz dist/your-angular-app
+        run: tar -czf artifact.tar.gz dist/stbeverywhere-espaceclient
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/your-angular-app
+          path: dist/stbeverywhere-espaceclient
 
   # Deployment job
   deploy:
