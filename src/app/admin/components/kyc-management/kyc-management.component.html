@@ -40,7 +40,7 @@
           <td>{{ submission.clientName }}</td>
           <td>{{ submission.submissionDate | date:'dd/MM/yyyy' }}</td>
           <td>
-            <span [class]="'status-badge status-' + (submission.status?.replace(' ', '-') || 'en-attente')">
+            <span [class]="'status-badge status-' + (submission.status.replace(' ', '-') || 'en-attente')">
               {{ getStatusLabel(submission.status) }}
             </span>
           </td>

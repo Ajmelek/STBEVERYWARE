@@ -60,7 +60,7 @@
       <tbody>
         <tr *ngFor="let demand of walletDemands">
           <td>{{ demand.clientId }}</td>
-          <td>{{ demand.client?.prenom }} {{ demand.client?.nom }}</td>
+          <td>{{ demand.client.prenom }} {{ demand.client.nom }}</td>
           <td>{{ demand.telephone || 'Non spécifié' }}</td>
           <td>{{ demand.adresseMail || 'Non spécifié' }}</td>
           <td>{{ demand.dateDemande | date:'dd/MM/yyyy' }}</td>

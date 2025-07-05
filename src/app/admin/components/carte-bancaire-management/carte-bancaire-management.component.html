@@ -61,7 +61,7 @@
       <tbody>
         <tr *ngFor="let demande of filteredDemandes">
           <td>{{ demande.clientId }}</td>
-          <td>{{ demande.client?.nom }} {{ demande.client?.prenom }}</td>
+          <td>{{ demande.client.nom }} {{ demande.client.prenom }}</td>
           <td>{{ demande.telephone || 'Non spécifié' }}</td>
           <td>{{ demande.adresseEmail || 'Non spécifié' }}</td>
           <td>{{ demande.typeDeCarte || 'Non spécifié' }}</td>
