@@ -69,9 +69,7 @@ export class LoginService {
       }),
       observe: 'response',
       reportProgress: true
-    }).pipe(
-      catchError(this.handleError)
-    );
+    });
   }
 
   AuthentifiactionAdmin(username: string, password: string) {
@@ -86,9 +84,7 @@ export class LoginService {
       }),
       observe: 'response',
       reportProgress: true
-    }).pipe(
-      catchError(this.handleError)
-    );
+    });
   }
 
   AuthentifiactionSuperAdmin(username: string, password: string) {
@@ -103,8 +99,6 @@ export class LoginService {
       }),
       observe: 'response',
       reportProgress: true
-    }).pipe(
-      catchError(this.handleError)
-    );
+    });
   }
 }

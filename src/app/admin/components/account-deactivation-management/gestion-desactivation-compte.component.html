@@ -6,6 +6,7 @@
     <div class="client-card" *ngFor="let client of clients">
       <div class="client-info">
         <span class="client-name">{{ client.prenom }} {{ client.nom }}</span>
+        <span class="client-email">{{ client.email }}</span>
         <span class="status-badge" [ngClass]="{
           'status-pending': client.statut === 'En attente',
           'status-approved': client.statut === 'Approuvé',

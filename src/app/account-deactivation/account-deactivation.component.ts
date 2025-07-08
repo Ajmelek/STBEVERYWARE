@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-account-deactivation',
@@ -11,7 +13,7 @@ export class AccountDeactivationComponent {
   email: string = '';
   emailError: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
 
   goBack() {
     // Navigate back to the previous page or home
@@ -58,30 +60,53 @@ export class AccountDeactivationComponent {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        // Here you would typically call your service to deactivate the account
-        // For now, we'll just show a success message
-        this.showSuccessMessage();
+        // Get clientId from AuthService
+        const clientIdStr = this.authService.getClientId();
+        const clientId = clientIdStr ? parseInt(clientIdStr, 10) : 0;
+        if (!clientId || isNaN(clientId)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur',
+            text: 'Impossible de récupérer votre identifiant client. Veuillez vous reconnecter.',
+            confirmButtonColor: '#dc3545',
+          });
+          return;
+        }
+        // Call the API
+        this.http.post('http://localhost:5082/api/DeactivateAccount', {
+          clientId: clientId,
+          email: this.email
+        }).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Demande envoyée !',
+              text: 'Demande de désactivation du compte envoyée avec succès.',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#28a745',
+              timer: 4000,
+              timerProgressBar: true,
+              showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+              },
+              hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+              }
+            }).then(() => {
+              this.email = '';
+              this.router.navigate(['/home']);
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Erreur',
+              text: err?.error?.message || 'Une erreur est survenue lors de la demande de désactivation.',
+              confirmButtonColor: '#dc3545',
+            });
+          }
+        });
       }
-    });
-  }
-
-  private showSuccessMessage() {
-    Swal.fire({
-      icon: 'success',
-      title: 'Demande envoyée !',
-      text: 'Demande de désactivation du compte envoyée avec succès.',
-      confirmButtonText: 'OK',
-      confirmButtonColor: '#28a745',
-      timer: 4000,
-      timerProgressBar: true,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    }).then(() => {
-      this.router.navigate(['/home']);
     });
   }
 }

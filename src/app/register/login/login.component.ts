@@ -148,16 +148,47 @@ export class LoginComponent {
                     },
                     error: (error) => {
                       this.isLoading = false;
-                      console.error('Client login error:', error);
-                      Swal.fire({
-                        title: 'Login Failed',
-                        text: 'Please check your username and password',
-                        icon: 'error',
-                      });
+                      console.error('CLIENT LOGIN ERROR:', error);
+                      console.error('CLIENT LOGIN URL:', error?.url);
+                      console.log('Error status:', error?.status);
+                      console.log('Error errorCode:', error?.error?.errorCode);
+                      console.log('Error message:', error?.error?.message);
+
+                      const status = error?.status;
+                      const errorCode = error?.error?.errorCode;
+                      const message = error?.error?.message;
+
+                      if (status === 402 && errorCode === 402 && message && message.includes('deactivated')) {
+                        Swal.fire({
+                          title: 'Compte désactivé',
+                          text: 'Votre compte est désactivé, vous ne pouvez pas vous connecter.',
+                          icon: 'error',
+                        });
+                      } else if (status === 401 && message && message.includes('Invalid')) {
+                        Swal.fire({
+                          title: 'Échec de Connexion',
+                          text: 'Nom d\'utilisateur ou mot de passe incorrect',
+                          icon: 'error',
+                        });
+                      } else if (message) {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: message,
+                          icon: 'error',
+                        });
+                      } else {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: 'Une erreur inconnue s\'est produite',
+                          icon: 'error',
+                        });
+                      }
                     }
                   });
               },
               error: (error) => {
+                // Disable all logs and popups for SuperAdmin login temporarily
+                // Do NOT log or show Swal.fire here temporarily
                 // If SuperAdmin login fails, try Client login
                 this.loginService.Authentifiaction(username, password)
                   .subscribe({
@@ -192,18 +223,49 @@ export class LoginComponent {
                     },
                     error: (error) => {
                       this.isLoading = false;
-                      console.error('Client login error:', error);
-                      Swal.fire({
-                        title: 'Login Failed',
-                        text: 'Please check your username and password',
-                        icon: 'error',
-                      });
+                      console.error('CLIENT LOGIN ERROR:', error);
+                      console.error('CLIENT LOGIN URL:', error?.url);
+                      console.log('Error status:', error?.status);
+                      console.log('Error errorCode:', error?.error?.errorCode);
+                      console.log('Error message:', error?.error?.message);
+
+                      const status = error?.status;
+                      const errorCode = error?.error?.errorCode;
+                      const message = error?.error?.message;
+
+                      if (status === 402 && errorCode === 402 && message && message.includes('deactivated')) {
+                        Swal.fire({
+                          title: 'Compte désactivé',
+                          text: 'Votre compte est désactivé, vous ne pouvez pas vous connecter.',
+                          icon: 'error',
+                        });
+                      } else if (status === 401 && message && message.includes('Invalid')) {
+                        Swal.fire({
+                          title: 'Échec de Connexion',
+                          text: 'Nom d\'utilisateur ou mot de passe incorrect',
+                          icon: 'error',
+                        });
+                      } else if (message) {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: message,
+                          icon: 'error',
+                        });
+                      } else {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: 'Une erreur inconnue s\'est produite',
+                          icon: 'error',
+                        });
+                      }
                     }
                   });
               }
             });
         },
         error: (error) => {
+          // Disable all logs and popups for Admin login temporarily
+          // Do NOT log or show Swal.fire here temporarily
           // If Admin login fails, try SuperAdmin
           this.loginService.AuthentifiactionSuperAdmin(username, password)
             .subscribe({
@@ -254,15 +316,45 @@ export class LoginComponent {
                     error: (error) => {
                       this.isLoading = false;
                       console.error('Client login error:', error);
-                      Swal.fire({
-                        title: 'Login Failed',
-                        text: 'Please check your username and password',
-                        icon: 'error',
-                      });
+                      console.log('Error status:', error?.status);
+                      console.log('Error errorCode:', error?.error?.errorCode);
+                      console.log('Error message:', error?.error?.message);
+
+                      const status = error?.status;
+                      const errorCode = error?.error?.errorCode;
+                      const message = error?.error?.message;
+
+                      if (status === 402 && errorCode === 402 && message && message.includes('deactivated')) {
+                        Swal.fire({
+                          title: 'Compte désactivé',
+                          text: 'Votre compte est désactivé, vous ne pouvez pas vous connecter.',
+                          icon: 'error',
+                        });
+                      } else if (status === 401 && message && message.includes('Invalid')) {
+                        Swal.fire({
+                          title: 'Échec de Connexion',
+                          text: 'Nom d\'utilisateur ou mot de passe incorrect',
+                          icon: 'error',
+                        });
+                      } else if (message) {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: message,
+                          icon: 'error',
+                        });
+                      } else {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: 'Une erreur inconnue s\'est produite',
+                          icon: 'error',
+                        });
+                      }
                     }
                   });
               },
               error: (error) => {
+                // Disable all logs and popups for SuperAdmin login temporarily
+                // Do NOT log or show Swal.fire here temporarily
                 // If SuperAdmin login fails, try Client login
                 this.loginService.Authentifiaction(username, password)
                   .subscribe({
@@ -297,12 +389,41 @@ export class LoginComponent {
                     },
                     error: (error) => {
                       this.isLoading = false;
-                      console.error('Client login error:', error);
-                      Swal.fire({
-                        title: 'Login Failed',
-                        text: 'Please check your username and password',
-                        icon: 'error',
-                      });
+                      console.error('CLIENT LOGIN ERROR:', error);
+                      console.error('CLIENT LOGIN URL:', error?.url);
+                      console.log('Error status:', error?.status);
+                      console.log('Error errorCode:', error?.error?.errorCode);
+                      console.log('Error message:', error?.error?.message);
+
+                      const status = error?.status;
+                      const errorCode = error?.error?.errorCode;
+                      const message = error?.error?.message;
+
+                      if (status === 402 && errorCode === 402 && message && message.includes('deactivated')) {
+                        Swal.fire({
+                          title: 'Compte désactivé',
+                          text: 'Votre compte est désactivé, vous ne pouvez pas vous connecter.',
+                          icon: 'error',
+                        });
+                      } else if (status === 401 && message && message.includes('Invalid')) {
+                        Swal.fire({
+                          title: 'Échec de Connexion',
+                          text: 'Nom d\'utilisateur ou mot de passe incorrect',
+                          icon: 'error',
+                        });
+                      } else if (message) {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: message,
+                          icon: 'error',
+                        });
+                      } else {
+                        Swal.fire({
+                          title: 'Erreur de Connexion',
+                          text: 'Une erreur inconnue s\'est produite',
+                          icon: 'error',
+                        });
+                      }
                     }
                   });
               }
