@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
+
+
 interface Client {
   id: number;
   indicateurTel?: string;
@@ -61,10 +63,13 @@ export class ProfilComponent {
    error: string | null = null;
  
    constructor(private http: HttpClient, private router: Router) {}
- 
+goToInformations() {
+  this.router.navigate(['Informations'], { relativeTo: this.router.routerState.root.firstChild });
+}
    ngOnInit(): void {
      this.fetchClientData();
    }
+   
  
    fetchClientData() {
      const login = localStorage.getItem('login');

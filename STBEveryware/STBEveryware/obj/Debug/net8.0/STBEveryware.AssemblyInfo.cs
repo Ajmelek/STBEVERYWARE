@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("STBEveryware")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef9726f1b9bd7545b214a04998aa1503b51ee570")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+392204cb9d4b30bf2e7334ea7afdbfb9026127a4")]
 [assembly: System.Reflection.AssemblyProductAttribute("STBEveryware")]
 [assembly: System.Reflection.AssemblyTitleAttribute("STBEveryware")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

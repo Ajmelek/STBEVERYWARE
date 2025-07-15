@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\stbeveryware.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\stbeveryware.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -17,14 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\models\\kycformmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\models\\kycformmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\controllers\\kycformcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|solutionrelative:stbeveryware\\controllers\\kycformcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5ECD215-D506-4E1B-8F80-9E288D727708}|STBEveryware\\STBEveryware.csproj|c:\\users\\melek\\desktop\\stbeverywhere_espaceclient\\stbeveryware\\stbeveryware\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,20 +34,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\WeatherForecast.cs",
-              "RelativeDocumentMoniker": "STBEveryware\\WeatherForecast.cs",
-              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\WeatherForecast.cs",
-              "RelativeToolTip": "STBEveryware\\WeatherForecast.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T21:16:42.932Z",
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Dockerfile",
+              "RelativeDocumentMoniker": "STBEveryware\\Dockerfile",
+              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Dockerfile",
+              "RelativeToolTip": "STBEveryware\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-07-09T14:00:32.132Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
@@ -59,9 +59,9 @@
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Program.cs",
               "RelativeDocumentMoniker": "STBEveryware\\Program.cs",
-              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Program.cs",
-              "RelativeToolTip": "STBEveryware\\Program.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Program.cs*",
+              "RelativeToolTip": "STBEveryware\\Program.cs*",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAYwBkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-19T21:10:49.982Z",
               "EditorCaption": ""
@@ -69,6 +69,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "STBEveryware",
+              "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\STBEveryware.csproj",
+              "RelativeDocumentMoniker": "STBEveryware\\STBEveryware.csproj",
+              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\STBEveryware.csproj*",
+              "RelativeToolTip": "STBEveryware\\STBEveryware.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-09T13:55:56.157Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\appsettings.json",
               "RelativeDocumentMoniker": "STBEveryware\\appsettings.json",
@@ -76,25 +89,11 @@
               "RelativeToolTip": "STBEveryware\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-19T21:15:38.902Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T21:15:38.902Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "KYCFormController.cs",
-              "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Controllers\\KYCFormController.cs",
-              "RelativeDocumentMoniker": "STBEveryware\\Controllers\\KYCFormController.cs",
-              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Controllers\\KYCFormController.cs",
-              "RelativeToolTip": "STBEveryware\\Controllers\\KYCFormController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAowGQAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T21:09:02.2Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "STBEveryware\\Data\\ApplicationDbContext.cs",
@@ -102,25 +101,11 @@
               "RelativeToolTip": "STBEveryware\\Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T21:03:08.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T21:03:08.545Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "KYCFormModel.cs",
-              "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Models\\KYCFormModel.cs",
-              "RelativeDocumentMoniker": "STBEveryware\\Models\\KYCFormModel.cs",
-              "ToolTip": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Models\\KYCFormModel.cs",
-              "RelativeToolTip": "STBEveryware\\Models\\KYCFormModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T21:02:01.58Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "WeatherForecastController.cs",
               "DocumentMoniker": "C:\\Users\\melek\\Desktop\\STBEVERYWHERE_EspaceClient\\STBEveryware\\STBEveryware\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "STBEveryware\\Controllers\\WeatherForecastController.cs",
@@ -128,8 +113,11 @@
               "RelativeToolTip": "STBEveryware\\Controllers\\WeatherForecastController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-19T21:01:09.458Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-19T21:01:09.458Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 interface Client {
   rib: string;
+  sold?: number;
   
 }
 

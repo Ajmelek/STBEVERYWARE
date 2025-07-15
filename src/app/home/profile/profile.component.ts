@@ -47,6 +47,7 @@ interface Client {
   objetrelation?: string;
   login?: string;
   password?: string;
+  
 }
 
 @Component({

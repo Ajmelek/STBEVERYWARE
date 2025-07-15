@@ -3,10 +3,12 @@
     <div class="row g-0">
       <!-- Avatar Section - Left Side -->
       <div class="col-sm-3 d-flex align-items-center justify-content-center py-2 px-1">
-        <div class="avatar-container">
-          <img src="assets/img/selfiPNg.png" class="avatar" alt="Profile Photo">
-        </div>
-      </div>
+  <div class="avatar-container">
+    <img [src]="client?.selfie || 'assets/img/selfiPNg.png'" 
+         class="avatar" 
+         alt="Profile Photo">
+  </div>
+</div>
       
       <!-- Client Information Section -->
       <div class="col-sm-9">
@@ -49,12 +51,16 @@
           </div>
           
           <!-- Action Buttons -->
-          <div class="action-buttons">
-            <button type="button" class="btn btn-primary btn-modern">
-              <i class="bx bx-edit me-1"></i>
-              <span>Consulter vos informations</span>
-            </button>
-          </div>
+ <div class="action-buttons">
+  <button
+    type="button"
+    class="btn btn-primary btn-modern"
+    (click)="goToInformations()">
+    <i class="bx bx-edit me-1"></i>
+    <span>Consulter vos informations</span>
+  </button>
+</div>
+
         </div>
       </div>
     </div>
